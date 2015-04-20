@@ -36,29 +36,6 @@ simulator {
 
 config_pri_assets {
     OTHER_FILES += \
-        $$quote($$BASEDIR/assets/VisualStyle.Dark/res/bg_tile.png) \
-        $$quote($$BASEDIR/assets/VisualStyle.Dark/res/bottombar_cleanlocal.png) \
-        $$quote($$BASEDIR/assets/VisualStyle.Dark/res/bottombar_shaixuan.png) \
-        $$quote($$BASEDIR/assets/VisualStyle.Dark/res/default_no_content_grey.png) \
-        $$quote($$BASEDIR/assets/VisualStyle.Dark/res/delete.png) \
-        $$quote($$BASEDIR/assets/VisualStyle.Dark/res/evaluate_face_done_night.png) \
-        $$quote($$BASEDIR/assets/VisualStyle.Dark/res/evaluate_face_l0_night.png) \
-        $$quote($$BASEDIR/assets/VisualStyle.Dark/res/evaluate_face_l1_3_night.png) \
-        $$quote($$BASEDIR/assets/VisualStyle.Dark/res/evaluate_face_l4_5_night.png) \
-        $$quote($$BASEDIR/assets/VisualStyle.Dark/res/evaluate_star_night.png) \
-        $$quote($$BASEDIR/assets/VisualStyle.Dark/res/evaluate_star_selected_night.png) \
-        $$quote($$BASEDIR/assets/VisualStyle.Dark/res/ic_feedback_dark.png) \
-        $$quote($$BASEDIR/assets/VisualStyle.Dark/res/ic_manage_my_qiushi_dark.png) \
-        $$quote($$BASEDIR/assets/VisualStyle.Dark/res/ic_message_normal_dark.png) \
-        $$quote($$BASEDIR/assets/VisualStyle.Dark/res/ic_message_select_dark.png) \
-        $$quote($$BASEDIR/assets/VisualStyle.Dark/res/ic_nearby_normal_dark.png) \
-        $$quote($$BASEDIR/assets/VisualStyle.Dark/res/ic_sound_mode_close_dark.png) \
-        $$quote($$BASEDIR/assets/VisualStyle.Dark/res/ic_sound_mode_open_dark.png) \
-        $$quote($$BASEDIR/assets/VisualStyle.Dark/res/ic_theme_mode_dark.png) \
-        $$quote($$BASEDIR/assets/VisualStyle.Dark/res/qiuyou_dark.png) \
-        $$quote($$BASEDIR/assets/VisualStyle.Dark/res/review_no_pass_dark.png) \
-        $$quote($$BASEDIR/assets/VisualStyle.Dark/res/review_pass_dark.png) \
-        $$quote($$BASEDIR/assets/VisualStyle.Dark/res/session_profile_dark.png) \
         $$quote($$BASEDIR/assets/card.qml) \
         $$quote($$BASEDIR/assets/emoji/qb_00.png) \
         $$quote($$BASEDIR/assets/emoji/qb_01.png) \
@@ -123,6 +100,8 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/res/ic_message_select.png) \
         $$quote($$BASEDIR/assets/res/ic_nearby_normal.png) \
         $$quote($$BASEDIR/assets/res/ic_nearby_select.png) \
+        $$quote($$BASEDIR/assets/res/ic_qiushi_normal.png) \
+        $$quote($$BASEDIR/assets/res/ic_qiushi_select.png) \
         $$quote($$BASEDIR/assets/res/ic_sound_mode_close.png) \
         $$quote($$BASEDIR/assets/res/ic_sound_mode_open.png) \
         $$quote($$BASEDIR/assets/res/ic_theme_mode.png) \
@@ -130,6 +109,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/res/review_no_pass.png) \
         $$quote($$BASEDIR/assets/res/review_pass.png) \
         $$quote($$BASEDIR/assets/res/session_profile.png) \
+        $$quote($$BASEDIR/assets/res/submit.png) \
         $$quote($$BASEDIR/assets/userguide/user_guide_ad_board.png) \
         $$quote($$BASEDIR/assets/userguide/user_guide_bed.png) \
         $$quote($$BASEDIR/assets/userguide/user_guide_bg_1.png) \
@@ -185,12 +165,6 @@ lupdate_inclusion {
         $$quote($$BASEDIR/../assets/*.qml) \
         $$quote($$BASEDIR/../assets/*.js) \
         $$quote($$BASEDIR/../assets/*.qs) \
-        $$quote($$BASEDIR/../assets/VisualStyle.Dark/*.qml) \
-        $$quote($$BASEDIR/../assets/VisualStyle.Dark/*.js) \
-        $$quote($$BASEDIR/../assets/VisualStyle.Dark/*.qs) \
-        $$quote($$BASEDIR/../assets/VisualStyle.Dark/res/*.qml) \
-        $$quote($$BASEDIR/../assets/VisualStyle.Dark/res/*.js) \
-        $$quote($$BASEDIR/../assets/VisualStyle.Dark/res/*.qs) \
         $$quote($$BASEDIR/../assets/emoji/*.qml) \
         $$quote($$BASEDIR/../assets/emoji/*.js) \
         $$quote($$BASEDIR/../assets/emoji/*.qs) \
