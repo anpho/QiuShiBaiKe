@@ -31,7 +31,7 @@ Q_DECL_EXPORT int main(int argc, char **argv)
     Application app(argc, argv);
 
     InvokeManager invokeManager;
-
+    qmlRegisterType<WebImageView>("org.labsquare", 1, 0, "WebImageView");
     QObject *appui = 0;
     if (invokeManager.startupMode() == ApplicationStartupMode::InvokeCard) {
         // Create the Card UI object

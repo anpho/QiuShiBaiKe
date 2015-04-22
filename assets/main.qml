@@ -96,4 +96,5 @@ TabbedPane {
 
         }
     ]
+    sidebarState: SidebarState.Hidden
 }

@@ -36,6 +36,7 @@ simulator {
 
 config_pri_assets {
     OTHER_FILES += \
+        $$quote($$BASEDIR/assets/PostItem.qml) \
         $$quote($$BASEDIR/assets/card.qml) \
         $$quote($$BASEDIR/assets/emoji/qb_00.png) \
         $$quote($$BASEDIR/assets/emoji/qb_01.png) \
@@ -105,6 +106,16 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/res/ic_sound_mode_close.png) \
         $$quote($$BASEDIR/assets/res/ic_sound_mode_open.png) \
         $$quote($$BASEDIR/assets/res/ic_theme_mode.png) \
+        $$quote($$BASEDIR/assets/res/operation_comments.png) \
+        $$quote($$BASEDIR/assets/res/operation_comments_night.png) \
+        $$quote($$BASEDIR/assets/res/operation_support.png) \
+        $$quote($$BASEDIR/assets/res/operation_support_night.png) \
+        $$quote($$BASEDIR/assets/res/operation_support_press.png) \
+        $$quote($$BASEDIR/assets/res/operation_support_press_night.png) \
+        $$quote($$BASEDIR/assets/res/operation_unsupport.png) \
+        $$quote($$BASEDIR/assets/res/operation_unsupport_night.png) \
+        $$quote($$BASEDIR/assets/res/operation_unsupport_press.png) \
+        $$quote($$BASEDIR/assets/res/operation_unsupport_press_night.png) \
         $$quote($$BASEDIR/assets/res/qiuyou.png) \
         $$quote($$BASEDIR/assets/res/review_no_pass.png) \
         $$quote($$BASEDIR/assets/res/review_pass.png) \
@@ -140,12 +151,14 @@ config_pri_assets {
 
 config_pri_source_group1 {
     SOURCES += \
+        $$quote($$BASEDIR/src/WebImageView.cpp) \
         $$quote($$BASEDIR/src/applicationui.cpp) \
         $$quote($$BASEDIR/src/applicationuibase.cpp) \
         $$quote($$BASEDIR/src/cardui.cpp) \
         $$quote($$BASEDIR/src/main.cpp)
 
     HEADERS += \
+        $$quote($$BASEDIR/src/WebImageView.h) \
         $$quote($$BASEDIR/src/applicationui.hpp) \
         $$quote($$BASEDIR/src/applicationuibase.hpp) \
         $$quote($$BASEDIR/src/cardui.hpp)
