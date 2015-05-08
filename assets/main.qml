@@ -17,37 +17,101 @@
 import bb.cascades 1.2
 
 TabbedPane {
+    attachedObjects: [
+        Common {
+            id: co
+        }
+    ]
     tabs: [
         Tab {
             ActionBar.placement: ActionBarPlacement.InOverflow
             imageSource: "asset:///res/ic_qiushi_select.png"
             delegate: Delegate {
                 active: true
-                Page {
-                    actionBarVisibility: ChromeVisibility.Overlay
-                    actionBarAutoHideBehavior: ActionBarAutoHideBehavior.HideOnScroll
-                    actions: [
-                        ActionItem {
-                            imageSource: "asset:///res/submit.png"
-                            ActionBar.placement: ActionBarPlacement.OnBar
-                            title: qsTr("Submit")
-                        }
-                    ]
-                    SegmentedControl {
-                        options: [
-                            Option {
-                                text: qsTr("Hot")
-                            },
-                            Option {
-                                text: qsTr("Video")
-                            },
-                            Option {
-                                text: qsTr("Text")
-                            },
-                            Option {
-                                text: qsTr("Image")
+                NavigationPane {
+                    id: nav
+                    onPopTransitionEnded: {
+                        page.destroy(1000)
+                    }
+                    Page {
+                        actionBarVisibility: ChromeVisibility.Overlay
+                        actionBarAutoHideBehavior: ActionBarAutoHideBehavior.HideOnScroll
+                        actions: [
+                            ActionItem {
+                                imageSource: "asset:///res/submit.png"
+                                ActionBar.placement: ActionBarPlacement.OnBar
+                                title: qsTr("Submit")
                             }
                         ]
+                        Container {
+                            SegmentedControl {
+                                options: [
+                                    Option {
+                                        id: s_hot
+                                        text: qsTr("Hot")
+                                        value: "http://m2.qiushibaike.com/article/list/suggest"
+                                    },
+                                    Option {
+                                        id: s_video
+                                        text: qsTr("Video")
+                                        value: "http://m2.qiushibaike.com/article/list/video"
+                                    },
+                                    Option {
+                                        id: s_image
+                                        text: qsTr("Image")
+                                        value: "http://m2.qiushibaike.com/article/list/imgrank"
+                                    },
+                                    Option {
+                                        id: s_text
+                                        text: qsTr("Text")
+                                        value: "http://m2.qiushibaike.com/article/list/text"
+                                    }
+                                ]
+                                verticalAlignment: VerticalAlignment.Center
+                            }
+                            ControlDelegate {
+                                delegateActive: s_hot.selected
+                                attachedObjects: ComponentDefinition {
+                                    id: hotview
+                                    content: PageView {
+                                        baseurl: co.u_suggest
+                                    }
+                                }
+                                sourceComponent: hotview
+                            }
+                            ControlDelegate {
+                                delegateActive: s_video.selected
+                                attachedObjects: ComponentDefinition {
+                                    id: videoview
+                                    content: PageView {
+                                        baseurl: co.u_video
+                                    }
+                                }
+
+                                sourceComponent: videoview
+                            }
+                            ControlDelegate {
+                                delegateActive: s_image.selected
+                                attachedObjects: ComponentDefinition {
+                                    id: imgview
+                                    content: PageView {
+                                        baseurl: co.u_image
+                                    }
+                                }
+                                sourceComponent: imgview
+                            }
+                            ControlDelegate {
+                                delegateActive: s_text.selected
+                                attachedObjects: ComponentDefinition {
+                                    id: txtview
+                                    content: PageView {
+                                        baseurl: co.u_text
+                                    }
+                                }
+                                sourceComponent: txtview
+                            }
+
+                        }
                     }
                 }
             }
@@ -77,7 +141,8 @@ TabbedPane {
             Page {
 
             }
-        },Tab {
+        },
+        Tab {
             imageSource: "asset:///res/evaluate_face_l0.png"
             title: qsTr("Review")
 

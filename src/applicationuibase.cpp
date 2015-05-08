@@ -18,9 +18,10 @@
 
 #include <bb/cascades/LocaleHandler>
 #include <bb/system/InvokeManager>
-
+#include <bb/PpsObject>
 using namespace bb::cascades;
 using namespace bb::system;
+using namespace bb;
 
 ApplicationUIBase::ApplicationUIBase(InvokeManager *invokeManager) :
         m_pInvokeManager(invokeManager)
@@ -28,8 +29,8 @@ ApplicationUIBase::ApplicationUIBase(InvokeManager *invokeManager) :
     m_translator = new QTranslator(this);
     m_pLocaleHandler = new LocaleHandler(this);
 
-    connect(m_pLocaleHandler, SIGNAL(systemLanguageChanged()),
-                       this, SLOT(onSystemLanguageChanged()));
+    connect(m_pLocaleHandler, SIGNAL(systemLanguageChanged()), this,
+            SLOT(onSystemLanguageChanged()));
 
     // 初始化语言环境
     onSystemLanguageChanged();
@@ -48,8 +49,24 @@ void ApplicationUIBase::onSystemLanguageChanged()
     QString file_name = QString("qsbk_%1").arg(locale_string);
     if (m_translator->load(file_name, "app/native/qm")) {
         QCoreApplication::instance()->installTranslator(m_translator);
-    }
-    else {
+    } else {
         qWarning() << tr("cannot load language file '%1").arg(file_name);
     }
+}
+
+void ApplicationUIBase::invokeVideo(const QString &title, const QString &url)
+{
+    InvokeRequest cardRequest;
+    cardRequest.setTarget("sys.mediaplayer.previewer");
+    cardRequest.setAction("bb.action.VIEW");
+
+    QVariantMap map;
+    map.insert("contentTitle", title);
+    map.insert("imageUri", "asset:///res/default_no_content_grey.png");
+    QByteArray requestData = PpsObject::encode(map, NULL);
+
+    cardRequest.setData(requestData);
+    cardRequest.setUri(url);
+
+    m_pInvokeManager->invoke(cardRequest);
 }

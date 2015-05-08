@@ -35,6 +35,7 @@ class ApplicationUIBase : public QObject
 public:
     ApplicationUIBase(bb::system::InvokeManager* invokeManager);
     virtual ~ApplicationUIBase();
+    Q_INVOKABLE void invokeVideo(const QString &title, const QString &url);
 private slots:
     void onSystemLanguageChanged();
 protected:

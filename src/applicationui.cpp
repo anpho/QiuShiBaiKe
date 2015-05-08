@@ -36,7 +36,7 @@ ApplicationUI::ApplicationUI(InvokeManager *invokeManager) :
     Q_UNUSED(res);
 
     // 加载main.qml
-    QmlDocument *qml = QmlDocument::create("asset:///main.qml").parent(this);
+    QmlDocument *qml = QmlDocument::create("qrc:/assets/main.qml").parent(this);
     // 注入
     qml->setContextProperty("ApplicationUI", this);
 

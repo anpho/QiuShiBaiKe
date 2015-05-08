@@ -4,10 +4,18 @@ BASEDIR = $$quote($$_PRO_FILE_PWD_)
 device {
     CONFIG(debug, debug|release) {
         profile {
+            INCLUDEPATH += $$quote(${QNX_TARGET}/usr/include/qt4/QtNetwork)
+
+            DEPENDPATH += $$quote(${QNX_TARGET}/usr/include/qt4/QtNetwork)
+
             CONFIG += \
                 config_pri_assets \
                 config_pri_source_group1
         } else {
+            INCLUDEPATH += $$quote(${QNX_TARGET}/usr/include/qt4/QtNetwork)
+
+            DEPENDPATH += $$quote(${QNX_TARGET}/usr/include/qt4/QtNetwork)
+
             CONFIG += \
                 config_pri_assets \
                 config_pri_source_group1
@@ -17,6 +25,10 @@ device {
 
     CONFIG(release, debug|release) {
         !profile {
+            INCLUDEPATH += $$quote(${QNX_TARGET}/usr/include/qt4/QtNetwork)
+
+            DEPENDPATH += $$quote(${QNX_TARGET}/usr/include/qt4/QtNetwork)
+
             CONFIG += \
                 config_pri_assets \
                 config_pri_source_group1
@@ -27,6 +39,10 @@ device {
 simulator {
     CONFIG(debug, debug|release) {
         !profile {
+            INCLUDEPATH += $$quote(${QNX_TARGET}/usr/include/qt4/QtNetwork)
+
+            DEPENDPATH += $$quote(${QNX_TARGET}/usr/include/qt4/QtNetwork)
+
             CONFIG += \
                 config_pri_assets \
                 config_pri_source_group1
@@ -36,7 +52,12 @@ simulator {
 
 config_pri_assets {
     OTHER_FILES += \
+        $$quote($$BASEDIR/assets/CommentsItem.qml) \
+        $$quote($$BASEDIR/assets/Common.qml) \
+        $$quote($$BASEDIR/assets/ItemView.qml) \
+        $$quote($$BASEDIR/assets/PageView.qml) \
         $$quote($$BASEDIR/assets/PostItem.qml) \
+        $$quote($$BASEDIR/assets/VideoViewer.qml) \
         $$quote($$BASEDIR/assets/card.qml) \
         $$quote($$BASEDIR/assets/emoji/qb_00.png) \
         $$quote($$BASEDIR/assets/emoji/qb_01.png) \
@@ -161,7 +182,8 @@ config_pri_source_group1 {
         $$quote($$BASEDIR/src/WebImageView.h) \
         $$quote($$BASEDIR/src/applicationui.hpp) \
         $$quote($$BASEDIR/src/applicationuibase.hpp) \
-        $$quote($$BASEDIR/src/cardui.hpp)
+        $$quote($$BASEDIR/src/cardui.hpp) \
+        $$quote($$BASEDIR/src/objects/qiu.hpp)
 }
 
 CONFIG += precompile_header
@@ -175,12 +197,25 @@ lupdate_inclusion {
         $$quote($$BASEDIR/../src/*.cc) \
         $$quote($$BASEDIR/../src/*.cpp) \
         $$quote($$BASEDIR/../src/*.cxx) \
+        $$quote($$BASEDIR/../src/controls/*.c) \
+        $$quote($$BASEDIR/../src/controls/*.c++) \
+        $$quote($$BASEDIR/../src/controls/*.cc) \
+        $$quote($$BASEDIR/../src/controls/*.cpp) \
+        $$quote($$BASEDIR/../src/controls/*.cxx) \
+        $$quote($$BASEDIR/../src/objects/*.c) \
+        $$quote($$BASEDIR/../src/objects/*.c++) \
+        $$quote($$BASEDIR/../src/objects/*.cc) \
+        $$quote($$BASEDIR/../src/objects/*.cpp) \
+        $$quote($$BASEDIR/../src/objects/*.cxx) \
         $$quote($$BASEDIR/../assets/*.qml) \
         $$quote($$BASEDIR/../assets/*.js) \
         $$quote($$BASEDIR/../assets/*.qs) \
         $$quote($$BASEDIR/../assets/emoji/*.qml) \
         $$quote($$BASEDIR/../assets/emoji/*.js) \
         $$quote($$BASEDIR/../assets/emoji/*.qs) \
+        $$quote($$BASEDIR/../assets/icon/*.qml) \
+        $$quote($$BASEDIR/../assets/icon/*.js) \
+        $$quote($$BASEDIR/../assets/icon/*.qs) \
         $$quote($$BASEDIR/../assets/res/*.qml) \
         $$quote($$BASEDIR/../assets/res/*.js) \
         $$quote($$BASEDIR/../assets/res/*.qs) \

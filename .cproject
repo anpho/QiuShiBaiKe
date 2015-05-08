@@ -12,7 +12,7 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactName="${ProjName}" buildProperties="" id="com.qnx.qcc.toolChain.1623502171" name="Device-Debug" parent="org.eclipse.cdt.build.core.emptycfg">
+				<configuration artifactName="${ProjName}" buildProperties="" description="" id="com.qnx.qcc.toolChain.1623502171" name="Device-Debug" parent="org.eclipse.cdt.build.core.emptycfg">
 					<folderInfo id="com.qnx.qcc.toolChain.1623502171.1961722172" name="/" resourcePath="">
 						<toolChain id="com.qnx.qcc.toolChain.1237415856" name="com.qnx.qcc.toolChain" superClass="com.qnx.qcc.toolChain">
 							<option id="com.qnx.qcc.option.os.1572145856" name="Target OS:" superClass="com.qnx.qcc.option.os"/>
@@ -20,15 +20,20 @@
 							<option id="com.qnx.qcc.option.compiler.1154022969" name="Compiler:" superClass="com.qnx.qcc.option.compiler"/>
 							<option id="com.qnx.qcc.option.runtime.1947761132" name="Runtime:" superClass="com.qnx.qcc.option.runtime"/>
 							<targetPlatform archList="all" binaryParser="com.qnx.tools.ide.qde.core.QDEBynaryParser" id="com.qnx.qcc.targetPlatform.1899849005" osList="all" superClass="com.qnx.qcc.targetPlatform"/>
-							<builder autoBuildTarget="Device-Debug" enableAutoBuild="true" id="com.qnx.qcc.toolChain.1623502171.1650844150" incrementalBuildTarget="Device-Debug" managedBuildOn="false" name="device-debug builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="qml.device-debug"/>
+							<builder autoBuildTarget="Device-Debug" enableAutoBuild="true" id="com.qnx.qcc.toolChain.1623502171.1650844150" incrementalBuildTarget="Device-Debug" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="device-debug builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="qml.device-debug"/>
 							<tool id="com.qnx.qcc.tool.compiler.839808729" name="QCC Compiler" superClass="com.qnx.qcc.tool.compiler">
-								<option id="com.qnx.qcc.option.compiler.optlevel.1606419179" superClass="com.qnx.qcc.option.compiler.optlevel" value="com.qnx.qcc.option.compiler.optlevel.0" valueType="enumerated"/>
+								<option id="com.qnx.qcc.option.compiler.optlevel.1606419179" name="Optimization Level" superClass="com.qnx.qcc.option.compiler.optlevel" value="com.qnx.qcc.option.compiler.optlevel.0" valueType="enumerated"/>
+								<option id="com.qnx.qcc.option.compiler.includePath.1156016609" name="Include Directories (-I)" superClass="com.qnx.qcc.option.compiler.includePath" valueType="includePath">
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtNetwork"/>
+								</option>
 								<inputType id="com.qnx.qcc.inputType.compiler.1039728445" superClass="com.qnx.qcc.inputType.compiler"/>
 							</tool>
 							<tool id="com.qnx.qcc.tool.assembler.187726057" name="QCC Assembler" superClass="com.qnx.qcc.tool.assembler">
 								<inputType id="com.qnx.qcc.inputType.assembler.824656806" superClass="com.qnx.qcc.inputType.assembler"/>
 							</tool>
-							<tool id="com.qnx.qcc.tool.linker.834375529" name="QCC Linker" superClass="com.qnx.qcc.tool.linker"/>
+							<tool id="com.qnx.qcc.tool.linker.834375529" name="QCC Linker" superClass="com.qnx.qcc.tool.linker">
+								<option id="com.qnx.qcc.option.linker.libraries.1167377388" name="Libraries (-l)" superClass="com.qnx.qcc.option.linker.libraries"/>
+							</tool>
 							<tool id="com.qnx.qcc.tool.archiver.1979268416" name="QCC Archiver" superClass="com.qnx.qcc.tool.archiver"/>
 						</toolChain>
 					</folderInfo>
@@ -50,7 +55,7 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactName="${ProjName}" buildProperties="" id="com.qnx.qcc.toolChain.1138907308" name="Device-Release" parent="org.eclipse.cdt.build.core.emptycfg">
+				<configuration artifactName="${ProjName}" buildProperties="" description="" id="com.qnx.qcc.toolChain.1138907308" name="Device-Release" parent="org.eclipse.cdt.build.core.emptycfg">
 					<folderInfo id="com.qnx.qcc.toolChain.1138907308.1893113101" name="/" resourcePath="">
 						<toolChain id="com.qnx.qcc.toolChain.380504668" name="com.qnx.qcc.toolChain" superClass="com.qnx.qcc.toolChain">
 							<option id="com.qnx.qcc.option.os.999988703" name="Target OS:" superClass="com.qnx.qcc.option.os"/>
@@ -58,15 +63,21 @@
 							<option id="com.qnx.qcc.option.compiler.244380136" name="Compiler:" superClass="com.qnx.qcc.option.compiler"/>
 							<option id="com.qnx.qcc.option.runtime.791362265" name="Runtime:" superClass="com.qnx.qcc.option.runtime"/>
 							<targetPlatform archList="all" binaryParser="com.qnx.tools.ide.qde.core.QDEBynaryParser" id="com.qnx.qcc.targetPlatform.985035189" osList="all" superClass="com.qnx.qcc.targetPlatform"/>
-							<builder autoBuildTarget="Device-Release" enableAutoBuild="true" id="com.qnx.qcc.toolChain.1138907308.715054261" incrementalBuildTarget="Device-Release" managedBuildOn="false" name="device-release builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="qml.device-release"/>
+							<builder autoBuildTarget="Device-Release" enableAutoBuild="true" id="com.qnx.qcc.toolChain.1138907308.715054261" incrementalBuildTarget="Device-Release" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="device-release builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="qml.device-release"/>
 							<tool id="com.qnx.qcc.tool.compiler.2037396615" name="QCC Compiler" superClass="com.qnx.qcc.tool.compiler">
-								<option id="com.qnx.qcc.option.compiler.optlevel.157456622" superClass="com.qnx.qcc.option.compiler.optlevel" value="com.qnx.qcc.option.compiler.optlevel.0" valueType="enumerated"/>
+								<option id="com.qnx.qcc.option.compiler.optlevel.157456622" name="Optimization Level" superClass="com.qnx.qcc.option.compiler.optlevel" value="com.qnx.qcc.option.compiler.optlevel.0" valueType="enumerated"/>
+								<option id="com.qnx.qcc.option.compiler.includePath.384501830" name="Include Directories (-I)" superClass="com.qnx.qcc.option.compiler.includePath" valueType="includePath">
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtNetwork"/>
+								</option>
 								<inputType id="com.qnx.qcc.inputType.compiler.1936577551" superClass="com.qnx.qcc.inputType.compiler"/>
 							</tool>
 							<tool id="com.qnx.qcc.tool.assembler.1206429475" name="QCC Assembler" superClass="com.qnx.qcc.tool.assembler">
 								<inputType id="com.qnx.qcc.inputType.assembler.168011282" superClass="com.qnx.qcc.inputType.assembler"/>
 							</tool>
-							<tool id="com.qnx.qcc.tool.linker.240547361" name="QCC Linker" superClass="com.qnx.qcc.tool.linker"/>
+							<tool id="com.qnx.qcc.tool.linker.240547361" name="QCC Linker" superClass="com.qnx.qcc.tool.linker">
+								<option id="com.qnx.qcc.option.linker.libraries.894541100" name="Libraries (-l)" superClass="com.qnx.qcc.option.linker.libraries" valueType="libs">
+								</option>
+							</tool>
 							<tool id="com.qnx.qcc.tool.archiver.108978310" name="QCC Archiver" superClass="com.qnx.qcc.tool.archiver"/>
 						</toolChain>
 					</folderInfo>
@@ -88,7 +99,7 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactName="${ProjName}" buildProperties="" id="com.qnx.qcc.toolChain.1777730637" name="Device-Profile" parent="org.eclipse.cdt.build.core.emptycfg">
+				<configuration artifactName="${ProjName}" buildProperties="" description="" id="com.qnx.qcc.toolChain.1777730637" name="Device-Profile" parent="org.eclipse.cdt.build.core.emptycfg">
 					<folderInfo id="com.qnx.qcc.toolChain.1777730637.986872232" name="/" resourcePath="">
 						<toolChain id="com.qnx.qcc.toolChain.1300349316" name="com.qnx.qcc.toolChain" superClass="com.qnx.qcc.toolChain">
 							<option id="com.qnx.qcc.option.os.1800800023" name="Target OS:" superClass="com.qnx.qcc.option.os"/>
@@ -96,15 +107,21 @@
 							<option id="com.qnx.qcc.option.compiler.1970257727" name="Compiler:" superClass="com.qnx.qcc.option.compiler"/>
 							<option id="com.qnx.qcc.option.runtime.85399012" name="Runtime:" superClass="com.qnx.qcc.option.runtime"/>
 							<targetPlatform archList="all" binaryParser="com.qnx.tools.ide.qde.core.QDEBynaryParser" id="com.qnx.qcc.targetPlatform.278804432" osList="all" superClass="com.qnx.qcc.targetPlatform"/>
-							<builder autoBuildTarget="Device-Profile" enableAutoBuild="true" id="com.qnx.qcc.toolChain.1777730637.255914328" incrementalBuildTarget="Device-Profile" managedBuildOn="false" name="device-profile builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="qml.device-profile"/>
+							<builder autoBuildTarget="Device-Profile" enableAutoBuild="true" id="com.qnx.qcc.toolChain.1777730637.255914328" incrementalBuildTarget="Device-Profile" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="device-profile builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="qml.device-profile"/>
 							<tool id="com.qnx.qcc.tool.compiler.302214304" name="QCC Compiler" superClass="com.qnx.qcc.tool.compiler">
-								<option id="com.qnx.qcc.option.compiler.optlevel.1218845486" superClass="com.qnx.qcc.option.compiler.optlevel" value="com.qnx.qcc.option.compiler.optlevel.0" valueType="enumerated"/>
+								<option id="com.qnx.qcc.option.compiler.optlevel.1218845486" name="Optimization Level" superClass="com.qnx.qcc.option.compiler.optlevel" value="com.qnx.qcc.option.compiler.optlevel.0" valueType="enumerated"/>
+								<option id="com.qnx.qcc.option.compiler.includePath.1595412003" name="Include Directories (-I)" superClass="com.qnx.qcc.option.compiler.includePath" valueType="includePath">
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtNetwork"/>
+								</option>
 								<inputType id="com.qnx.qcc.inputType.compiler.752028646" superClass="com.qnx.qcc.inputType.compiler"/>
 							</tool>
 							<tool id="com.qnx.qcc.tool.assembler.328110767" name="QCC Assembler" superClass="com.qnx.qcc.tool.assembler">
 								<inputType id="com.qnx.qcc.inputType.assembler.2009721087" superClass="com.qnx.qcc.inputType.assembler"/>
 							</tool>
-							<tool id="com.qnx.qcc.tool.linker.1917361532" name="QCC Linker" superClass="com.qnx.qcc.tool.linker"/>
+							<tool id="com.qnx.qcc.tool.linker.1917361532" name="QCC Linker" superClass="com.qnx.qcc.tool.linker">
+								<option id="com.qnx.qcc.option.linker.libraries.1884743985" name="Libraries (-l)" superClass="com.qnx.qcc.option.linker.libraries" valueType="libs">
+								</option>
+							</tool>
 							<tool id="com.qnx.qcc.tool.archiver.1222078635" name="QCC Archiver" superClass="com.qnx.qcc.tool.archiver"/>
 						</toolChain>
 					</folderInfo>
@@ -126,7 +143,7 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactName="${ProjName}" buildProperties="" id="com.qnx.qcc.toolChain.733352976" name="Simulator-Debug" parent="org.eclipse.cdt.build.core.emptycfg">
+				<configuration artifactName="${ProjName}" buildProperties="" description="" id="com.qnx.qcc.toolChain.733352976" name="Simulator-Debug" parent="org.eclipse.cdt.build.core.emptycfg">
 					<folderInfo id="com.qnx.qcc.toolChain.733352976.1076829103" name="/" resourcePath="">
 						<toolChain id="com.qnx.qcc.toolChain.2031921453" name="com.qnx.qcc.toolChain" superClass="com.qnx.qcc.toolChain">
 							<option id="com.qnx.qcc.option.os.1270662933" name="Target OS:" superClass="com.qnx.qcc.option.os"/>
@@ -134,15 +151,21 @@
 							<option id="com.qnx.qcc.option.compiler.1235998227" name="Compiler:" superClass="com.qnx.qcc.option.compiler"/>
 							<option id="com.qnx.qcc.option.runtime.520958247" name="Runtime:" superClass="com.qnx.qcc.option.runtime"/>
 							<targetPlatform archList="all" binaryParser="com.qnx.tools.ide.qde.core.QDEBynaryParser" id="com.qnx.qcc.targetPlatform.1534329538" osList="all" superClass="com.qnx.qcc.targetPlatform"/>
-							<builder autoBuildTarget="Simulator-Debug" enableAutoBuild="true" id="com.qnx.qcc.toolChain.733352976.500391667" incrementalBuildTarget="Simulator-Debug" managedBuildOn="false" name="simulator-debug builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="qml.simulator-debug"/>
+							<builder autoBuildTarget="Simulator-Debug" enableAutoBuild="true" id="com.qnx.qcc.toolChain.733352976.500391667" incrementalBuildTarget="Simulator-Debug" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="simulator-debug builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="qml.simulator-debug"/>
 							<tool id="com.qnx.qcc.tool.compiler.837544383" name="QCC Compiler" superClass="com.qnx.qcc.tool.compiler">
-								<option id="com.qnx.qcc.option.compiler.optlevel.945693033" superClass="com.qnx.qcc.option.compiler.optlevel" value="com.qnx.qcc.option.compiler.optlevel.0" valueType="enumerated"/>
+								<option id="com.qnx.qcc.option.compiler.optlevel.945693033" name="Optimization Level" superClass="com.qnx.qcc.option.compiler.optlevel" value="com.qnx.qcc.option.compiler.optlevel.0" valueType="enumerated"/>
+								<option id="com.qnx.qcc.option.compiler.includePath.1610245197" name="Include Directories (-I)" superClass="com.qnx.qcc.option.compiler.includePath" valueType="includePath">
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtNetwork"/>
+								</option>
 								<inputType id="com.qnx.qcc.inputType.compiler.1834721633" superClass="com.qnx.qcc.inputType.compiler"/>
 							</tool>
 							<tool id="com.qnx.qcc.tool.assembler.1122122612" name="QCC Assembler" superClass="com.qnx.qcc.tool.assembler">
 								<inputType id="com.qnx.qcc.inputType.assembler.1122088037" superClass="com.qnx.qcc.inputType.assembler"/>
 							</tool>
-							<tool id="com.qnx.qcc.tool.linker.1849491609" name="QCC Linker" superClass="com.qnx.qcc.tool.linker"/>
+							<tool id="com.qnx.qcc.tool.linker.1849491609" name="QCC Linker" superClass="com.qnx.qcc.tool.linker">
+								<option id="com.qnx.qcc.option.linker.libraries.721848145" name="Libraries (-l)" superClass="com.qnx.qcc.option.linker.libraries" valueType="libs">
+								</option>
+							</tool>
 							<tool id="com.qnx.qcc.tool.archiver.1358860216" name="QCC Archiver" superClass="com.qnx.qcc.tool.archiver"/>
 						</toolChain>
 					</folderInfo>

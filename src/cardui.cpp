@@ -28,7 +28,7 @@ CardUI::CardUI(bb::system::InvokeManager* invokeManager) :
                 ApplicationUIBase(invokeManager)
 {
     // 加载card.qml
-    QmlDocument *qml = QmlDocument::create("asset:///card.qml").parent(this);
+    QmlDocument *qml = QmlDocument::create("qrc:/assets/card.qml").parent(this);
 
     // 注入
     qml->setContextProperty("ApplicationUI", this);

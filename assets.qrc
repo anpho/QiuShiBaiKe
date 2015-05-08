@@ -1,0 +1,13 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+<qresource>
+<file>assets/card.qml</file>
+<file>assets/CommentsItem.qml</file>
+<file>assets/Common.qml</file>
+<file>assets/ItemView.qml</file>
+<file>assets/main.qml</file>
+<file>assets/PageView.qml</file>
+<file>assets/PostItem.qml</file>
+<file>assets/VideoViewer.qml</file>
+</qresource>
+</RCC>

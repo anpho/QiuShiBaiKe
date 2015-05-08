@@ -25,7 +25,7 @@
     <!-- A universally unique application identifier. Must be unique across
         all BlackBerry 10 applications. Using a reverse DNS-style name as the id
         is recommended. (Eg. com.example.ExampleApplication.) Required. -->
-    <id>anpho.qiushibaike</id>
+    <id>anpho.qsbk</id>
 
     <!-- The name that is displayed in the BlackBerry 10 application installer.
         May have multiple values for each language. See samples or xsd schema file.
@@ -36,11 +36,10 @@
         can also be 1-part or 2-part. It is not necessary to have a 3-part value.
         An updated version of application must have a versionNumber value higher
         than the previous version. Required. -->
-    <versionNumber>1.0.0</versionNumber>
+    <versionNumber>2.0.15</versionNumber>
 
     <!-- Fourth digit segment of the package version. First three segments are
         taken from the <versionNumber> element. Must be an integer from 0 to 2^16-1 -->
-    <buildId>1</buildId>
     <packageLocale>zh-CN</packageLocale>
 
     <!-- A string value (such as "v1", "2.5", or "Alpha 1") that represents
@@ -69,10 +68,12 @@
     </icon>
     <authorId>gYAAgMy-I-SFJtVvioZxVXYQjhA</authorId>
     <author>anpho</author>
+    <buildId>508</buildId>
     <configuration name="Device-Debug">
         <platformArchitecture>armle-v7</platformArchitecture>
         <asset entryPointId="qsbk" path="arm/o.le-v7-g/qsbk"
             entry="true" type="Qnx/Elf">qsbk</asset>
+        
     </configuration>
 
     <configuration name="Device-Release">
@@ -80,12 +81,14 @@
         <entryPointType>Qnx/Cascades</entryPointType>
         <asset entryPointId="qsbk" path="arm/o.le-v7/qsbk.so"
             entry="true" type="Qnx/Cascades">qsbk.so</asset>
+        
     </configuration>
 
     <configuration name="Device-Profile">
         <platformArchitecture>armle-v7</platformArchitecture>
         <asset entryPointId="qsbk" path="arm-p/o.le-v7-g/qsbk"
             entry="true" type="Qnx/Elf">qsbk</asset>
+        
     </configuration>
 
     <configuration name="Simulator-Debug">
@@ -120,7 +123,10 @@
 
     <!-- The icon for the application, which should be 114x114. -->
 
-    <asset path="assets">assets</asset>
+   	<asset path="assets" dest="assets">
+    	assets
+    	<exclude name="**/*.qml"/>
+    </asset>
 
     <!-- Locale support -->
     <asset path="translations" dest="qm">
