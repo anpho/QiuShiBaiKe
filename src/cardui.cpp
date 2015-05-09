@@ -31,7 +31,7 @@ CardUI::CardUI(bb::system::InvokeManager* invokeManager) :
     QmlDocument *qml = QmlDocument::create("qrc:/assets/card.qml").parent(this);
 
     // 注入
-    qml->setContextProperty("ApplicationUI", this);
+    qml->setContextProperty("_app", this);
 
     AbstractPane *root = qml->createRootObject<AbstractPane>();
     if (root) {

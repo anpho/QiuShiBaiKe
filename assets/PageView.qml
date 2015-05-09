@@ -18,7 +18,7 @@ ListView {
         return result;
     }
     function viewvideo(xurl) {
-        ApplicationUI.invokeVideo("", xurl);
+        _app.invokeVideo("", xurl);
         //显示视频
         //        var viewer = vviewer.createObject(nav);
         //        viewer.play(xurl);
@@ -40,12 +40,6 @@ ListView {
         ListScrollStateHandler {
             onAtEndChanged: {
                 if (atEnd) {
-                    if (adm.isEmpty()) {
-                        return;
-                    }
-                    if (lastArticleID.length > 0) {
-                        page ++;
-                    }
                     loaddata()
                 }
             }
@@ -75,15 +69,10 @@ ListView {
         iv.s_lovideo = meta.s_lovideo
         iv.d_loop = meta.d_loop
         iv.s_picurl = meta.s_picurl
-        iv.loadData();
         nav.push(iv);
     }
     onCreationCompleted: {
-        if (loadingInProgress) {
-            return;
-        }
-        loadingInProgress = true;
-        loaddata()
+        //        loaddata()
     }
     dataModel: ArrayDataModel {
         id: adm
@@ -92,21 +81,23 @@ ListView {
         }
     }
     leadingVisual: Container {
-        Label {
-            text: qsTr("AD PLACEHOLD")
-        }
     }
     scrollIndicatorMode: ScrollIndicatorMode.ProportionalBar
     snapMode: SnapMode.Default
     horizontalAlignment: HorizontalAlignment.Fill
     scrollRole: ScrollRole.Main
     function loaddata() {
+        if (loadingInProgress) {
+            return;
+        }
+        loadingInProgress = true;
         co.ajax("GET", p(), [], function(r) {
                 if (r['success']) {
                     var qiulistdata = JSON.parse(r['data']);
                     if (qiulistdata.count > 0) {
                         adm.append(qiulistdata.items)
                         lastArticleID = qiulistdata.items[qiulistdata.count - 1].id;
+                        page ++;
                         console.log("[DataModel]Last Article Id is: " + lastArticleID);
                     } else {
                         toast_no_data_recv.show();
@@ -114,6 +105,7 @@ ListView {
                 } else {
                     toast_no_data_recv.show();
                 }
+                loadingInProgress = false;
             }, [ {
                     'k': 'Uuid',
                     'V': co.uuid
@@ -132,8 +124,8 @@ ListView {
             s_userid: ListItemData.user ? ListItemData.user.id : ""
             s_username: ListItemData.user ? ListItemData.user.login : qsTr("Anonymous")
 
-            s_imageurl: ListItemData.image ? ListItemData.image : ""
-            s_imagesize: ListItemData.image ? ListItemData.image_size : null
+            s_imageurl: ListItemData.image
+            s_imagesize: ListItemData.image_size
 
             d_votedown: ListItemData.votes.down
             d_voteup: ListItemData.votes.up
@@ -145,7 +137,7 @@ ListView {
             s_hivideo: ListItemData.high_url ? ListItemData.high_url : ""
             s_lovideo: ListItemData.low_url ? ListItemData.low_url : ""
             d_loop: ListItemData.loop ? ListItemData.loop : 0
-            s_picurl: ListItemData.pic_url ? ListItemData.pic_url : ""
+            s_picurl: ListItemData.pic_url
             onPostTouched: {
                 console.log("[VIEW]Opening : " + postid)
                 var iv = {

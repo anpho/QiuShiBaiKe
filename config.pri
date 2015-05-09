@@ -55,6 +55,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/CommentsItem.qml) \
         $$quote($$BASEDIR/assets/Common.qml) \
         $$quote($$BASEDIR/assets/ItemView.qml) \
+        $$quote($$BASEDIR/assets/LoginSheet.qml) \
         $$quote($$BASEDIR/assets/PageView.qml) \
         $$quote($$BASEDIR/assets/PostItem.qml) \
         $$quote($$BASEDIR/assets/VideoViewer.qml) \
@@ -99,6 +100,45 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/emoji/qb_37.png) \
         $$quote($$BASEDIR/assets/emoji/qb_38.png) \
         $$quote($$BASEDIR/assets/emoji/qb_39.png) \
+        $$quote($$BASEDIR/assets/icon/add.png) \
+        $$quote($$BASEDIR/assets/icon/alert.png) \
+        $$quote($$BASEDIR/assets/icon/attention.png) \
+        $$quote($$BASEDIR/assets/icon/cam.png) \
+        $$quote($$BASEDIR/assets/icon/chats.png) \
+        $$quote($$BASEDIR/assets/icon/comment.png) \
+        $$quote($$BASEDIR/assets/icon/copy.png) \
+        $$quote($$BASEDIR/assets/icon/cut.png) \
+        $$quote($$BASEDIR/assets/icon/down.png) \
+        $$quote($$BASEDIR/assets/icon/faved.png) \
+        $$quote($$BASEDIR/assets/icon/faving.png) \
+        $$quote($$BASEDIR/assets/icon/hq.png) \
+        $$quote($$BASEDIR/assets/icon/hq2.png) \
+        $$quote($$BASEDIR/assets/icon/info.png) \
+        $$quote($$BASEDIR/assets/icon/left.png) \
+        $$quote($$BASEDIR/assets/icon/like.png) \
+        $$quote($$BASEDIR/assets/icon/mail.png) \
+        $$quote($$BASEDIR/assets/icon/no.png) \
+        $$quote($$BASEDIR/assets/icon/notify.png) \
+        $$quote($$BASEDIR/assets/icon/paste.png) \
+        $$quote($$BASEDIR/assets/icon/plugins.png) \
+        $$quote($$BASEDIR/assets/icon/profile.png) \
+        $$quote($$BASEDIR/assets/icon/report.png) \
+        $$quote($$BASEDIR/assets/icon/right.png) \
+        $$quote($$BASEDIR/assets/icon/settings.png) \
+        $$quote($$BASEDIR/assets/icon/share.png) \
+        $$quote($$BASEDIR/assets/icon/shop.png) \
+        $$quote($$BASEDIR/assets/icon/stop.png) \
+        $$quote($$BASEDIR/assets/icon/tagged.png) \
+        $$quote($$BASEDIR/assets/icon/theme.png) \
+        $$quote($$BASEDIR/assets/icon/tip.png) \
+        $$quote($$BASEDIR/assets/icon/totop.png) \
+        $$quote($$BASEDIR/assets/icon/translate.png) \
+        $$quote($$BASEDIR/assets/icon/unfav.png) \
+        $$quote($$BASEDIR/assets/icon/unlike.png) \
+        $$quote($$BASEDIR/assets/icon/untagged.png) \
+        $$quote($$BASEDIR/assets/icon/up.png) \
+        $$quote($$BASEDIR/assets/icon/wrong.png) \
+        $$quote($$BASEDIR/assets/icon/yes.png) \
         $$quote($$BASEDIR/assets/main.qml) \
         $$quote($$BASEDIR/assets/res/bg_tile.png) \
         $$quote($$BASEDIR/assets/res/bottombar_cleanlocal.png) \
@@ -185,6 +225,9 @@ config_pri_source_group1 {
         $$quote($$BASEDIR/src/cardui.hpp) \
         $$quote($$BASEDIR/src/objects/qiu.hpp)
 }
+
+INCLUDEPATH += $$quote($$BASEDIR/src/objects) \
+    $$quote($$BASEDIR/src)
 
 CONFIG += precompile_header
 

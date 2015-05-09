@@ -38,7 +38,7 @@ ApplicationUI::ApplicationUI(InvokeManager *invokeManager) :
     // 加载main.qml
     QmlDocument *qml = QmlDocument::create("qrc:/assets/main.qml").parent(this);
     // 注入
-    qml->setContextProperty("ApplicationUI", this);
+    qml->setContextProperty("_app", this);
 
     // 显示场景
     AbstractPane *root = qml->createRootObject<AbstractPane>();

@@ -9,8 +9,12 @@ Page {
         SystemToast {
             body: qsTr("No Data Received.")
             id: toast_no_data_recv
+        },
+        LoginSheet {
+            id: ls
         }
     ]
+    actionBarAutoHideBehavior: ActionBarAutoHideBehavior.Default
     property int page: 1
     function genAjaxURL() {
         var base = co.u_comments.replace("%aid%", s_postid);
@@ -18,8 +22,10 @@ Page {
         console.log("[COMMENTS] Contacting : " + base)
         return base;
     }
-
+    property bool loading: false
     function loadData() {
+        if (loading) return;
+        loading = true;
         if (addm.isEmpty()) {
             var iv = {
                 "type": "header"
@@ -44,6 +50,7 @@ Page {
             iv.s_picurl = s_picurl
             iv.isvideopost = isvideopost
             addm.insert(0, iv);
+            page = 1;
         }
         co.ajax("GET", genAjaxURL(), [], function(r) {
                 if (r['success']) {
@@ -52,11 +59,10 @@ Page {
                         addm.append(qiulistdata.items)
                         page ++;
                     } else {
-                        toast_no_data_recv.show();
                     }
                 } else {
-                    toast_no_data_recv.show();
                 }
+                loading = false;
             }, [ {
                     'k': 'Uuid',
                     'V': co.uuid
@@ -69,10 +75,10 @@ Page {
 
     property string s_username: "" //用户名
     property string s_userid: "" //用户ID
-    property string s_usericon: "" //用户头像
+    property variant s_usericon: "" //用户头像
 
-    property string s_imageurl: "" //图片URL
-    property variant s_imagesize: "" //图片大小
+    property variant s_imageurl: null //图片URL
+    property variant s_imagesize: null //图片大小
     /*
      * image_size: {
      * s: (3)[
@@ -97,197 +103,254 @@ Page {
     property string s_hivideo: ""
     property string s_lovideo: ""
     property int d_loop: 0
-    property string s_picurl: ""
+    property variant s_picurl: null
 
-    property bool isvideopost: s_picurl.length > 0
+    property bool isvideopost: ! ! s_picurl
+    Container {
+        layout: DockLayout {
 
-    ListView {
-        attachedObjects: [
-            ListScrollStateHandler {
-                onAtEndChanged: {
-                    if (atEnd) {
-                        loadData()
-                    }
-                }
+        }
+        verticalAlignment: VerticalAlignment.Fill
+        horizontalAlignment: HorizontalAlignment.Fill
+        Container {
+            layout: StackLayout {
+
             }
-        ]
-        function viewvideo(xurl) {
-            ApplicationUI.invokeVideo("", xurl);
-        }
-        dataModel: ArrayDataModel {
-            id: addm
-        }
-        function itemType(data, indexPath) {
-            if (data.type == "header") {
-                return "header"
-            } else return "item";
-        }
-        listItemComponents: [
-            ListItemComponent {
-                type: "item"
-                CommentsItem {
-                    s_floor: ListItemData.floor
-                    s_comment: ListItemData.content
-                    s_commentid: ListItemData.id
-                    s_useravator: ListItemData.user && ListItemData.user.icon ? ListItemData.user.icon : ""
-                    s_userid: ListItemData.user && ListItemData.user.id ? ListItemData.user.id : ""
-                    s_username: ListItemData.user && ListItemData.user.login ? ListItemData.user.login : ""
-                }
-            },
-            ListItemComponent {
-                type: "header"
-                Container {
-                    id: hhh
-                    horizontalAlignment: HorizontalAlignment.Fill
-                    function getUserIcon() {
-                        //http://pic.qiushibaike.com/system/avtnew/553/5532615/medium/20150210165740.jpg
-                        if (ListItemData.s_userid.length < 1 || ListItemData.s_usericon.length < 1) return ""
-
-                        var base = "http://pic.qiushibaike.com/system/avtnew/"
-                        base += ListItemData.s_userid.substring(0, ListItemData.s_userid.length - 4);
-                        base = base + "/" + ListItemData.s_userid + "/medium/" + ListItemData.s_usericon;
-                        return base;
-                    }
-                    function getImageURL(imageurl) {
-                        if (! imageurl || imageurl == "") {
-                            return "";
-                        }
-                        /*
-                         * http://pic.qiushibaike.com/system/pictures/10588/105887800/medium/app105887800.jpg
-                         */
-                        try {
-                            var reg = /[a-z]*([0-9]*).[a-z]*/i;
-                            var e = reg.exec(imageurl)[1];
-                            var d = e.substr(0, e.length - 4);
-                            var a = "http://pic.qiushibaike.com/system/pictures/" + d + "/" + e + "/medium/" + imageurl;
-                            console.log("[IMAGE]URL :" + a);
-                            return a;
-                        } catch (e) {
-                            console.log(JSON.stringify(e));
-                            return "" //TODO: add default image broke icon.
-                        }
-                    }
-                    Container {
-                        layout: StackLayout {
-                            orientation: LayoutOrientation.LeftToRight
-                        }
-                        WebImageView {
-                            preferredWidth: 80
-                            preferredHeight: 80
-                            scalingMethod: ScalingMethod.AspectFit
-                            verticalAlignment: VerticalAlignment.Center
-                            horizontalAlignment: HorizontalAlignment.Left
-                            loadEffect: ImageViewLoadEffect.Subtle
-                            onCreationCompleted: {
-                                var uicon = hhh.getUserIcon();
-                                if (uicon.length > 0) {
-                                    url = uicon
-                                } else {
-                                    imageSource = "asset:///res/default_user_avatar.png"
-                                }
+            ListView {
+                attachedObjects: [
+                    ListScrollStateHandler {
+                        onAtEndChanged: {
+                            if (atEnd) {
+                                loadData()
                             }
                         }
-                        Label {
-                            text: ListItemData.s_username
-                            verticalAlignment: VerticalAlignment.Center
-                            horizontalAlignment: HorizontalAlignment.Left
-                        }
                     }
-                    Divider {
-                        verticalAlignment: VerticalAlignment.Center
-                        horizontalAlignment: HorizontalAlignment.Center
-
-                    }
-                    Container {
-                        horizontalAlignment: HorizontalAlignment.Fill
-                        Label {
-                            multiline: true
-                            textFormat: TextFormat.Plain
-                            text: ListItemData.s_content
-                            textStyle.fontWeight: FontWeight.W100
-                            textFit.mode: LabelTextFitMode.Default
+                ]
+                function viewvideo(xurl) {
+                    _app.invokeVideo("", xurl);
+                }
+                dataModel: ArrayDataModel {
+                    id: addm
+                }
+                function itemType(data, indexPath) {
+                    if (data.type == "header") {
+                        return "header"
+                    } else return "item";
+                }
+                listItemComponents: [
+                    ListItemComponent {
+                        type: "item"
+                        CommentsItem {
+                            s_floor: ListItemData.floor
+                            s_comment: ListItemData.content
+                            s_commentid: ListItemData.id
+                            s_useravator: ListItemData.user && ListItemData.user.icon ? ListItemData.user.icon : ""
+                            s_userid: ListItemData.user && ListItemData.user.id ? ListItemData.user.id : ""
+                            s_username: ListItemData.user && ListItemData.user.login ? ListItemData.user.login : ""
                         }
+                    },
+                    ListItemComponent {
+                        type: "header"
                         Container {
-                            layout: DockLayout {
-
-                            }
+                            id: hhh
                             horizontalAlignment: HorizontalAlignment.Fill
+                            function getUserIcon() {
+                                //http://pic.qiushibaike.com/system/avtnew/553/5532615/medium/20150210165740.jpg
+                                if (ListItemData.s_userid.length < 1 || ListItemData.s_usericon.length < 1) return "asset:///res/default_user_avatar.png"
 
-                            WebImageView {
-                                horizontalAlignment: HorizontalAlignment.Fill
-                                scalingMethod: ScalingMethod.AspectFit
-                                loadEffect: ImageViewLoadEffect.FadeZoom
-                                visible: ListItemData.s_imageurl && ! ListItemData.isvideopost
-                                onCreationCompleted: {
-                                    var v = hhh.getImageURL(ListItemData.s_imageurl);
-                                    if (v) {
-                                        url = v;
-                                    }
+                                var base = "http://pic.qiushibaike.com/system/avtnew/"
+                                base += ListItemData.s_userid.substring(0, ListItemData.s_userid.length - 4);
+                                base = base + "/" + ListItemData.s_userid + "/medium/" + ListItemData.s_usericon;
+                                return base;
+                            }
+                            function getImageURL(imageurl) {
+                                if (! imageurl || imageurl == "") {
+                                    return "";
                                 }
-                                verticalAlignment: VerticalAlignment.Fill
+                                /*
+                                 * http://pic.qiushibaike.com/system/pictures/10588/105887800/medium/app105887800.jpg
+                                 */
+                                try {
+                                    var reg = /[a-z]*([0-9]*).[a-z]*/i;
+                                    var e = reg.exec(imageurl)[1];
+                                    var d = e.substr(0, e.length - 4);
+                                    var a = "http://pic.qiushibaike.com/system/pictures/" + d + "/" + e + "/medium/" + imageurl;
+                                    console.log("[IMAGE]URL :" + a);
+                                    return a;
+                                } catch (e) {
+                                    console.log(JSON.stringify(e));
+                                    return "" //TODO: add default image broke icon.
+                                }
                             }
-
-                            WebImageView {
-                                horizontalAlignment: HorizontalAlignment.Fill
-                                scalingMethod: ScalingMethod.AspectFit
-                                loadEffect: ImageViewLoadEffect.FadeZoom
-                                url: ListItemData.s_picurl
-                                visible: ListItemData.isvideopost
-                                id: videohover
-                            }
-
                             Container {
-                                visible: videohover.visible
-                                horizontalAlignment: HorizontalAlignment.Right
+                                layout: StackLayout {
+                                    orientation: LayoutOrientation.LeftToRight
+                                }
+                                WebImageView {
+                                    preferredWidth: 80
+                                    preferredHeight: 80
+                                    scalingMethod: ScalingMethod.AspectFit
+                                    verticalAlignment: VerticalAlignment.Center
+                                    horizontalAlignment: HorizontalAlignment.Left
+                                    loadEffect: ImageViewLoadEffect.Subtle
+                                    url: hhh.getUserIcon()
+                                }
+                                Label {
+                                    text: ListItemData.s_username
+                                    verticalAlignment: VerticalAlignment.Center
+                                    horizontalAlignment: HorizontalAlignment.Left
+                                }
+                            }
+                            Divider {
                                 verticalAlignment: VerticalAlignment.Center
-                                Button {
-                                    text: qsTr("HIGH")
-                                    enabled: ListItemData.s_hivideo.length > 0
-                                    onClicked: {
-                                        hhh.ListItem.view.viewvideo(ListItemData.s_hivideo)
-                                    }
-                                    preferredWidth: 1
+                                horizontalAlignment: HorizontalAlignment.Center
+
+                            }
+                            Container {
+                                horizontalAlignment: HorizontalAlignment.Fill
+                                Label {
+                                    multiline: true
+                                    textFormat: TextFormat.Plain
+                                    text: ListItemData.s_content
+                                    textStyle.fontWeight: FontWeight.W100
+                                    textFit.mode: LabelTextFitMode.Default
                                 }
-                                Button {
-                                    text: qsTr("LOW")
-                                    enabled: ListItemData.s_lovideo.length > 0
-                                    onClicked: {
-                                        hhh.ListItem.view.viewvideo(ListItemData.s_lovideo)
+                                Container {
+                                    layout: DockLayout {
+
                                     }
-                                    preferredWidth: 1
+                                    horizontalAlignment: HorizontalAlignment.Fill
+
+                                    WebImageView {
+                                        horizontalAlignment: HorizontalAlignment.Fill
+                                        scalingMethod: ScalingMethod.AspectFit
+                                        loadEffect: ImageViewLoadEffect.FadeZoom
+                                        visible: ListItemData.s_imageurl && ! ListItemData.isvideopost
+                                        url: hhh.getImageURL(ListItemData.s_imageurl)
+                                        verticalAlignment: VerticalAlignment.Fill
+                                    }
+
+                                    WebImageView {
+                                        horizontalAlignment: HorizontalAlignment.Fill
+                                        scalingMethod: ScalingMethod.AspectFit
+                                        loadEffect: ImageViewLoadEffect.FadeZoom
+                                        url: ListItemData.s_picurl ? ListItemData.s_picurl : ""
+                                        visible: ListItemData.isvideopost
+                                        id: videohover
+                                    }
+
+                                    Container {
+                                        visible: videohover.visible
+                                        horizontalAlignment: HorizontalAlignment.Right
+                                        verticalAlignment: VerticalAlignment.Top
+                                        Button {
+                                            onClicked: {
+                                                hhh.ListItem.view.viewvideo(ListItemData.s_hivideo)
+                                            }
+                                            visible: ListItemData.s_hivideo.length > 0
+                                            text: qsTr("HQ")
+                                            preferredWidth: 1
+                                        }
+                                        Button {
+                                            onClicked: {
+                                                hhh.ListItem.view.viewvideo(ListItemData.s_lovideo)
+                                            }
+                                            visible: ListItemData.s_lovideo.length > 0
+                                            text: qsTr("LQ")
+                                            preferredWidth: 1
+                                        }
+                                    }
                                 }
+                            }
+                            Container {
+                                //Status Data
+                                layout: StackLayout {
+                                    orientation: LayoutOrientation.LeftToRight
+                                }
+                                topPadding: 20.0
+                                bottomPadding: 20.0
+                                //投票区
                             }
                         }
                     }
-                    Container {
-                        //Status Data
-                        layout: StackLayout {
-                            orientation: LayoutOrientation.LeftToRight
-                        }
-                        topPadding: 20.0
-                        bottomPadding: 20.0
-                        Label {
-                            text: qsTr("Funny")
-                            textStyle.fontSize: FontSize.Small
-                        }
-                        Label {
-                            text: ListItemData.d_voteup
-                            textStyle.fontWeight: FontWeight.W100
-                            textStyle.fontSize: FontSize.Small
-                        }
-                        Label {
-                            text: qsTr("Comments")
-                            textStyle.fontSize: FontSize.Small
-                        }
-                        Label {
-                            text: ListItemData.d_comments
-                            textStyle.fontWeight: FontWeight.W100
-                            textStyle.fontSize: FontSize.Small
+                ]
+                scrollRole: ScrollRole.Main
+            }
+            Container {
+                layout: StackLayout {
+                    orientation: LayoutOrientation.LeftToRight
+
+                }
+                leftPadding: 10.0
+                rightPadding: 10.0
+                bottomPadding: 10.0
+                topPadding: 10.0
+                TextArea {
+                    horizontalAlignment: HorizontalAlignment.Left
+                    verticalAlignment: VerticalAlignment.Center
+                    id: comment_textarea
+                }
+                Button {
+                    preferredWidth: 1
+                    text: qsTr("Send")
+                    verticalAlignment: VerticalAlignment.Center
+                    horizontalAlignment: HorizontalAlignment.Right
+                    onClicked: {
+                        if (_app.getv('token', '').length == 0) {
+                            ls.open()
+                        } else {
+                            if (comment_textarea.text.trim().length == 0) {
+                                //不能发空评论
+                                return;
+                            }
+                            co.comment(s_postid, comment_textarea.text, false, function(b, r) {
+                                    if (b) {
+                                        toast_comment_posted.show();
+                                        comment_textarea.text = ""
+                                    } else {
+                                        toast_other.body = r
+                                        toast_other.show();
+                                    }
+                                })
                         }
                     }
+                    gestureHandlers: LongPressHandler {
+                        onLongPressed: {
+                            if (_app.getv('token', '').length == 0) {
+                                ls.open()
+                            } else {
+                                if (comment_textarea.text.trim().length == 0) {
+                                    //不能发空评论
+                                    return;
+                                }
+                                co.comment(s_postid, comment_textarea.text, true, function(b, r) {
+                                        if (b) {
+                                            toast_comment_posted.show();
+                                            comment_textarea.text = ""
+                                        } else {
+                                            toast_other.body = r
+                                            toast_other.show();
+                                        }
+                                    })
+                            }
+                        }
+                    }
+                    attachedObjects: [
+                        SystemToast {
+                            id: toast_comment_posted
+                            body: qsTr("Comment Posted.")
+                        },
+                        SystemToast {
+                            id: toast_other
+                        }
+                    ]
                 }
             }
-        ]
+        }
+        ActivityIndicator {
+            running: true
+            verticalAlignment: VerticalAlignment.Center
+            horizontalAlignment: HorizontalAlignment.Center
+        }
     }
-
 }

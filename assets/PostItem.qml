@@ -16,9 +16,9 @@ Container {
 
     property string s_username: null //用户名
     property string s_userid: null //用户ID
-    property string s_usericon: null //用户头像
+    property variant s_usericon: null //用户头像
 
-    property string s_imageurl: null //图片URL
+    property variant s_imageurl: null //图片URL
     property variant s_imagesize: null //图片大小
     /*
      * image_size: {
@@ -44,9 +44,9 @@ Container {
     property string s_hivideo: ""
     property string s_lovideo: ""
     property int d_loop: 0
-    property string s_picurl: ""
+    property variant s_picurl: ""
 
-    property bool isvideopost: s_picurl.length > 0
+    property bool isvideopost: ! ! s_picurl
 
     leftPadding: 20.0
     rightPadding: 20.0
@@ -54,7 +54,7 @@ Container {
     bottomPadding: 20.0
     function getUserIcon() {
         //http://pic.qiushibaike.com/system/avtnew/553/5532615/medium/20150210165740.jpg
-        if (s_userid.length < 1 || s_usericon.length < 1) return ""
+        if (s_userid.length < 1 || ! s_usericon || s_usericon.length < 1) return "asset:///res/default_user_avatar.png"
 
         var base = "http://pic.qiushibaike.com/system/avtnew/"
         base += s_userid.substring(0, s_userid.length - 4);
@@ -63,7 +63,7 @@ Container {
     }
     function getImageURL() {
         if (! s_imageurl || s_imageurl == "") {
-            return;
+            return "";
         }
         /*
          * http://pic.qiushibaike.com/system/pictures/10588/105887800/medium/app105887800.jpg
@@ -91,14 +91,7 @@ Container {
             verticalAlignment: VerticalAlignment.Center
             horizontalAlignment: HorizontalAlignment.Left
             loadEffect: ImageViewLoadEffect.Subtle
-            onCreationCompleted: {
-                var uicon = getUserIcon();
-                if (uicon.length > 0) {
-                    url = uicon
-                } else {
-                    imageSource = "asset:///res/default_user_avatar.png"
-                }
-            }
+            url: getUserIcon()
         }
         Label {
             text: s_username
@@ -139,76 +132,43 @@ Container {
                 horizontalAlignment: HorizontalAlignment.Fill
                 scalingMethod: ScalingMethod.AspectFit
                 loadEffect: ImageViewLoadEffect.FadeZoom
-                enabled: s_imageurl && s_imageurl.length > 0
-                onEnabledChanged: {
-                    if (enabled) {
-                        var v = getImageURL();
-                        if (v) {
-                            url = v;
-                        }
-                    }
-                }
-                visible: s_imageurl && ! isvideopost
+                url: getImageURL()
+                visible: ! ! s_imageurl && ! isvideopost
             }
 
             WebImageView {
                 horizontalAlignment: HorizontalAlignment.Fill
                 scalingMethod: ScalingMethod.AspectFit
                 loadEffect: ImageViewLoadEffect.FadeZoom
-                url: s_picurl
                 visible: isvideopost
                 id: videohover
+                url: s_picurl ? s_picurl : ""
             }
 
             Container {
                 visible: videohover.visible
                 horizontalAlignment: HorizontalAlignment.Right
-                verticalAlignment: VerticalAlignment.Center
+                verticalAlignment: VerticalAlignment.Top
                 Button {
-                    text: qsTr("HIGH")
-                    enabled: s_hivideo.length > 0
                     onClicked: {
                         itemroot.ListItem.view.viewvideo(s_hivideo)
                     }
+                    visible: ListItemData.s_hivideo && ListItemData.s_hivideo.length > 0
+                    text: qsTr("HQ")
                     preferredWidth: 1
                 }
                 Button {
-                    text: qsTr("LOW")
-                    enabled: s_lovideo.length > 0
                     onClicked: {
-                        itemroot.ListItem.view.viewvideo(s_lovideo)
+                        itemroot.ListItem.view.viewvideo(s_lovideo);
                     }
+                    visible: ListItemData.s_lovideo && ListItemData.s_lovideo.length > 0
+                    text: qsTr("LQ")
                     preferredWidth: 1
                 }
             }
         }
     }
-    Container {
-        //Status Data
-        layout: StackLayout {
-            orientation: LayoutOrientation.LeftToRight
-        }
-        topPadding: 20.0
-        bottomPadding: 20.0
-        Label {
-            text: qsTr("Funny")
-            textStyle.fontSize: FontSize.Small
-        }
-        Label {
-            text: d_voteup
-            textStyle.fontWeight: FontWeight.W100
-            textStyle.fontSize: FontSize.Small
-        }
-        Label {
-            text: qsTr("Comments")
-            textStyle.fontSize: FontSize.Small
-        }
-        Label {
-            text: d_comments
-            textStyle.fontWeight: FontWeight.W100
-            textStyle.fontSize: FontSize.Small
-        }
-    }
+
     Container {
         layout: StackLayout {
             orientation: LayoutOrientation.LeftToRight
@@ -225,6 +185,13 @@ Container {
                 supportTriggered(s_postid)
             }
         }
+        Label {
+            text: d_voteup
+            textStyle.fontWeight: FontWeight.W100
+            textStyle.fontSize: FontSize.Small
+            verticalAlignment: VerticalAlignment.Center
+            horizontalAlignment: HorizontalAlignment.Left
+        }
         ImageButton {
             defaultImageSource: "asset:///res/operation_unsupport_night.png"
             pressedImageSource: "asset:///res/operation_unsupport_press.png"
@@ -233,6 +200,13 @@ Container {
             onClicked: {
                 unsupportTriggered(s_postid)
             }
+        }
+        Label {
+            text: d_votedown
+            textStyle.fontWeight: FontWeight.W100
+            textStyle.fontSize: FontSize.Small
+            verticalAlignment: VerticalAlignment.Center
+            horizontalAlignment: HorizontalAlignment.Left
         }
         ImageButton {
             defaultImageSource: "asset:///res/operation_comments_night.png"
@@ -244,6 +218,13 @@ Container {
             onClicked: {
                 commentsTriggered(s_postid);
             }
+        }
+        Label {
+            text: d_comments
+            textStyle.fontWeight: FontWeight.W100
+            textStyle.fontSize: FontSize.Small
+            verticalAlignment: VerticalAlignment.Center
+            horizontalAlignment: HorizontalAlignment.Left
         }
     }
 }

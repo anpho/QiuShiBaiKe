@@ -17,6 +17,7 @@
 import bb.cascades 1.2
 
 TabbedPane {
+    id: tabroot
     attachedObjects: [
         Common {
             id: co
@@ -148,17 +149,29 @@ TabbedPane {
 
         },
         Tab {
+            id: tab_profile
             imageSource: "asset:///res/session_profile.png"
             ActionBar.placement: ActionBarPlacement.InOverflow
             title: qsTr("My Profile")
             delegate: Delegate {
-
+                Page {
+                    function refreshUserLoginState() {
+                        console.debug("[ OK ] Login Sheet closed.");
+                    }
+                    onCreationCompleted: {
+                        if (_app.getv('token', "").length == 0) {
+                            loginsheet.open();
+                            loginsheet.closed.connect(refreshUserLoginState)
+                        }
+                    }
+                    attachedObjects: [
+                        LoginSheet {
+                            id: loginsheet
+                        }
+                    ]
+                }
             }
             delegateActivationPolicy: TabDelegateActivationPolicy.ActivatedWhileSelected
-            Page {
-
-            }
-
         }
     ]
     sidebarState: SidebarState.Hidden

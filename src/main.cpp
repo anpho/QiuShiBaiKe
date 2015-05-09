@@ -23,6 +23,7 @@
 
 #include <Qt/qdeclarativedebug.h>
 #include "WebImageView.h"
+
 using namespace bb::cascades;
 using namespace bb::system;
 

@@ -19,6 +19,7 @@
 
 #include <QObject>
 
+#include <QSettings>
 namespace bb {
     namespace system {
       class InvokeManager;
@@ -36,6 +37,8 @@ public:
     ApplicationUIBase(bb::system::InvokeManager* invokeManager);
     virtual ~ApplicationUIBase();
     Q_INVOKABLE void invokeVideo(const QString &title, const QString &url);
+    Q_INVOKABLE static void setv(const QString &objectName, const QString &inputValue);
+    Q_INVOKABLE static QString getv(const QString &objectName, const QString &defaultValue);
 private slots:
     void onSystemLanguageChanged();
 protected:

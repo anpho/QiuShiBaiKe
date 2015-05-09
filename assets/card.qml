@@ -38,6 +38,6 @@ NavigationPane {
     }
 
     onCreationCompleted: {
-        ApplicationUI.memoChanged.connect(setMemo);
+        _app.memoChanged.connect(setMemo);
     }
 }
