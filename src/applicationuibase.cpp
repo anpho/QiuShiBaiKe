@@ -26,6 +26,7 @@ using namespace bb;
 ApplicationUIBase::ApplicationUIBase(InvokeManager *invokeManager) :
         m_pInvokeManager(invokeManager)
 {
+    networkmgr = new QNetworkAccessManager();
     m_translator = new QTranslator(this);
     m_pLocaleHandler = new LocaleHandler(this);
 
@@ -89,4 +90,49 @@ void ApplicationUIBase::setv(const QString &objectName, const QString &inputValu
 // A new value is saved to the application settings object.
     QSettings settings;
     settings.setValue(objectName, QVariant(inputValue));
+}
+
+void ApplicationUIBase::post(const QString endpoint, const QString content)
+{
+    qDebug() << "C++ part post: " << endpoint << "\n" << content;
+    QUrl edp(endpoint);
+    QNetworkRequest req(edp);
+    req.setRawHeader(QString("Qbtoken").toLatin1(), QString(getv("token", "")).toLatin1());
+    req.setRawHeader(QString("Model").toLatin1(), QString("BLACKBERRY 10 DEVICES").toLatin1());
+    req.setRawHeader(QString("Source").toLatin1(), QString("blackberry_2.0.15").toLatin1());
+
+    QHttpMultiPart *multipart = new QHttpMultiPart(QHttpMultiPart::FormDataType);
+    QHttpPart contentPart;
+    contentPart.setHeader(QNetworkRequest::ContentDispositionHeader,
+            QVariant("form-data; name=json"));
+    contentPart.setHeader(QNetworkRequest::ContentTypeHeader,
+            QVariant("text/plain; charset=unicode"));
+    contentPart.setBody(content.toUtf8());
+    multipart->append(contentPart);
+
+    reply = networkmgr->post(req, multipart);
+    multipart->setParent(reply);
+
+    connect(reply, SIGNAL(finished()), this, SLOT(onArticleCreated()));
+    connect(reply, SIGNAL(error(QNetworkReply::NetworkError)), this,
+            SLOT(onErrorOcurred(QNetworkReply::NetworkError)));
+}
+
+void ApplicationUIBase::onArticleCreated()
+{
+    QString data = (QString) reply->readAll();
+    qDebug() << data;
+    if (data.indexOf("article") > 0) {
+        emit posted(true, data);
+    } else {
+        emit posted(false, data);
+    }
+    disconnect(reply);
+    reply->deleteLater();
+}
+
+void ApplicationUIBase::onErrorOcurred(QNetworkReply::NetworkError error)
+{
+    qDebug() << error;
+    emit posted(false, QString(error));
 }

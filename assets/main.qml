@@ -15,14 +15,28 @@
  */
 
 import bb.cascades 1.2
-
+import bb.system 1.2
 TabbedPane {
     id: tabroot
+    property string token: _app.getv('token', '')
     attachedObjects: [
         Common {
             id: co
+        },
+        SystemToast {
+            id: toast_post_success
+            body: qsTr("Successfully posted, please wait for approval.")
         }
     ]
+    onCreationCompleted: {
+        _app.cardDone.connect(cardDoneHandle)
+    }
+    function cardDoneHandle(msg) {
+        console.log("card done message:" + msg)
+        if (msg == 'Success') {
+            toast_post_success.show()
+        }
+    }
     tabs: [
         Tab {
             ActionBar.placement: ActionBarPlacement.InOverflow
@@ -42,30 +56,30 @@ TabbedPane {
                                 imageSource: "asset:///res/submit.png"
                                 ActionBar.placement: ActionBarPlacement.OnBar
                                 title: qsTr("Submit")
+                                onTriggered: {
+                                    _app.invokeCard("");
+                                }
                             }
                         ]
+
                         Container {
                             SegmentedControl {
                                 options: [
                                     Option {
                                         id: s_hot
                                         text: qsTr("Hot")
-                                        value: "http://m2.qiushibaike.com/article/list/suggest"
                                     },
                                     Option {
                                         id: s_video
                                         text: qsTr("Video")
-                                        value: "http://m2.qiushibaike.com/article/list/video"
                                     },
                                     Option {
                                         id: s_image
                                         text: qsTr("Image")
-                                        value: "http://m2.qiushibaike.com/article/list/imgrank"
                                     },
                                     Option {
                                         id: s_text
                                         text: qsTr("Text")
-                                        value: "http://m2.qiushibaike.com/article/list/text"
                                     }
                                 ]
                                 verticalAlignment: VerticalAlignment.Center
@@ -111,7 +125,6 @@ TabbedPane {
                                 }
                                 sourceComponent: txtview
                             }
-
                         }
                     }
                 }
@@ -120,58 +133,199 @@ TabbedPane {
             title: qsTr("Browse")
         },
         Tab {
-            imageSource: "asset:///res/ic_message_select.png"
+            imageSource: "asset:///res/ic_launcher.png"
+            title: qsTr("Sticky Posts")
+            delegateActivationPolicy: TabDelegateActivationPolicy.ActivateImmediately
             delegate: Delegate {
-
+                Page {
+                    Container {
+                        SegmentedControl {
+                            options: [
+                                Option {
+                                    id: s_month
+                                    text: qsTr("Month")
+                                },
+                                Option {
+                                    id: s_week
+                                    text: qsTr("Week")
+                                },
+                                Option {
+                                    id: s_day
+                                    text: qsTr("Day")
+                                }
+                            ]
+                        }
+                        ControlDelegate {
+                            delegateActive: s_month.selected
+                            attachedObjects: ComponentDefinition {
+                                id: monthview
+                                content: PageView {
+                                    baseurl: co.u_month
+                                }
+                            }
+                            sourceComponent: monthview
+                        }
+                        ControlDelegate {
+                            delegateActive: s_week.selected
+                            attachedObjects: ComponentDefinition {
+                                id: weekview
+                                content: PageView {
+                                    baseurl: co.u_weekrank
+                                }
+                            }
+                            sourceComponent: weekview
+                        }
+                        ControlDelegate {
+                            delegateActive: s_day.selected
+                            attachedObjects: ComponentDefinition {
+                                id: dayview
+                                content: PageView {
+                                    baseurl: co.u_dayrank
+                                }
+                            }
+                            sourceComponent: dayview
+                        }
+                    }
+                }
             }
-            delegateActivationPolicy: TabDelegateActivationPolicy.ActivatedWhileSelected
-            title: qsTr("Messages")
-            ActionBar.placement: ActionBarPlacement.InOverflow
-            Page {
 
-            }
         },
         Tab {
-            imageSource: "asset:///res/ic_nearby_select.png"
-            title: qsTr("Nearby")
-            ActionBar.placement: ActionBarPlacement.InOverflow
+            imageSource: "asset:///res/ic_message_select.png"
             delegate: Delegate {
+                Page {
+                    Container {
+                        layout: DockLayout {
 
-            }
-            delegateActivationPolicy: TabDelegateActivationPolicy.ActivatedWhileSelected
-            Page {
+                        }
+                        verticalAlignment: VerticalAlignment.Fill
+                        horizontalAlignment: HorizontalAlignment.Fill
+                        Label {
+                            text: qsTr("Not implemented yet.")
+                            verticalAlignment: VerticalAlignment.Center
+                            horizontalAlignment: HorizontalAlignment.Center
 
+                        }
+                    }
+                }
             }
+            delegateActivationPolicy: TabDelegateActivationPolicy.ActivateImmediately
+            title: qsTr("Messages")
+            ActionBar.placement: ActionBarPlacement.InOverflow
+
         },
         Tab {
             imageSource: "asset:///res/evaluate_face_l0.png"
             title: qsTr("Review")
+            enabled: token.length > 0
+            delegate: Delegate {
+                Page {
+                    actionBarAutoHideBehavior: ActionBarAutoHideBehavior.Disabled
+                    actionBarVisibility: ChromeVisibility.Visible
+                    actions: [
+                        ActionItem {
+                            imageSource: "asset:///icon/yes.png"
+                            title: qsTr("Yes!")
+                            ActionBar.placement: ActionBarPlacement.OnBar
+                        },
+                        ActionItem {
+                            title: qsTr("No")
+                            imageSource: "asset:///icon/no.png"
+                            ActionBar.placement: ActionBarPlacement.OnBar
+                        },
+                        ActionItem {
+                            imageSource: "asset:///icon/right.png"
+                            title: qsTr("Pass")
+                            ActionBar.placement: ActionBarPlacement.OnBar
 
+                        }
+                    ]
+                    Container {
+                        verticalAlignment: VerticalAlignment.Fill
+                        horizontalAlignment: HorizontalAlignment.Fill
+                        layout: DockLayout {
+
+                        }
+                        Label {
+                            verticalAlignment: VerticalAlignment.Center
+                            horizontalAlignment: HorizontalAlignment.Center
+                            text: qsTr("Not implemented yet.")
+
+                        }
+                    }
+                }
+            }
+            delegateActivationPolicy: TabDelegateActivationPolicy.ActivateImmediately
         },
         Tab {
             id: tab_profile
             imageSource: "asset:///res/session_profile.png"
             ActionBar.placement: ActionBarPlacement.InOverflow
-            title: qsTr("My Profile")
+            title: qsTr("My Posts")
             delegate: Delegate {
                 Page {
                     function refreshUserLoginState() {
                         console.debug("[ OK ] Login Sheet closed.");
+                        token = _app.getv('token', '');
                     }
                     onCreationCompleted: {
-                        if (_app.getv('token', "").length == 0) {
-                            loginsheet.open();
+                        if (token.length == 0) {
+                            var loginsheet = Qt.createComponent("LoginSheet.qml").createObject(this);
                             loginsheet.closed.connect(refreshUserLoginState)
+                            loginsheet.open();
                         }
                     }
-                    attachedObjects: [
-                        LoginSheet {
-                            id: loginsheet
+                    Container {
+                        SegmentedControl {
+                            options: [
+                                Option {
+                                    id: op_my_posts
+                                    text: qsTr("My Posts")
+                                },
+                                Option {
+                                    id: op_my_fav
+                                    text: qsTr("My Favourites")
+                                },
+                                Option {
+                                    id: op_my_attendence
+                                    text: qsTr("My Participates")
+                                }
+                            ]
                         }
-                    ]
+                        ControlDelegate {
+                            delegateActive: op_my_posts.selected
+                            attachedObjects: ComponentDefinition {
+                                id: mypostsview
+                                content: PageView {
+                                    baseurl: co.u_my_posts
+                                }
+                            }
+                            sourceComponent: mypostsview
+                        }
+                        ControlDelegate {
+                            delegateActive: op_my_fav.selected
+                            attachedObjects: ComponentDefinition {
+                                id: myfavview
+                                content: PageView {
+                                    baseurl: co.u_my_fav
+                                }
+                            }
+                            sourceComponent: myfavview
+                        }
+                        ControlDelegate {
+                            delegateActive: op_my_attendence.selected
+                            attachedObjects: ComponentDefinition {
+                                id: myattview
+                                content: PageView {
+                                    baseurl: co.u_my_part
+                                }
+                            }
+                            sourceComponent: myattview
+                        }
+                    }
                 }
             }
-            delegateActivationPolicy: TabDelegateActivationPolicy.ActivatedWhileSelected
+            delegateActivationPolicy: TabDelegateActivationPolicy.ActivateImmediately
         }
     ]
     sidebarState: SidebarState.Hidden

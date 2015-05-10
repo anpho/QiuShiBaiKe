@@ -25,23 +25,23 @@ using namespace bb::cascades;
 using namespace bb::system;
 
 CardUI::CardUI(bb::system::InvokeManager* invokeManager) :
-                ApplicationUIBase(invokeManager)
+        ApplicationUIBase(invokeManager)
 {
     // 加载card.qml
     QmlDocument *qml = QmlDocument::create("qrc:/assets/card.qml").parent(this);
-
+    invokemgr = invokeManager;
     // 注入
     qml->setContextProperty("_app", this);
 
     AbstractPane *root = qml->createRootObject<AbstractPane>();
     if (root) {
         // 连接 "invoked" 信号来接收invoke请求
-        connect(m_pInvokeManager, SIGNAL(invoked(const bb::system::InvokeRequest&)),
-                this, SLOT(onInvoked(const bb::system::InvokeRequest&)));
+        connect(m_pInvokeManager, SIGNAL(invoked(const bb::system::InvokeRequest&)), this,
+                SLOT(onInvoked(const bb::system::InvokeRequest&)));
 
         // 连接 "cardPooled" 信号来接收进入缓存池的请求
-        connect(m_pInvokeManager, SIGNAL(cardPooled(const bb::system::CardDoneMessage&)),
-                this, SLOT(cardPooled(const bb::system::CardDoneMessage&)));
+        connect(m_pInvokeManager, SIGNAL(cardPooled(const bb::system::CardDoneMessage&)), this,
+                SLOT(cardPooled(const bb::system::CardDoneMessage&)));
 
         // 显示场景
         Application::instance()->setScene(root);
@@ -69,7 +69,8 @@ void CardUI::onInvoked(const bb::system::InvokeRequest& request)
 
     QString memo = QString::fromUtf8(request.data());
 
-    qDebug() << "Source: (groupid: " << source.groupId() << ",installid: " << source.installId() << ")";
+    qDebug() << "Source: (groupid: " << source.groupId() << ",installid: " << source.installId()
+            << ")";
     qDebug() << "Target:" << request.target();
     qDebug() << "Action:" << request.action();
     qDebug() << "Mime:" << request.mimeType();
@@ -79,3 +80,13 @@ void CardUI::onInvoked(const bb::system::InvokeRequest& request)
     emit memoChanged(memo);
 }
 
+void CardUI::requestQuit()
+{
+    CardDoneMessage message;
+    message.setData(tr("Card: I am done. Yay!"));
+    message.setDataType("text/plain");
+    message.setReason(tr("Success"));
+
+    // Send the message
+    invokemgr->sendCardDone(message);
+}

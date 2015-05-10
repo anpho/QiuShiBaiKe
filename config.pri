@@ -102,8 +102,13 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/emoji/qb_39.png) \
         $$quote($$BASEDIR/assets/icon/add.png) \
         $$quote($$BASEDIR/assets/icon/alert.png) \
+        $$quote($$BASEDIR/assets/icon/anonymous.png) \
+        $$quote($$BASEDIR/assets/icon/anonymous2.png) \
+        $$quote($$BASEDIR/assets/icon/anonymous3.png) \
         $$quote($$BASEDIR/assets/icon/attention.png) \
         $$quote($$BASEDIR/assets/icon/cam.png) \
+        $$quote($$BASEDIR/assets/icon/cam2.png) \
+        $$quote($$BASEDIR/assets/icon/cam3.png) \
         $$quote($$BASEDIR/assets/icon/chats.png) \
         $$quote($$BASEDIR/assets/icon/comment.png) \
         $$quote($$BASEDIR/assets/icon/copy.png) \
@@ -117,9 +122,15 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/icon/left.png) \
         $$quote($$BASEDIR/assets/icon/like.png) \
         $$quote($$BASEDIR/assets/icon/mail.png) \
+        $$quote($$BASEDIR/assets/icon/movie.png) \
+        $$quote($$BASEDIR/assets/icon/movie2.png) \
+        $$quote($$BASEDIR/assets/icon/movie3.png) \
         $$quote($$BASEDIR/assets/icon/no.png) \
         $$quote($$BASEDIR/assets/icon/notify.png) \
         $$quote($$BASEDIR/assets/icon/paste.png) \
+        $$quote($$BASEDIR/assets/icon/photo.png) \
+        $$quote($$BASEDIR/assets/icon/photo2.png) \
+        $$quote($$BASEDIR/assets/icon/photo3.png) \
         $$quote($$BASEDIR/assets/icon/plugins.png) \
         $$quote($$BASEDIR/assets/icon/profile.png) \
         $$quote($$BASEDIR/assets/icon/report.png) \
@@ -225,9 +236,6 @@ config_pri_source_group1 {
         $$quote($$BASEDIR/src/cardui.hpp) \
         $$quote($$BASEDIR/src/objects/qiu.hpp)
 }
-
-INCLUDEPATH += $$quote($$BASEDIR/src/objects) \
-    $$quote($$BASEDIR/src)
 
 CONFIG += precompile_header
 

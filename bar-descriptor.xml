@@ -66,9 +66,15 @@
     <icon>
        <image>ic_launcher.png</image>
     </icon>
+    <splashScreens>
+       <image>1440x1440.png</image>
+       <image>720x1280.png</image>
+       <image>720x720.png</image>
+       <image>768x1280.png</image>
+    </splashScreens>
     <authorId>gYAAgMy-I-SFJtVvioZxVXYQjhA</authorId>
     <author>anpho</author>
-    <buildId>509</buildId>
+    <buildId>510</buildId>
     <configuration name="Device-Debug">
         <platformArchitecture>armle-v7</platformArchitecture>
         <asset entryPointId="qsbk" path="arm/o.le-v7-g/qsbk"
@@ -133,6 +139,10 @@
         <include name="*.qm" />
     </asset>
     <asset path="ic_launcher.png">ic_launcher.png</asset>
+    <asset path="1440x1440.png">1440x1440.png</asset>
+    <asset path="720x1280.png">720x1280.png</asset>
+    <asset path="720x720.png">720x720.png</asset>
+    <asset path="768x1280.png">768x1280.png</asset>
 
     <!-- The permissions requested by your application. -->
     <permission system="true">run_native</permission>

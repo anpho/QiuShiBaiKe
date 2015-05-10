@@ -289,8 +289,15 @@ Page {
                     horizontalAlignment: HorizontalAlignment.Left
                     verticalAlignment: VerticalAlignment.Center
                     id: comment_textarea
+                    onTextChanging: {
+                        if (text.length > 0) {
+                            button_send.visible = true;
+                        }
+                    }
                 }
                 Button {
+                    id: button_send
+                    visible: false
                     preferredWidth: 1
                     text: qsTr("Send")
                     verticalAlignment: VerticalAlignment.Center
@@ -303,6 +310,7 @@ Page {
                                 //不能发空评论
                                 return;
                             }
+                            button_send.visible = false;
                             co.comment(s_postid, comment_textarea.text, false, function(b, r) {
                                     if (b) {
                                         toast_comment_posted.show();
@@ -323,9 +331,10 @@ Page {
                                     //不能发空评论
                                     return;
                                 }
+                                button_send.visible = false
                                 co.comment(s_postid, comment_textarea.text, true, function(b, r) {
                                         if (b) {
-                                            toast_comment_posted.show();
+                                            toast_comment_posted_ex.show();
                                             comment_textarea.text = ""
                                         } else {
                                             toast_other.body = r
@@ -341,6 +350,10 @@ Page {
                             body: qsTr("Comment Posted.")
                         },
                         SystemToast {
+                            id: toast_comment_posted_ex
+                            body: qsTr("Comment Posted Anonymously")
+                        },
+                        SystemToast {
                             id: toast_other
                         }
                     ]
@@ -349,6 +362,7 @@ Page {
         }
         ActivityIndicator {
             running: true
+            visible: loading
             verticalAlignment: VerticalAlignment.Center
             horizontalAlignment: HorizontalAlignment.Center
         }

@@ -29,7 +29,7 @@ ApplicationUI::ApplicationUI(InvokeManager *invokeManager) :
         ApplicationUIBase(invokeManager)
 {
     bool res = connect(m_pInvokeManager, SIGNAL(childCardDone(const bb::system::CardDoneMessage&)),
-                  this, SLOT(cardDone(const bb::system::CardDoneMessage&)));
+            this, SLOT(cardDone(const bb::system::CardDoneMessage&)));
     Q_ASSERT(res);
 
     // 注明res未被使用
@@ -58,4 +58,6 @@ void ApplicationUI::invokeCard(const QString &memo)
 void ApplicationUI::cardDone(const bb::system::CardDoneMessage &doneMessage)
 {
     qDebug() << "cardDone: " << doneMessage.reason();
+    emit cardDone(doneMessage.reason());
 }
+

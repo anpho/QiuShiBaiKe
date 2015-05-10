@@ -18,7 +18,8 @@
 #define APPLICATIONUIBASE_H_
 
 #include <QObject>
-
+#include <QNetworkReply>
+#include <QString>
 #include <QSettings>
 namespace bb {
     namespace system {
@@ -39,13 +40,19 @@ public:
     Q_INVOKABLE void invokeVideo(const QString &title, const QString &url);
     Q_INVOKABLE static void setv(const QString &objectName, const QString &inputValue);
     Q_INVOKABLE static QString getv(const QString &objectName, const QString &defaultValue);
+    Q_SIGNAL void posted(bool success,QString resp);
+    Q_INVOKABLE void post(const QString endpoint, const QString content);
 private slots:
     void onSystemLanguageChanged();
+    void onArticleCreated();
+    void onErrorOcurred(QNetworkReply::NetworkError error);
 protected:
     bb::system::InvokeManager* m_pInvokeManager;
 private:
     QTranslator* m_translator;
     bb::cascades::LocaleHandler* m_pLocaleHandler;
+    QNetworkReply *reply;
+    QNetworkAccessManager *networkmgr;
 };
 
 #endif /* APPLICATIONUIBASE_H_ */

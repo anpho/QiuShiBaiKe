@@ -30,6 +30,11 @@ QtObject {
             request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         }
         request.setRequestHeader("Model", "BLACKBERRY 10 DEVICES");
+//        request.setRequestHeader("Source", "BLACKBERRY_2.0.15");
+        var token = _app.getv('token', '');
+        if (token.length > 0) {
+            request.setRequestHeader("Qbtoken", token);
+        }
         if (customheader) {
             for (var i = 0; i < customheader.length; i ++) {
                 request.setRequestHeader(customheader[i].k, customheader[i].v);
@@ -42,8 +47,8 @@ QtObject {
         }
     }
 
-    property string uid: Qt.md5("anpho.blackberry10.qiushibaike")
-    property string uuid: "IMEI_" + uid
+    property string uid: Qt.md5("anpho.blackberry10.qiushibaike").toString()
+    property string uuid: "IMEI_" + Qt.md5("anpho.blackberry10.qiushibaike").toString()
     onCreationCompleted: {
         console.log("[QML]Common.qml loaded.")
     }
@@ -53,6 +58,16 @@ QtObject {
     property string u_text: "http://m2.qiushibaike.com/article/list/text?"
     property string u_image: "http://m2.qiushibaike.com/article/list/imgrank?"
     property string u_latest: "http://m2.qiushibaike.com/article/list/latest?"
+    property string u_mainpage :"http://m2.qiushibaike.com/mainpage/list?"
+        
+    property string u_my_posts:"http://m2.qiushibaike.com/user/my/articles?"
+    property string u_my_fav:"http://m2.qiushibaike.com/collect/list?"
+    property string u_my_part :"http://m2.qiushibaike.com/user/my/participate?"
+    
+    property string u_dayrank :"http://m2.qiushibaike.com/article/list/day?"
+    property string u_weekrank :"http://m2.qiushibaike.com/article/list/week?"
+    property string u_month:"http://m2.qiushibaike.com/article/list/month?"
+    
     property string u_comments: "http://m2.qiushibaike.com/article/%aid%/comments?"
     property string param_login: '{"login":"%username%","pass":"%password%"}'
     //登录
@@ -82,9 +97,13 @@ QtObject {
             callback(false, qsTr("Need Login."));
             return;
         }
-        var param = param_comment.replace("%c%", comment).replace("%b%", anonymous);
+        var p = {
+        };
+        p.content = comment;
+        p.anonymous = anonymous;
+        p = JSON.stringify(p);
         var endpoint = u_comment.replace("%aid%", aid);
-        ajax("POST", endpoint, [ param ], function(r) {
+        ajax("POST", endpoint, [ p ], function(r) {
                 if (r['success']) {
                     var result = JSON.parse(r['data']);
                     if (result.err > 0) {
@@ -97,9 +116,46 @@ QtObject {
                 } else {
                     callback(false, qsTr("Network Error."))
                 }
-            }, [ {
-                    'k': "Qbtoken",
-                    'v': token
-                } ], true)
+            }, [], true)
+    }
+
+    // 发新糗事
+    property string u_createArticle: "http://m2.qiushibaike.com/article/create?imgsrc=-1&from_topic=0"
+
+    function genCreateArticleParams(callback, content, anonymous, displayGeo, lat, lon, city, district, imgsrc, imagetype, imagewidth, imageheight, fromtopic) {
+        var token = _app.getv('token', '');
+        if (token.length == 0) {
+            callback(false, qsTr("Need Login."));
+            return;
+        }
+        // 生成参数列表
+        var p = {
+        };
+        p.content = content;
+        p.anonymous = anonymous;
+        if (displayGeo) {
+            p.display = 1;
+            p.city = city;
+            p.district = district;
+            p.latitude = lat;
+            p.longitude = lon;
+        }
+        if (imgsrc) {
+            p.image_type = imagetype;
+            p.image_width = imagewidth;
+            p.image_height = imageheight;
+        }
+        p = JSON.stringify(p);
+        console.debug(p);
+        //生成URL
+        var endpoint = u_createArticle;
+        if (imgsrc) {
+            endpoint.replace("-1", imgsrc);
+        }
+        if (fromtopic) {
+            endpoint.replace("topic=0", "topic=" + fromtopic)
+        }
+
+        callback(endpoint, p)
     }
 }

@@ -99,6 +99,11 @@ ListView {
                         lastArticleID = qiulistdata.items[qiulistdata.count - 1].id;
                         page ++;
                         console.log("[DataModel]Last Article Id is: " + lastArticleID);
+                    } else if (! qiulistdata.count && qiulistdata.total > 0) {
+                        //我的收藏 和 我的参与 返回数据里没有count，但有total。
+                        adm.append(qiulistdata.items)
+                        lastArticleID = qiulistdata.items[qiulistdata.count - 1].id;
+                        console.log("[DataModel]Last Article Id is: " + lastArticleID);
                     } else {
                         toast_no_data_recv.show();
                     }
@@ -108,7 +113,7 @@ ListView {
                 loadingInProgress = false;
             }, [ {
                     'k': 'Uuid',
-                    'V': co.uuid
+                    'v': co.uuid
                 } ], false)
     }
     listItemComponents: ListItemComponent {

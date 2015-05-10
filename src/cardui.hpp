@@ -33,12 +33,15 @@ class CardUI: public ApplicationUIBase
     Q_OBJECT
 public:
     CardUI(bb::system::InvokeManager* invokeManager);
+    Q_INVOKABLE void requestQuit();
     virtual ~CardUI() {}
 signals:
     void memoChanged(const QString &memo);
 private slots:
     void onInvoked(const bb::system::InvokeRequest& request);
     void cardPooled(const bb::system::CardDoneMessage& doneMessage);
+private :
+    bb::system::InvokeManager* invokemgr;
 };
 
 #endif /* CardUI_HPP_ */

@@ -35,7 +35,8 @@ class ApplicationUI: public ApplicationUIBase
 Q_OBJECT
 public:
     ApplicationUI(bb::system::InvokeManager* invokeManager);
-    virtual ~ApplicationUI() {}
+    virtual ~ApplicationUI() {};
+    Q_SIGNAL void cardDone(QString message);
 public:
     Q_INVOKABLE void invokeCard(const QString &memo);
 private slots:
