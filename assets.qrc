@@ -10,5 +10,7 @@
 <file>assets/PostItem.qml</file>
 <file>assets/LoginSheet.qml</file>
 <file>assets/VideoViewer.qml</file>
+<file>assets/UserArticlesView.qml</file>
+<file>assets/settings.qml</file>
 </qresource>
 </RCC>

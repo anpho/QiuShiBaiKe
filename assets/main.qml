@@ -18,7 +18,60 @@ import bb.cascades 1.2
 import bb.system 1.2
 TabbedPane {
     id: tabroot
+    Menu.definition: MenuDefinition {
+        settingsAction: SettingsActionItem {
+            onTriggered: {
+                // 因为不太好直接丢到一个nav pane里面，这里用sheet做settings
+                var settingssheet = Qt.createComponent("settings.qml").createObject(tabroot);
+                settingssheet.closed.connect(reloadsettings)
+                settingssheet.open();
+
+            }
+        }
+        helpAction: HelpActionItem {
+
+        }
+        actions: [
+            ActionItem {
+                title: loggedin ? qsTr("Logout") : qsTr("Login")
+                imageSource: "asset:///icon/ic_contact.png"
+                onTriggered: {
+                    if (loggedin) {
+                        //已经登录，清空登录数据
+                        _app.setv('token', "");
+                        _app.setv('login', "");
+                        _app.setv("userinfo", "");
+                        _app.setv("userarticles", "");
+                        tabroot.refreshUserLoginState();
+                        toast_menu_custom.body = qsTr("Logged out successfully.")
+                        toast_menu_custom.show();
+                    } else {
+                        //准备登录
+                        var loginsheet = Qt.createComponent("LoginSheet.qml").createObject(tabroot);
+                        loginsheet.closed.connect(refreshUserLoginState)
+                        loginsheet.open();
+                    }
+                }
+            },
+            ActionItem {
+                title: qsTr("Review App")
+                imageSource: "asset:///icon/ic_edit_bookmarks.png"
+                onTriggered: {
+                    Qt.openUrlExternally("appworld://content/46269897")
+                }
+            }
+        ]
+        attachedObjects: [
+            SystemToast {
+                id: toast_menu_custom
+            }
+        ]
+    }
     property string token: _app.getv('token', '')
+    property bool loggedin: token.length > 0
+    property int baseFontsize: parseInt(_app.getv('size', '8'))
+    property string lock: _app.getv('lock', '')
+    property bool unlocked: lock == "unlocked"
     attachedObjects: [
         Common {
             id: co
@@ -31,11 +84,20 @@ TabbedPane {
     onCreationCompleted: {
         _app.cardDone.connect(cardDoneHandle)
     }
+    function reloadsettings() {
+        baseFontsize = parseInt(_app.getv('size', '8'));
+        lock = _app.getv('lock', '')
+    }
     function cardDoneHandle(msg) {
+        refreshUserLoginState()
         console.log("card done message:" + msg)
         if (msg == 'Success') {
             toast_post_success.show()
         }
+    }
+    function refreshUserLoginState() {
+        console.debug("refreshUserLoginState");
+        token = _app.getv('token', '');
     }
     tabs: [
         Tab {
@@ -44,7 +106,7 @@ TabbedPane {
             delegate: Delegate {
                 active: true
                 NavigationPane {
-                    id: nav
+                    id: nav1
                     onPopTransitionEnded: {
                         page.destroy(1000)
                     }
@@ -61,35 +123,38 @@ TabbedPane {
                                 }
                             }
                         ]
-
+                        titleBar: TitleBar {
+                            kind: TitleBarKind.Segmented
+                            options: [
+                                Option {
+                                    id: s_hot
+                                    text: qsTr("Hot")
+                                },
+                                Option {
+                                    id: s_video
+                                    text: qsTr("Video")
+                                },
+                                Option {
+                                    id: s_image
+                                    text: qsTr("Image")
+                                },
+                                Option {
+                                    id: s_text
+                                    text: qsTr("Text")
+                                }
+                            ]
+                            appearance: TitleBarAppearance.Plain
+                            scrollBehavior: TitleBarScrollBehavior.Sticky
+                        }
                         Container {
-                            SegmentedControl {
-                                options: [
-                                    Option {
-                                        id: s_hot
-                                        text: qsTr("Hot")
-                                    },
-                                    Option {
-                                        id: s_video
-                                        text: qsTr("Video")
-                                    },
-                                    Option {
-                                        id: s_image
-                                        text: qsTr("Image")
-                                    },
-                                    Option {
-                                        id: s_text
-                                        text: qsTr("Text")
-                                    }
-                                ]
-                                verticalAlignment: VerticalAlignment.Center
-                            }
                             ControlDelegate {
                                 delegateActive: s_hot.selected
                                 attachedObjects: ComponentDefinition {
                                     id: hotview
                                     content: PageView {
                                         baseurl: co.u_suggest
+                                        navroot: nav1
+                                        basefontsize: baseFontsize
                                     }
                                 }
                                 sourceComponent: hotview
@@ -99,7 +164,9 @@ TabbedPane {
                                 attachedObjects: ComponentDefinition {
                                     id: videoview
                                     content: PageView {
+                                        basefontsize: baseFontsize
                                         baseurl: co.u_video
+                                        navroot: nav1
                                     }
                                 }
 
@@ -110,7 +177,9 @@ TabbedPane {
                                 attachedObjects: ComponentDefinition {
                                     id: imgview
                                     content: PageView {
+                                        basefontsize: baseFontsize
                                         baseurl: co.u_image
+                                        navroot: nav1
                                     }
                                 }
                                 sourceComponent: imgview
@@ -120,7 +189,9 @@ TabbedPane {
                                 attachedObjects: ComponentDefinition {
                                     id: txtview
                                     content: PageView {
+                                        basefontsize: baseFontsize
                                         baseurl: co.u_text
+                                        navroot: nav1
                                     }
                                 }
                                 sourceComponent: txtview
@@ -135,11 +206,16 @@ TabbedPane {
         Tab {
             imageSource: "asset:///res/ic_launcher.png"
             title: qsTr("Sticky Posts")
-            delegateActivationPolicy: TabDelegateActivationPolicy.ActivateImmediately
+            delegateActivationPolicy: TabDelegateActivationPolicy.ActivatedWhileSelected
             delegate: Delegate {
-                Page {
-                    Container {
-                        SegmentedControl {
+                NavigationPane {
+                    id: nav2
+                    onPopTransitionEnded: {
+                        page.destroy(1000)
+                    }
+                    Page {
+                        titleBar: TitleBar {
+                            kind: TitleBarKind.Segmented
                             options: [
                                 Option {
                                     id: s_month
@@ -154,36 +230,47 @@ TabbedPane {
                                     text: qsTr("Day")
                                 }
                             ]
+                            appearance: TitleBarAppearance.Plain
+                            scrollBehavior: TitleBarScrollBehavior.Sticky
                         }
-                        ControlDelegate {
-                            delegateActive: s_month.selected
-                            attachedObjects: ComponentDefinition {
-                                id: monthview
-                                content: PageView {
-                                    baseurl: co.u_month
+
+                        Container {
+                            ControlDelegate {
+                                delegateActive: s_month.selected
+                                attachedObjects: ComponentDefinition {
+                                    id: monthview
+                                    content: PageView {
+                                        basefontsize: baseFontsize
+                                        baseurl: co.u_month
+                                        navroot: nav2
+                                    }
                                 }
+                                sourceComponent: monthview
                             }
-                            sourceComponent: monthview
-                        }
-                        ControlDelegate {
-                            delegateActive: s_week.selected
-                            attachedObjects: ComponentDefinition {
-                                id: weekview
-                                content: PageView {
-                                    baseurl: co.u_weekrank
+                            ControlDelegate {
+                                delegateActive: s_week.selected
+                                attachedObjects: ComponentDefinition {
+                                    id: weekview
+                                    content: PageView {
+                                        basefontsize: baseFontsize
+                                        baseurl: co.u_weekrank
+                                        navroot: nav2
+                                    }
                                 }
+                                sourceComponent: weekview
                             }
-                            sourceComponent: weekview
-                        }
-                        ControlDelegate {
-                            delegateActive: s_day.selected
-                            attachedObjects: ComponentDefinition {
-                                id: dayview
-                                content: PageView {
-                                    baseurl: co.u_dayrank
+                            ControlDelegate {
+                                delegateActive: s_day.selected
+                                attachedObjects: ComponentDefinition {
+                                    id: dayview
+                                    content: PageView {
+                                        basefontsize: baseFontsize
+                                        baseurl: co.u_dayrank
+                                        navroot: nav2
+                                    }
                                 }
+                                sourceComponent: dayview
                             }
-                            sourceComponent: dayview
                         }
                     }
                 }
@@ -191,6 +278,7 @@ TabbedPane {
 
         },
         Tab {
+            enabled: token.length > 0
             imageSource: "asset:///res/ic_message_select.png"
             delegate: Delegate {
                 Page {
@@ -209,7 +297,7 @@ TabbedPane {
                     }
                 }
             }
-            delegateActivationPolicy: TabDelegateActivationPolicy.ActivateImmediately
+            delegateActivationPolicy: TabDelegateActivationPolicy.ActivatedWhileSelected
             title: qsTr("Messages")
             ActionBar.placement: ActionBarPlacement.InOverflow
 
@@ -230,7 +318,7 @@ TabbedPane {
                         },
                         ActionItem {
                             title: qsTr("No")
-                            imageSource: "asset:///icon/no.png"
+                            imageSource: "asset:///icon/wrong.png"
                             ActionBar.placement: ActionBarPlacement.OnBar
                         },
                         ActionItem {
@@ -255,28 +343,29 @@ TabbedPane {
                     }
                 }
             }
-            delegateActivationPolicy: TabDelegateActivationPolicy.ActivateImmediately
+            delegateActivationPolicy: TabDelegateActivationPolicy.ActivatedWhileSelected
         },
         Tab {
             id: tab_profile
             imageSource: "asset:///res/session_profile.png"
             ActionBar.placement: ActionBarPlacement.InOverflow
             title: qsTr("My Posts")
+            onTriggered: {
+                if (! loggedin) {
+                    var loginsheet = Qt.createComponent("LoginSheet.qml").createObject(tabroot);
+                    loginsheet.closed.connect(refreshUserLoginState)
+                    loginsheet.open();
+                }
+            }
             delegate: Delegate {
-                Page {
-                    function refreshUserLoginState() {
-                        console.debug("[ OK ] Login Sheet closed.");
-                        token = _app.getv('token', '');
+                NavigationPane {
+                    id: nav5
+                    onPopTransitionEnded: {
+                        page.destroy(1000)
                     }
-                    onCreationCompleted: {
-                        if (token.length == 0) {
-                            var loginsheet = Qt.createComponent("LoginSheet.qml").createObject(this);
-                            loginsheet.closed.connect(refreshUserLoginState)
-                            loginsheet.open();
-                        }
-                    }
-                    Container {
-                        SegmentedControl {
+                    Page {
+                        titleBar: TitleBar {
+                            kind: TitleBarKind.Segmented
                             options: [
                                 Option {
                                     id: op_my_posts
@@ -292,41 +381,49 @@ TabbedPane {
                                 }
                             ]
                         }
-                        ControlDelegate {
-                            delegateActive: op_my_posts.selected
-                            attachedObjects: ComponentDefinition {
-                                id: mypostsview
-                                content: PageView {
-                                    baseurl: co.u_my_posts
+                        Container {
+                            ControlDelegate {
+                                delegateActive: op_my_posts.selected
+                                attachedObjects: ComponentDefinition {
+                                    id: mypostsview
+                                    content: PageView {
+                                        basefontsize: baseFontsize
+                                        baseurl: co.u_my_posts
+                                        navroot: nav5
+                                        type: co.pageview_myarticles
+                                    }
                                 }
+                                sourceComponent: mypostsview
                             }
-                            sourceComponent: mypostsview
-                        }
-                        ControlDelegate {
-                            delegateActive: op_my_fav.selected
-                            attachedObjects: ComponentDefinition {
-                                id: myfavview
-                                content: PageView {
-                                    baseurl: co.u_my_fav
+                            ControlDelegate {
+                                delegateActive: op_my_fav.selected
+                                attachedObjects: ComponentDefinition {
+                                    id: myfavview
+                                    content: PageView {
+                                        basefontsize: baseFontsize
+                                        baseurl: co.u_my_fav
+                                        navroot: nav5
+                                    }
                                 }
+                                sourceComponent: myfavview
                             }
-                            sourceComponent: myfavview
-                        }
-                        ControlDelegate {
-                            delegateActive: op_my_attendence.selected
-                            attachedObjects: ComponentDefinition {
-                                id: myattview
-                                content: PageView {
-                                    baseurl: co.u_my_part
+                            ControlDelegate {
+                                delegateActive: op_my_attendence.selected
+                                attachedObjects: ComponentDefinition {
+                                    id: myattview
+                                    content: PageView {
+                                        basefontsize: baseFontsize
+                                        baseurl: co.u_my_part
+                                        navroot: nav5
+                                    }
                                 }
+                                sourceComponent: myattview
                             }
-                            sourceComponent: myattview
                         }
                     }
                 }
             }
-            delegateActivationPolicy: TabDelegateActivationPolicy.ActivateImmediately
+            delegateActivationPolicy: TabDelegateActivationPolicy.ActivatedWhileSelected
         }
     ]
-    sidebarState: SidebarState.Hidden
 }

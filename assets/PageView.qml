@@ -3,6 +3,10 @@ import bb.system 1.2
 ListView {
     id: listviewroot
     property bool loadingInProgress
+    property variant navroot
+    property int basefontsize
+    property int type: co.pageview_mainlist
+
     property string baseurl
     property int page: 1
     property int total
@@ -20,9 +24,6 @@ ListView {
     function viewvideo(xurl) {
         _app.invokeVideo("", xurl);
         //显示视频
-        //        var viewer = vviewer.createObject(nav);
-        //        viewer.play(xurl);
-        //        nav.push(viewer)
     }
     function refresh() {
         //恢复成初始状态
@@ -37,6 +38,9 @@ ListView {
             body: qsTr("No Data Received.")
             id: toast_no_data_recv
         },
+        SystemToast {
+            id: toast_custom
+        },
         ListScrollStateHandler {
             onAtEndChanged: {
                 if (atEnd) {
@@ -50,13 +54,15 @@ ListView {
         }
     ]
     function viewPost(meta) {
-        var iv = itemview.createObject(nav);
+        var iv = itemview.createObject(navroot);
+        iv.basefont = basefontsize;
         iv.s_postid = meta.s_postid
         iv.d_date = meta.d_date
         iv.s_tag = meta.s_tag
         iv.s_state = meta.s_state
         iv.s_usericon = meta.s_usericon
         iv.s_userid = meta.s_userid
+        iv.type = meta.type
         iv.s_username = meta.s_username
         iv.s_imageurl = meta.s_imageurl
         iv.s_imagesize = meta.s_imagesize
@@ -69,7 +75,7 @@ ListView {
         iv.s_lovideo = meta.s_lovideo
         iv.d_loop = meta.d_loop
         iv.s_picurl = meta.s_picurl
-        nav.push(iv);
+        navroot.push(iv);
     }
     onCreationCompleted: {
         //        loaddata()
@@ -105,7 +111,12 @@ ListView {
                         lastArticleID = qiulistdata.items[qiulistdata.count - 1].id;
                         console.log("[DataModel]Last Article Id is: " + lastArticleID);
                     } else {
-                        toast_no_data_recv.show();
+                        if (qiulistdata['err'] > 0) {
+                            toast_custom.body = qiulistdata['err_msg']
+                            toast_custom.show()
+                        } else {
+                            toast_no_data_recv.show();
+                        }
                     }
                 } else {
                     toast_no_data_recv.show();
@@ -116,10 +127,44 @@ ListView {
                     'v': co.uuid
                 } ], false)
     }
+    property string userid: _app.getv('userid', '')
+    function requestDelete(postid) {
+        co.requestDelete(function(b, r) {
+                if (b) {
+                    toast_custom.body = postid + "  " + qsTr("successfully deleted.")
+                } else {
+                    toast_custom.body = r;
+                }
+                toast_custom.show();
+            }, postid);
+    }
+    function requestUserArticleView(uid, uname) {
+        var uav = Qt.createComponent("UserArticlesView.qml").createObject(navroot);
+        uav.userid = uid;
+        uav.username = uname;
+        uav.navigationPaneId = navroot;
+        uav.load();
+        navroot.push(uav);
+    }
+    function requestVoteUp(pid) {
+        co.vote(function(b, d) {
+                console.log(b + d)
+                //TODO: vote logic completion.
+            }, pid, true);
+    }
+    function requestVoteDown(pid) {
+        co.vote(function(b, d) {
+                console.log(b + d)
+            }, pid, false);
+    }
+    property alias ptype: listviewroot.type
     listItemComponents: ListItemComponent {
         type: ''
         PostItem {
             id: itemroot
+            iam: itemroot.ListItem.view.userid
+            type: itemroot.ListItem.view.ptype
+            fontsize : itemroot.ListItem.view.basefontsize
             s_postid: ListItemData.id
             d_date: ListItemData.published_at
             s_tag: ListItemData.tag
@@ -165,7 +210,20 @@ ListView {
                 iv.s_lovideo = itemroot.s_lovideo
                 iv.d_loop = itemroot.d_loop
                 iv.s_picurl = itemroot.s_picurl
+                iv.type = itemroot.ListItem.view.ptype;
                 itemroot.ListItem.view.viewPost(iv);
+            }
+            onRequestDelete: {
+                itemroot.ListItem.view.requestDelete(postid);
+            }
+            onUserprofileTriggered: {
+                itemroot.ListItem.view.requestUserArticleView(userid, username);
+            }
+            onSupportTriggered: {
+                itemroot.ListItem.view.requestVoteUp(postid);
+            }
+            onUnsupportTriggered: {
+                itemroot.ListItem.view.requestVoteDown(postid);
             }
         }
 

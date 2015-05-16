@@ -7,7 +7,7 @@ Sheet {
             id: co
         }
     ]
-    peekEnabled: false
+    peekEnabled: true
     Page {
         titleBar: TitleBar {
             dismissAction: ActionItem {
@@ -69,8 +69,9 @@ Sheet {
                                         error_text.text = data;
                                     } else {
                                         error_text.text = ""; //清空出错信息
-                                        _app.setv('token',data.token);
+                                        _app.setv('token', data.token);
                                         _app.setv('login', data.user.login);
+                                        _app.setv('userid', data.user.id);
                                         _app.setv("userinfo", JSON.stringify(data.user));
                                         _app.setv("userarticles", JSON.stringify(data.userdata.articles));
                                         sheetroot.close();

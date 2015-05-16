@@ -29,6 +29,11 @@ using namespace bb::system;
 
 Q_DECL_EXPORT int main(int argc, char **argv)
 {
+    QString theme = ApplicationUIBase::getv("use_dark_theme", "");
+    if (theme.length() > 0) {
+        qputenv("CASCADES_THEME", theme.toUtf8());
+    }
+
     Application app(argc, argv);
 
     InvokeManager invokeManager;

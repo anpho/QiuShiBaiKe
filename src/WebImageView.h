@@ -47,6 +47,7 @@ private:
 signals:
     void urlChanged();
     void loadingChanged();
+    void loadComplete();
 };
 
 #endif /* WEBIMAGEVIEW_H_ */

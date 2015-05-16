@@ -42,6 +42,7 @@ public:
     Q_INVOKABLE static QString getv(const QString &objectName, const QString &defaultValue);
     Q_SIGNAL void posted(bool success,QString resp);
     Q_INVOKABLE void post(const QString endpoint, const QString content);
+    Q_INVOKABLE QString genCodeByKey(const QString key);
 private slots:
     void onSystemLanguageChanged();
     void onArticleCreated();
@@ -53,6 +54,7 @@ private:
     bb::cascades::LocaleHandler* m_pLocaleHandler;
     QNetworkReply *reply;
     QNetworkAccessManager *networkmgr;
+    QString md5(const QString key);
 };
 
 #endif /* APPLICATIONUIBASE_H_ */

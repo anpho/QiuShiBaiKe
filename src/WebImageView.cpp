@@ -81,6 +81,7 @@ double WebImageView::loading() const {
 }
 
 void WebImageView::imageLoaded() {
+    emit loadComplete();
     // Get reply
     QNetworkReply * reply = qobject_cast<QNetworkReply*>(sender());
 

@@ -19,6 +19,7 @@
 #include <bb/cascades/LocaleHandler>
 #include <bb/system/InvokeManager>
 #include <bb/PpsObject>
+#include <QCryptographicHash>
 using namespace bb::cascades;
 using namespace bb::system;
 using namespace bb;
@@ -135,4 +136,23 @@ void ApplicationUIBase::onErrorOcurred(QNetworkReply::NetworkError error)
 {
     qDebug() << error;
     emit posted(false, QString(error));
+}
+
+QString ApplicationUIBase::genCodeByKey(const QString key)
+{
+    QString source = md5(key);
+    QString result = source.mid(19, 8) + source.mid(19, 5);
+    QString code = md5(result).mid(5, 4);
+    return code;
+}
+QString ApplicationUIBase::md5(const QString key)
+{
+    QString md5;
+    QByteArray ba, bb;
+    QCryptographicHash md(QCryptographicHash::Md5);
+    ba.append(key);
+    md.addData(ba);
+    bb = md.result();
+    md5.append(bb.toHex());
+    return md5;
 }

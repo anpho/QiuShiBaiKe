@@ -2,6 +2,8 @@ import bb.cascades 1.2
 import org.labsquare 1.0
 import bb.system 1.2
 Page {
+    property int type: co.pageview_mainlist
+    property int basefont
     attachedObjects: [
         Common {
             id: co
@@ -12,6 +14,10 @@ Page {
         },
         LoginSheet {
             id: ls
+            onClosed: {
+                //关闭时刷新用户登录状态。
+                tabroot.refreshUserLoginState();
+            }
         }
     ]
     actionBarAutoHideBehavior: ActionBarAutoHideBehavior.Default
@@ -129,6 +135,13 @@ Page {
                 function viewvideo(xurl) {
                     _app.invokeVideo("", xurl);
                 }
+                function getType() {
+                    console.log("type: " + type)
+                    return type;
+                }
+                function getBaseFontSize(){
+                    return basefont;
+                }
                 dataModel: ArrayDataModel {
                     id: addm
                 }
@@ -183,6 +196,7 @@ Page {
                                 }
                             }
                             Container {
+                                visible: 0 == hhh.ListItem.view.getType()
                                 layout: StackLayout {
                                     orientation: LayoutOrientation.LeftToRight
                                 }
@@ -214,6 +228,8 @@ Page {
                                     text: ListItemData.s_content
                                     textStyle.fontWeight: FontWeight.W100
                                     textFit.mode: LabelTextFitMode.Default
+                                    textStyle.fontSize: FontSize.PointValue
+                                    textStyle.fontSizeValue: hhh.ListItem.view.getBaseFontSize()
                                 }
                                 Container {
                                     layout: DockLayout {

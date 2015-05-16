@@ -30,7 +30,7 @@ QtObject {
             request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         }
         request.setRequestHeader("Model", "BLACKBERRY 10 DEVICES");
-//        request.setRequestHeader("Source", "BLACKBERRY_2.0.15");
+        //        request.setRequestHeader("Source", "BLACKBERRY_2.0.15");
         var token = _app.getv('token', '');
         if (token.length > 0) {
             request.setRequestHeader("Qbtoken", token);
@@ -58,16 +58,16 @@ QtObject {
     property string u_text: "http://m2.qiushibaike.com/article/list/text?"
     property string u_image: "http://m2.qiushibaike.com/article/list/imgrank?"
     property string u_latest: "http://m2.qiushibaike.com/article/list/latest?"
-    property string u_mainpage :"http://m2.qiushibaike.com/mainpage/list?"
-        
-    property string u_my_posts:"http://m2.qiushibaike.com/user/my/articles?"
-    property string u_my_fav:"http://m2.qiushibaike.com/collect/list?"
-    property string u_my_part :"http://m2.qiushibaike.com/user/my/participate?"
-    
-    property string u_dayrank :"http://m2.qiushibaike.com/article/list/day?"
-    property string u_weekrank :"http://m2.qiushibaike.com/article/list/week?"
-    property string u_month:"http://m2.qiushibaike.com/article/list/month?"
-    
+    property string u_mainpage: "http://m2.qiushibaike.com/mainpage/list?"
+
+    property string u_my_posts: "http://m2.qiushibaike.com/user/my/articles?"
+    property string u_my_fav: "http://m2.qiushibaike.com/collect/list?"
+    property string u_my_part: "http://m2.qiushibaike.com/user/my/participate?"
+
+    property string u_dayrank: "http://m2.qiushibaike.com/article/list/day?"
+    property string u_weekrank: "http://m2.qiushibaike.com/article/list/week?"
+    property string u_month: "http://m2.qiushibaike.com/article/list/month?"
+
     property string u_comments: "http://m2.qiushibaike.com/article/%aid%/comments?"
     property string param_login: '{"login":"%username%","pass":"%password%"}'
     //登录
@@ -158,4 +158,55 @@ QtObject {
 
         callback(endpoint, p)
     }
+
+    //删除糗事
+    property string u_deleteArticle: "http://m2.qiushibaike.com/article/%aid%/del"
+    function requestDelete(callback, postid) {
+        var token = _app.getv('token', '');
+        if (token.length == 0) {
+            callback(false, qsTr("Need Login."));
+            return;
+        }
+        var endpoint = u_deleteArticle.replace("%aid%", postid);
+        ajax("POST", endpoint, [], function(r) {
+                if (r['success']) {
+                    var result = JSON.parse(r['data']);
+                    if (result.err > 0) {
+                        callback(false, result.err_msg)
+                    } else {
+                        callback(true, result)
+                    }
+                } else {
+                    callback(false, qsTr("Network Error."))
+                }
+            }, [], true);
+    }
+
+    //vote up
+    property string u_vote: "http://vote.qiushibaike.com/vote_queue"
+    function vote(callback, postid, up) {
+        var p = {
+        };
+        p.votes = {
+            type: up ? "up" : "dn",
+            target: postid,
+            action: "1"
+        }
+        var param = JSON.stringify(p);
+        ajax("POST", u_vote, [ param ], function(r) {
+                if (r['success']) {
+                    var result = JSON.parse(r['data']);
+                    if (result.err > 0) {
+                        callback(false, result.err_msg)
+                    } else {
+                        callback(true, result)
+                    }
+                } else {
+                    callback(false, qsTr("Network Error."))
+                }
+            }, [], true);
+    }
+    property int pageview_mainlist: 0
+    property int pageview_userarticles: 1
+    property int pageview_myarticles: 2
 }
