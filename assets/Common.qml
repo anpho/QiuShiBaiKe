@@ -185,6 +185,10 @@ QtObject {
     //vote up
     property string u_vote: "http://vote.qiushibaike.com/vote_queue"
     function vote(callback, postid, up) {
+        //未实现，直接返回
+        callback(false, 'not implemented')
+        return;
+        ///////////////////////
         var p = {
         };
         p.votes = {
@@ -206,7 +210,189 @@ QtObject {
                 }
             }, [], true);
     }
+
+    // no enum so..
     property int pageview_mainlist: 0
     property int pageview_userarticles: 1
     property int pageview_myarticles: 2
+
+    // Action bar signature button OR normal button
+    property variant signature: ActionBarPlacement.Signature || ActionBarPlacement.OnBar
+
+    // 用户详情
+    property string u_userdetails: "http://nearby.qiushibaike.com/user/%uid%/detail"
+    function getUserDetails(callback, uid) {
+        var endpoint = u_userdetails.replace("%uid%", uid);
+        ajax("GET", endpoint, [], function(r) {
+                if (r['success']) {
+                    var result = JSON.parse(r['data']);
+                    if (result.err > 0) {
+                        callback(false, result.err_msg)
+                    } else {
+                        callback(true, result)
+                    }
+                } else {
+                    callback(false, qsTr("Network Error."))
+                }
+            }, [], false)
+    }
+    property variant emoji: {
+        "girl": "♀",
+        "boy": "♂",
+        "home": "🏠",
+        "phone": "📱",
+        "flag": "🚩",
+        "r": "®",
+        "c": "©",
+        "tm": "™",
+        "sad": "☹",
+        "happy": "☺",
+        "clock": "🕒",
+        "earth": "🌏",
+        "occ": "🎓",
+        "num": "💮"
+    }
+
+    //拉黑
+    property string u_blackuser: "http://rel.qiushibaike.com/relationship/%myid%/black"
+    function blackuser(callback, myid, uid) {
+        var endpoint = u_blackuser.replace("%myid%", myid);
+        var p = {
+        };
+        p.uid = uid;
+        ajax("POST", endpoint, [ JSON.stringify(p) ], function(r) {
+                if (r['success']) {
+                    var result = JSON.parse(r['data']);
+                    if (result.err > 0) {
+                        callback(false, result.err_msg)
+                    } else {
+                        callback(true, result)
+                    }
+                } else {
+                    callback(false, qsTr("Network Error."))
+                }
+            }, [], true)
+    }
+    //反拉黑
+    property string u_unblack: "http://rel.qiushibaike.com/relationship/%myid%/unblack"
+    function unblackuser(callback, myid, uid) {
+        var endpoint = u_unblack.replace("%myid%", myid);
+        var p = {
+        };
+        p.uid = uid;
+        ajax("POST", endpoint, [ JSON.stringify(p) ], function(r) {
+                if (r['success']) {
+                    var result = JSON.parse(r['data']);
+                    if (result.err > 0) {
+                        callback(false, result.err_msg)
+                    } else {
+                        callback(true, result)
+                    }
+                } else {
+                    callback(false, qsTr("Network Error."))
+                }
+            }, [], true)
+    }
+    //移除好友
+    property string u_unfollow: "http://rel.qiushibaike.com/relationship/%myid%/unfollow"
+    function unfollow(callback, myid, uid) {
+        var p = {
+            uid: uid
+        }
+        var endpoint = u_unfollow.replace("%myid%", myid);
+        ajax("POST", endpoint, [ JSON.stringify(p) ], function(r) {
+                if (r['success']) {
+                    var result = JSON.parse(r['data']);
+                    if (result.err > 0) {
+                        callback(false, result.err_msg)
+                    } else {
+                        callback(true, result)
+                    }
+                } else {
+                    callback(false, qsTr("Network Error."))
+                }
+            }, [], true)
+    }
+
+    //加好友
+    property string u_follow: "http://rel.qiushibaike.com/relationship/%myid%/follow"
+    function follow(callback, myid, uid, shakecount, shaketime, articleid, distance) {
+        if (! distance) {
+            distance = 0;
+        }
+        if (! articleid) {
+            articleid = 0;
+        }
+        var p = {
+        };
+        p.shake_count = shakecount;
+        p.shake_time = shaketime;
+        p.uid = uid;
+        p.come_from = {
+            from_id: myid,
+            to_id: uid,
+            type: 2
+            //            ,
+            //            value: {
+            //                artid: articleid,
+            //                distance: distance
+            //            }
+        }
+        var endpoint = u_follow.replace("%myid%", myid);
+        ajax("POST", endpoint, [ JSON.stringify(p) ], function(r) {
+                if (r['success']) {
+                    var result = JSON.parse(r['data']);
+                    if (result.err > 0) {
+                        callback(false, result.err_msg)
+                    } else {
+                        callback(true, result)
+                    }
+                } else {
+                    callback(false, qsTr("Network Error."))
+                }
+            }, [], true)
+    }
+    /*
+     * 返回值样例
+     * {
+     * "has_more": 0,
+     * "data": [
+     * {
+     * "uid": 28004760,
+     * "relationship": "follow_unreplied",
+     * "gender": "F",
+     * "login": "我只呆在网络",
+     * "astrology": "狮子座",
+     * "age": 18,
+     * "icon": "20150428211837.jpg"
+     * },
+     * {
+     * "uid": 26740138,
+     * "relationship": "follow_unreplied",
+     * "gender": "M",
+     * "login": "屁股钩子夹斧子",
+     * "astrology": "天秤座",
+     * "age": 26,
+     * "icon": "20150403134657.jpg"
+     * }
+     * ],
+     * "err": 0
+     * }
+     */
+    //互粉
+    property string u_friendlist: 'http://rel.qiushibaike.com/relationship/%myid%/friend_list?'
+    //关注
+    property string u_followlist: "http://rel.qiushibaike.com/relationship/%myid%/follow_list?"
+    //粉丝
+    property string u_fanlist: "http://rel.qiushibaike.com/relationship/%myid%/fan_list?"
+
+    /*
+     * 审帖
+     */
+    property string u_review: "http://insp.qiushibaike.com/review"
+
+    /*
+     * UUID: MD5("DEVICEID":"864147024693081"-"ANDROID_ID":"18fa87875a4d8955")
+     */
+
 }

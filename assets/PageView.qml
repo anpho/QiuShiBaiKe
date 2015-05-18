@@ -55,6 +55,7 @@ ListView {
     ]
     function viewPost(meta) {
         var iv = itemview.createObject(navroot);
+        iv.navroot = navroot;
         iv.basefont = basefontsize;
         iv.s_postid = meta.s_postid
         iv.d_date = meta.d_date
@@ -138,13 +139,12 @@ ListView {
                 toast_custom.show();
             }, postid);
     }
-    function requestUserArticleView(uid, uname) {
-        var uav = Qt.createComponent("UserArticlesView.qml").createObject(navroot);
-        uav.userid = uid;
-        uav.username = uname;
-        uav.navigationPaneId = navroot;
-        uav.load();
-        navroot.push(uav);
+
+    function requestUserProfileView(uid, articleid) {
+        var upv = Qt.createComponent("UserProfileView.qml").createObject(navroot);
+        upv.uid = uid;
+        upv.navroot = navroot;
+        navroot.push(upv)
     }
     function requestVoteUp(pid) {
         co.vote(function(b, d) {
@@ -164,7 +164,7 @@ ListView {
             id: itemroot
             iam: itemroot.ListItem.view.userid
             type: itemroot.ListItem.view.ptype
-            fontsize : itemroot.ListItem.view.basefontsize
+            fontsize: itemroot.ListItem.view.basefontsize
             s_postid: ListItemData.id
             d_date: ListItemData.published_at
             s_tag: ListItemData.tag
@@ -217,7 +217,7 @@ ListView {
                 itemroot.ListItem.view.requestDelete(postid);
             }
             onUserprofileTriggered: {
-                itemroot.ListItem.view.requestUserArticleView(userid, username);
+                itemroot.ListItem.view.requestUserProfileView(userid);
             }
             onSupportTriggered: {
                 itemroot.ListItem.view.requestVoteUp(postid);

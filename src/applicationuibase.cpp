@@ -143,7 +143,7 @@ QString ApplicationUIBase::genCodeByKey(const QString key)
     QString source = md5(key);
     QString result = source.mid(19, 8) + source.mid(19, 5);
     QString code = md5(result).mid(5, 4);
-    return code;
+    return code.toLower();
 }
 QString ApplicationUIBase::md5(const QString key)
 {

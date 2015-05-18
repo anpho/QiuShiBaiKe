@@ -2,6 +2,7 @@ import bb.cascades 1.2
 import org.labsquare 1.0
 import bb.system 1.2
 Page {
+    property variant navroot
     property int type: co.pageview_mainlist
     property int basefont
     attachedObjects: [
@@ -74,6 +75,11 @@ Page {
                     'V': co.uuid
                 } ], false)
     }
+    titleBar: TitleBar {
+        title: qsTr("Post #") +s_postid
+        appearance: TitleBarAppearance.Plain
+        visibility: ChromeVisibility.Hidden
+    }
     property string s_postid: "" //糗事ID
     property int d_date: 0 //发布时间
     property string s_tag: "" //标签
@@ -118,6 +124,10 @@ Page {
         }
         verticalAlignment: VerticalAlignment.Fill
         horizontalAlignment: HorizontalAlignment.Fill
+        topPadding: 20.0
+        leftPadding: 20.0
+        rightPadding: 20.0
+        bottomPadding: 20.0
         Container {
             layout: StackLayout {
 
@@ -139,7 +149,7 @@ Page {
                     console.log("type: " + type)
                     return type;
                 }
-                function getBaseFontSize(){
+                function getBaseFontSize() {
                     return basefont;
                 }
                 dataModel: ArrayDataModel {
@@ -150,16 +160,26 @@ Page {
                         return "header"
                     } else return "item";
                 }
+                function requestUserProfileView(userid) {
+                    var upv = Qt.createComponent("UserProfileView.qml").createObject(navroot);
+                    upv.uid = userid;
+                    upv.navroot = navroot;
+                    navroot.push(upv);
+                }
                 listItemComponents: [
                     ListItemComponent {
                         type: "item"
                         CommentsItem {
+                            id: itemroot
                             s_floor: ListItemData.floor
                             s_comment: ListItemData.content
                             s_commentid: ListItemData.id
                             s_useravator: ListItemData.user && ListItemData.user.icon ? ListItemData.user.icon : ""
                             s_userid: ListItemData.user && ListItemData.user.id ? ListItemData.user.id : ""
                             s_username: ListItemData.user && ListItemData.user.login ? ListItemData.user.login : ""
+                            onProfilePressed: {
+                                itemroot.ListItem.view.requestUserProfileView(userid)
+                            }
                         }
                     },
                     ListItemComponent {
@@ -379,8 +399,8 @@ Page {
         ActivityIndicator {
             running: true
             visible: loading
-            verticalAlignment: VerticalAlignment.Center
-            horizontalAlignment: HorizontalAlignment.Center
+            verticalAlignment: VerticalAlignment.Fill
+            horizontalAlignment: HorizontalAlignment.Fill
         }
     }
 }

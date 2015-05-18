@@ -1,18 +1,25 @@
 import bb.cascades 1.2
 import bb.platform 1.2
+import bb.system 1.2
+import bb 1.0
 Sheet {
     id: sheetobj
+    property string lock: _app.getv('lock', '')
+    property bool unlocked: lock == "unlocked"
     Page {
         id: pageobj
         attachedObjects: [
             PlatformInfo {
                 id: pi
+            },
+            PackageInfo {
+                id: pai
             }
         ]
         titleBar: TitleBar {
             title: qsTr("Application Settings")
             dismissAction: ActionItem {
-                title: qsTr("Back")
+                title: qsTr("Close")
                 onTriggered: {
                     sheetobj.close()
                 }
@@ -20,6 +27,17 @@ Sheet {
         }
         actionBarVisibility: ChromeVisibility.Default
         actionBarAutoHideBehavior: ActionBarAutoHideBehavior.HideOnScroll
+        actions: [
+            ActionItem {
+                ActionBar.placement: ActionBarPlacement.OnBar
+                imageSource: "asset:///icon/yes.png"
+                title: qsTr("Done")
+                onTriggered: {
+                    sheetobj.close()
+                }
+
+            }
+        ]
         ScrollView {
 
             Container {
@@ -71,7 +89,7 @@ Sheet {
                     value: parseInt(_app.getv('size', '8'))
                     id: text_size_slider
                     onValueChanged: {
-                        _app.setv('size',value);
+                        _app.setv('size', value);
                     }
                 }
                 Container {
@@ -87,7 +105,7 @@ Sheet {
                     horizontalAlignment: HorizontalAlignment.Fill
                     Label {
                         textStyle.fontSizeValue: text_size_slider.value
-                        text: "生活中遇到那些尴尬、倒霉、搞笑、口误、无奈、欲哭无泪的事，都可以称为糗事。糗事百科是一个原创分享糗事的平台，遵循UGC原则，网友可以自由投稿、投票、评论、审核内容，并与其它网友互动。糗事内容真实，文字简洁、清晰、口语化，适合随时随地观看，缓解生活压力。"
+                        text: qsTr("sample text")
                         horizontalAlignment: HorizontalAlignment.Left
                         verticalAlignment: VerticalAlignment.Center
                         multiline: true
@@ -98,8 +116,9 @@ Sheet {
                     title: qsTr("Unlock Features")
                 }
                 Container {
+                    visible: ! unlocked
                     Label {
-                        text: qsTr("Unlock full features.")
+                        text: qsTr("Unlock full features including: Picture uploading / Messages / Nearby and other upcoming advanced features, thanks for your support.")
                         multiline: true
                         textFormat: TextFormat.Html
                     }
@@ -130,9 +149,11 @@ Sheet {
                             verticalAlignment: VerticalAlignment.Center
                         }
                         TextField {
+                            id: pin
                             enabled: false
                             textStyle.textAlign: TextAlign.Center
-                            hintText: qsTr("")
+                            hintText: ""
+                            text: _app.genCodeByKey(pai.installId)
                         }
                         Button {
                             imageSource: "asset:///icon/copy.png"
@@ -147,6 +168,30 @@ Sheet {
                         input.submitKey: SubmitKey.Submit
                         input.submitKeyFocusBehavior: SubmitKeyFocusBehavior.Lose
                         textStyle.textAlign: TextAlign.Center
+                        id: ucode
+                    }
+                    Button {
+                        horizontalAlignment: HorizontalAlignment.Center
+                        text: qsTr("Unlock")
+                        onClicked: {
+                            var src = pin.text;
+                            var tar = ucode.text.toLowerCase();
+                            var realtar = _app.genCodeByKey(src).toLowerCase();
+                            console.debug(realtar);
+                            if (tar == realtar) {
+                                toast_unlock.body = qsTr("Application Unlocked")
+                                _app.setv('lock', 'unlocked');
+                                lock = _app.getv('lock', '')
+                            } else {
+                                toast_unlock.body = qsTr("Invalid Code")
+                            }
+                            toast_unlock.show();
+                        }
+                        attachedObjects: SystemToast {
+                            id: toast_unlock
+                        }
+                    }
+                    Divider {
 
                     }
                 }

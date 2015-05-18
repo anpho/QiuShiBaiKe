@@ -108,7 +108,7 @@ TabbedPane {
                 NavigationPane {
                     id: nav1
                     onPopTransitionEnded: {
-                        page.destroy(1000)
+                        page.destroy()
                     }
                     Page {
                         actionBarVisibility: ChromeVisibility.Overlay
@@ -204,14 +204,14 @@ TabbedPane {
             title: qsTr("Browse")
         },
         Tab {
-            imageSource: "asset:///res/ic_launcher.png"
+            imageSource: "asset:///res/ic_qiushi_normal.png"
             title: qsTr("Sticky Posts")
             delegateActivationPolicy: TabDelegateActivationPolicy.ActivatedWhileSelected
             delegate: Delegate {
                 NavigationPane {
                     id: nav2
                     onPopTransitionEnded: {
-                        page.destroy(1000)
+                        page.destroy()
                     }
                     Page {
                         titleBar: TitleBar {
@@ -278,7 +278,6 @@ TabbedPane {
 
         },
         Tab {
-            enabled: token.length > 0
             imageSource: "asset:///res/ic_message_select.png"
             delegate: Delegate {
                 Page {
@@ -302,52 +301,52 @@ TabbedPane {
             ActionBar.placement: ActionBarPlacement.InOverflow
 
         },
+        //        Tab {
+        //            imageSource: "asset:///res/evaluate_face_l0.png"
+        //            title: qsTr("Review")
+        //            enabled: token.length > 0
+        //            delegate: Delegate {
+        //                Page {
+        //                    actionBarAutoHideBehavior: ActionBarAutoHideBehavior.Disabled
+        //                    actionBarVisibility: ChromeVisibility.Visible
+        //                    actions: [
+        //                        ActionItem {
+        //                            imageSource: "asset:///icon/yes.png"
+        //                            title: qsTr("Yes!")
+        //                            ActionBar.placement: ActionBarPlacement.OnBar
+        //                        },
+        //                        ActionItem {
+        //                            title: qsTr("No")
+        //                            imageSource: "asset:///icon/wrong.png"
+        //                            ActionBar.placement: ActionBarPlacement.OnBar
+        //                        },
+        //                        ActionItem {
+        //                            imageSource: "asset:///icon/right.png"
+        //                            title: qsTr("Pass")
+        //                            ActionBar.placement: ActionBarPlacement.OnBar
+        //
+        //                        }
+        //                    ]
+        //                    Container {
+        //                        verticalAlignment: VerticalAlignment.Fill
+        //                        horizontalAlignment: HorizontalAlignment.Fill
+        //                        layout: DockLayout {
+        //
+        //                        }
+        //                        Label {
+        //                            verticalAlignment: VerticalAlignment.Center
+        //                            horizontalAlignment: HorizontalAlignment.Center
+        //                            text: qsTr("Not implemented yet.")
+        //
+        //                        }
+        //                    }
+        //                }
+        //            }
+        //            delegateActivationPolicy: TabDelegateActivationPolicy.ActivatedWhileSelected
+        //        },
         Tab {
-            imageSource: "asset:///res/evaluate_face_l0.png"
-            title: qsTr("Review")
-            enabled: token.length > 0
-            delegate: Delegate {
-                Page {
-                    actionBarAutoHideBehavior: ActionBarAutoHideBehavior.Disabled
-                    actionBarVisibility: ChromeVisibility.Visible
-                    actions: [
-                        ActionItem {
-                            imageSource: "asset:///icon/yes.png"
-                            title: qsTr("Yes!")
-                            ActionBar.placement: ActionBarPlacement.OnBar
-                        },
-                        ActionItem {
-                            title: qsTr("No")
-                            imageSource: "asset:///icon/wrong.png"
-                            ActionBar.placement: ActionBarPlacement.OnBar
-                        },
-                        ActionItem {
-                            imageSource: "asset:///icon/right.png"
-                            title: qsTr("Pass")
-                            ActionBar.placement: ActionBarPlacement.OnBar
-
-                        }
-                    ]
-                    Container {
-                        verticalAlignment: VerticalAlignment.Fill
-                        horizontalAlignment: HorizontalAlignment.Fill
-                        layout: DockLayout {
-
-                        }
-                        Label {
-                            verticalAlignment: VerticalAlignment.Center
-                            horizontalAlignment: HorizontalAlignment.Center
-                            text: qsTr("Not implemented yet.")
-
-                        }
-                    }
-                }
-            }
-            delegateActivationPolicy: TabDelegateActivationPolicy.ActivatedWhileSelected
-        },
-        Tab {
-            id: tab_profile
-            imageSource: "asset:///res/session_profile.png"
+            id: tab_myPosts
+            imageSource: "asset:///userguide/user_guide_paper.png"
             ActionBar.placement: ActionBarPlacement.InOverflow
             title: qsTr("My Posts")
             onTriggered: {
@@ -361,7 +360,7 @@ TabbedPane {
                 NavigationPane {
                     id: nav5
                     onPopTransitionEnded: {
-                        page.destroy(1000)
+                        page.destroy()
                     }
                     Page {
                         titleBar: TitleBar {
@@ -424,6 +423,85 @@ TabbedPane {
                 }
             }
             delegateActivationPolicy: TabDelegateActivationPolicy.ActivatedWhileSelected
+        },
+        Tab {
+            id: tab_qiuyou
+            imageSource: "asset:///userguide/user_guide_little_2.png"
+            onTriggered: {
+                if (! loggedin) {
+                    var loginsheet = Qt.createComponent("LoginSheet.qml").createObject(tabroot);
+                    loginsheet.closed.connect(refreshUserLoginState)
+                    loginsheet.open();
+                }
+            }
+            delegate: Delegate {
+                NavigationPane {
+                    id: qiuyouroot
+                    onPopTransitionEnded: {
+                        page.destroy()
+                    }
+                    Page {
+                        titleBar: TitleBar {
+                            kind: TitleBarKind.Segmented
+                            appearance: TitleBarAppearance.Plain
+                            scrollBehavior: TitleBarScrollBehavior.Sticky
+                            options: [
+                                Option {
+                                    id: op_myFriends
+                                    text: qsTr("Friends")
+                                },
+                                Option {
+                                    id: op_following
+                                    text: qsTr("Following")
+                                },
+                                Option {
+                                    id: op_followers
+                                    text: qsTr("Followers")
+                                }
+                            ]
+                        }
+                        Container {
+                            ControlDelegate {
+                                delegateActive: op_myFriends.selected
+                                attachedObjects: ComponentDefinition {
+                                    id: myfriendsview
+                                    content: FriendsView {
+                                        baseurl: co.u_friendlist
+                                        navroot: qiuyouroot
+                                    }
+                                }
+                                sourceComponent: myfriendsview
+                            }
+                            ControlDelegate {
+                                delegateActive: op_following.selected
+                                attachedObjects: ComponentDefinition {
+                                    id: followingview
+                                    content: FriendsView {
+                                        baseurl: co.u_followlist
+                                        navroot: qiuyouroot
+                                    }
+                                }
+                                sourceComponent: followingview
+                            }
+                            ControlDelegate {
+                                delegateActive: op_followers.selected
+                                attachedObjects: ComponentDefinition {
+                                    id: fanview
+                                    content: FriendsView {
+                                        baseurl: co.u_fanlist
+                                        navroot: qiuyouroot
+                                    }
+                                }
+                                sourceComponent: fanview
+                            }
+                        }
+                    }
+                }
+            }
+            delegateActivationPolicy: TabDelegateActivationPolicy.ActivatedWhileSelected
+            title: qsTr("My Friends")
+            ActionBar.placement: ActionBarPlacement.InOverflow
+
         }
     ]
 }

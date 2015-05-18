@@ -54,6 +54,8 @@ config_pri_assets {
     OTHER_FILES += \
         $$quote($$BASEDIR/assets/CommentsItem.qml) \
         $$quote($$BASEDIR/assets/Common.qml) \
+        $$quote($$BASEDIR/assets/FriendItem.qml) \
+        $$quote($$BASEDIR/assets/FriendsView.qml) \
         $$quote($$BASEDIR/assets/ItemView.qml) \
         $$quote($$BASEDIR/assets/LoginSheet.qml) \
         $$quote($$BASEDIR/assets/PageView.qml) \

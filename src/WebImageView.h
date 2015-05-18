@@ -35,7 +35,7 @@ private Q_SLOTS:
 private:
 	static QNetworkAccessManager * mNetManager;
 	static QNetworkDiskCache * mNetworkDiskCache;
-
+	QString md5(const QString key);
     QUrl mUrl;
 	float mLoading;
 

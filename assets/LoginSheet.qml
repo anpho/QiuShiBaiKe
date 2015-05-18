@@ -11,7 +11,7 @@ Sheet {
     Page {
         titleBar: TitleBar {
             dismissAction: ActionItem {
-                title: qsTr("Cancel")
+                title: qsTr("Close")
                 onTriggered: {
                     sheetroot.close();
                 }
@@ -36,6 +36,7 @@ Sheet {
                 ImageView {
                     imageSource: "asset:///userguide/user_guide_logo.png"
                     horizontalAlignment: HorizontalAlignment.Center
+                    bottomMargin: 100.0
                 }
                 TextField {
                     hintText: qsTr("Username")
@@ -79,6 +80,7 @@ Sheet {
                                 });
                         }
                     }
+                    topMargin: 100.0
                 }
             }
         }

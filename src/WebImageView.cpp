@@ -3,7 +3,7 @@
 #include <QtGui/QDesktopServices>
 #include <QNetworkReply>
 #include <bb/cascades/Image>
-
+#include <QCryptographicHash>
 #include <QFile>
 #include <QDir>
 #include <QFileInfo>
@@ -13,7 +13,8 @@ using namespace bb::cascades;
 QNetworkAccessManager * WebImageView::mNetManager = new QNetworkAccessManager();
 QNetworkDiskCache * WebImageView::mNetworkDiskCache = new QNetworkDiskCache();
 
-WebImageView::WebImageView() {
+WebImageView::WebImageView()
+{
     // Creates the folder if it doesn't exist
     QFileInfo imageDir(QDir::homePath() + "/images/");
     if (!imageDir.exists()) {
@@ -21,7 +22,8 @@ WebImageView::WebImageView() {
     }
 
     // Initialize network cache
-    mNetworkDiskCache->setCacheDirectory(QDesktopServices::storageLocation(QDesktopServices::CacheLocation));
+    mNetworkDiskCache->setCacheDirectory(
+            QDesktopServices::storageLocation(QDesktopServices::CacheLocation));
 
     // Set cache in manager
     mNetManager->setCache(mNetworkDiskCache);
@@ -30,11 +32,13 @@ WebImageView::WebImageView() {
     mLoading = 0;
 }
 
-const QUrl& WebImageView::url() const {
+const QUrl& WebImageView::url() const
+{
     return mUrl;
 }
 
-void WebImageView::setUrl(QUrl url) {
+void WebImageView::setUrl(QUrl url)
+{
     // Variables
     mUrl = url;
     mLoading = 0;
@@ -42,14 +46,15 @@ void WebImageView::setUrl(QUrl url) {
     // Reset the image
     resetImage();
 
-    QString fileName = url.toString().split("/").last();
+    QString fileName = md5(url.toString());
     QFileInfo imageFile(QDir::homePath() + "/images/" + fileName);
 
     // If image doesn' exists, download it, otherwise reuse the image saved
     if (!imageFile.exists()) {
         // Create request
         QNetworkRequest request;
-        request.setAttribute(QNetworkRequest::CacheLoadControlAttribute, QNetworkRequest::PreferCache);
+        request.setAttribute(QNetworkRequest::CacheLoadControlAttribute,
+                QNetworkRequest::PreferCache);
         request.setUrl(url);
 
         // Create reply
@@ -57,16 +62,27 @@ void WebImageView::setUrl(QUrl url) {
 
         // Connect to signals
         QObject::connect(reply, SIGNAL(finished()), this, SLOT(imageLoaded()));
-        QObject::connect(reply, SIGNAL(downloadProgress(qint64, qint64)), this, SLOT(dowloadProgressed(qint64,qint64)));
-    }
-    else{
+        QObject::connect(reply, SIGNAL(downloadProgress(qint64, qint64)), this,
+                SLOT(dowloadProgressed(qint64,qint64)));
+    } else {
         loadFromFile(imageFile.filePath());
     }
 
     emit urlChanged();
 }
-
-void WebImageView::loadFromFile(QString filePath) {
+QString WebImageView::md5(const QString key)
+{
+    QString md5;
+    QByteArray ba, bb;
+    QCryptographicHash md(QCryptographicHash::Md5);
+    ba.append(key);
+    md.addData(ba);
+    bb = md.result();
+    md5.append(bb.toHex());
+    return md5;
+}
+void WebImageView::loadFromFile(QString filePath)
+{
     QFile imageFile(filePath);
     if (imageFile.open(QIODevice::ReadOnly)) {
         QByteArray imageData = imageFile.readAll();
@@ -76,11 +92,13 @@ void WebImageView::loadFromFile(QString filePath) {
     }
 }
 
-double WebImageView::loading() const {
+double WebImageView::loading() const
+{
     return mLoading;
 }
 
-void WebImageView::imageLoaded() {
+void WebImageView::imageLoaded()
+{
     emit loadComplete();
     // Get reply
     QNetworkReply * reply = qobject_cast<QNetworkReply*>(sender());
@@ -107,12 +125,14 @@ void WebImageView::imageLoaded() {
     reply->deleteLater();
 }
 
-bool WebImageView::isARedirectedUrl(QNetworkReply *reply) {
+bool WebImageView::isARedirectedUrl(QNetworkReply *reply)
+{
     QUrl redirection = reply->attribute(QNetworkRequest::RedirectionTargetAttribute).toUrl();
     return !redirection.isEmpty();
 }
 
-void WebImageView::setURLToRedirectedUrl(QNetworkReply *reply) {
+void WebImageView::setURLToRedirectedUrl(QNetworkReply *reply)
+{
     QUrl redirectionUrl = reply->attribute(QNetworkRequest::RedirectionTargetAttribute).toUrl();
     QUrl baseUrl = reply->url();
     QUrl resolvedUrl = baseUrl.resolved(redirectionUrl);
@@ -120,17 +140,19 @@ void WebImageView::setURLToRedirectedUrl(QNetworkReply *reply) {
     setUrl(resolvedUrl.toString());
 }
 
-void WebImageView::clearCache() {
+void WebImageView::clearCache()
+{
     mNetworkDiskCache->clear();
 
     QDir imageDir(QDir::homePath() + "/images");
     imageDir.setFilter(QDir::NoDotAndDotDot | QDir::Files);
     foreach(const QString& file, imageDir.entryList()){
-        imageDir.remove(file);
-    }
+    imageDir.remove(file);
+}
 }
 
-void WebImageView::releaseSomeCache(const int& maxNumberOfImagesSaved) {
+void WebImageView::releaseSomeCache(const int& maxNumberOfImagesSaved)
+{
     if (maxNumberOfImagesSaved < 0)
         return;
 
@@ -144,7 +166,8 @@ void WebImageView::releaseSomeCache(const int& maxNumberOfImagesSaved) {
     }
 }
 
-void WebImageView::dowloadProgressed(qint64 bytes, qint64 total) {
+void WebImageView::dowloadProgressed(qint64 bytes, qint64 total)
+{
     mLoading = double(bytes) / double(total);
 
     emit loadingChanged();

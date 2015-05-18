@@ -1,12 +1,13 @@
 import bb.cascades 1.2
 import org.labsquare 1.0
 Container {
+    signal profilePressed(string userid)
     property string s_floor: ""
     property string s_username: ""
     property string s_comment: ""
     property string s_useravator: ""
     property string s_userid: ""
-    property string s_commentid:""
+    property string s_commentid: ""
 
     layout: StackLayout {
         orientation: LayoutOrientation.LeftToRight
@@ -36,6 +37,11 @@ Container {
                 url = uicon
             } else {
                 imageSource = "asset:///res/default_user_avatar.png"
+            }
+        }
+        gestureHandlers: TapHandler {
+            onTapped: {
+                profilePressed(s_userid)
             }
         }
     }
