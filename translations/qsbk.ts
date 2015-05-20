@@ -25,12 +25,17 @@
 <context>
     <name>FriendsView</name>
     <message>
-        <location filename="../assets/FriendsView.qml" line="32"/>
+        <location filename="../assets/FriendsView.qml" line="28"/>
+        <source>Login Required.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/FriendsView.qml" line="37"/>
         <source>Error: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/FriendsView.qml" line="40"/>
+        <location filename="../assets/FriendsView.qml" line="45"/>
         <source>Server unavailable.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -81,17 +86,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/LoginSheet.qml" line="42"/>
+        <location filename="../assets/LoginSheet.qml" line="43"/>
         <source>Username</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/LoginSheet.qml" line="48"/>
+        <location filename="../assets/LoginSheet.qml" line="49"/>
         <source>Password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/LoginSheet.qml" line="61"/>
+        <location filename="../assets/LoginSheet.qml" line="62"/>
         <source>Login</source>
         <translation type="unfinished"></translation>
     </message>
@@ -104,12 +109,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/PageView.qml" line="135"/>
+        <location filename="../assets/PageView.qml" line="119"/>
+        <source>Login Required.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/PageView.qml" line="139"/>
         <source>successfully deleted.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/PageView.qml" line="175"/>
+        <location filename="../assets/PageView.qml" line="179"/>
         <source>Anonymous</source>
         <translation type="unfinished"></translation>
     </message>
@@ -241,22 +251,27 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="451"/>
+        <location filename="../assets/main.qml" line="449"/>
+        <source>Search</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/main.qml" line="465"/>
         <source>Friends</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="455"/>
+        <location filename="../assets/main.qml" line="469"/>
         <source>Following</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="459"/>
+        <location filename="../assets/main.qml" line="473"/>
         <source>Followers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="502"/>
+        <location filename="../assets/main.qml" line="516"/>
         <source>My Friends</source>
         <translation type="unfinished"></translation>
     </message>
@@ -309,6 +324,54 @@
     <message>
         <location filename="../assets/main.qml" line="379"/>
         <source>My Participates</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>page-SearchUser</name>
+    <message>
+        <location filename="../assets/page-SearchUser.qml" line="97"/>
+        <source>Search</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/page-SearchUser.qml" line="17"/>
+        <source>By UserID</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/page-SearchUser.qml" line="7"/>
+        <source>Search User</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/page-SearchUser.qml" line="21"/>
+        <source>By Nickname</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/page-SearchUser.qml" line="51"/>
+        <source>Only Numeric Allowed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/page-SearchUser.qml" line="67"/>
+        <source>Type her/his nickname below.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/page-SearchUser.qml" line="70"/>
+        <source>Her/His Nickname.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/page-SearchUser.qml" line="34"/>
+        <source>Type her/his user ID below.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/page-SearchUser.qml" line="37"/>
+        <source>Her/His UserID.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

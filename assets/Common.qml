@@ -106,7 +106,7 @@ QtObject {
         ajax("POST", endpoint, [ p ], function(r) {
                 if (r['success']) {
                     var result = JSON.parse(r['data']);
-                    if (result.err > 0) {
+                    if (result.err != 0) {
                         //登录失败，返回失败信息
                         callback(false, result.err_msg)
                     } else {
@@ -171,7 +171,7 @@ QtObject {
         ajax("POST", endpoint, [], function(r) {
                 if (r['success']) {
                     var result = JSON.parse(r['data']);
-                    if (result.err > 0) {
+                    if (result.err != 0) {
                         callback(false, result.err_msg)
                     } else {
                         callback(true, result)
@@ -200,7 +200,7 @@ QtObject {
         ajax("POST", u_vote, [ param ], function(r) {
                 if (r['success']) {
                     var result = JSON.parse(r['data']);
-                    if (result.err > 0) {
+                    if (result.err != 0) {
                         callback(false, result.err_msg)
                     } else {
                         callback(true, result)
@@ -226,7 +226,23 @@ QtObject {
         ajax("GET", endpoint, [], function(r) {
                 if (r['success']) {
                     var result = JSON.parse(r['data']);
-                    if (result.err > 0) {
+                    if (result.err != 0) {
+                        callback(false, result.err_msg)
+                    } else {
+                        callback(true, result)
+                    }
+                } else {
+                    callback(false, qsTr("Network Error."))
+                }
+            }, [], false)
+    }
+    property string u_usersearchbynickname: "http://nearby.qiushibaike.com/user/search?name="
+    function getUserDetailByNickname(callback, nickname) {
+        var endpoint = u_usersearchbynickname + nickname;
+        ajax("GET", endpoint, [], function(r) {
+                if (r['success']) {
+                    var result = JSON.parse(r['data']);
+                    if (result.err != 0) {
                         callback(false, result.err_msg)
                     } else {
                         callback(true, result)
@@ -263,7 +279,7 @@ QtObject {
         ajax("POST", endpoint, [ JSON.stringify(p) ], function(r) {
                 if (r['success']) {
                     var result = JSON.parse(r['data']);
-                    if (result.err > 0) {
+                    if (result.err != 0) {
                         callback(false, result.err_msg)
                     } else {
                         callback(true, result)
@@ -283,7 +299,7 @@ QtObject {
         ajax("POST", endpoint, [ JSON.stringify(p) ], function(r) {
                 if (r['success']) {
                     var result = JSON.parse(r['data']);
-                    if (result.err > 0) {
+                    if (result.err != 0) {
                         callback(false, result.err_msg)
                     } else {
                         callback(true, result)
@@ -303,7 +319,7 @@ QtObject {
         ajax("POST", endpoint, [ JSON.stringify(p) ], function(r) {
                 if (r['success']) {
                     var result = JSON.parse(r['data']);
-                    if (result.err > 0) {
+                    if (result.err != 0) {
                         callback(false, result.err_msg)
                     } else {
                         callback(true, result)
@@ -342,7 +358,7 @@ QtObject {
         ajax("POST", endpoint, [ JSON.stringify(p) ], function(r) {
                 if (r['success']) {
                     var result = JSON.parse(r['data']);
-                    if (result.err > 0) {
+                    if (result.err != 0) {
                         callback(false, result.err_msg)
                     } else {
                         callback(true, result)

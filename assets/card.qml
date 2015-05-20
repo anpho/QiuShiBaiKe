@@ -94,7 +94,7 @@ NavigationPane {
         actions: [
             ActionItem {
                 id: postbutton
-                ActionBar.placement: ActionBarPlacement.OnBar
+                ActionBar.placement: co.signature
                 imageSource: "asset:///icon/yes.png"
                 title: qsTr("Submit")
                 enabled: userlogin.length > 0 && qiuText.text.length > 5

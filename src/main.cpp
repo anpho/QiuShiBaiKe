@@ -15,8 +15,8 @@
  */
 
 #include "applicationui.hpp"
+#include <unistd.h>
 #include "cardui.hpp"
-
 #include <bb/cascades/Application>
 #include <bb/cascades/LocaleHandler>
 #include <bb/system/InvokeManager>
@@ -33,6 +33,7 @@ Q_DECL_EXPORT int main(int argc, char **argv)
     if (theme.length() > 0) {
         qputenv("CASCADES_THEME", theme.toUtf8());
     }
+    sleep(2);
 
     Application app(argc, argv);
 

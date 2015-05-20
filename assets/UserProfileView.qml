@@ -28,28 +28,33 @@ Page {
     function loaddata() {
         co.getUserDetails(function(b, d) {
                 if (! b) {
-                    sst.body = d;
+                    if (d && d.trim().length > 0) {
+                        sst.body = d;
+                    } else {
+                        sst.body = qsTr("Login Required.");
+                    }
                     sst.show()
+                    navroot.pop();
                 } else {
-                    age = d.userdata.age
-                    astrology = d.userdata.astrology
-                    bigcover = d.userdata.big_cover
-                    bigcovereday = d.userdata.big_cover_eday
+                    age = d.userdata.age ? d.userdata.age : ""
+                    astrology = d.userdata.astrology ? d.userdata.astrology : ""
+                    bigcover = d.userdata.big_cover ? d.userdata.big_cover : ""
+                    bigcovereday = d.userdata.big_cover_eday ? d.userdata.big_cover_eday : ""
                     createdat = d.userdata.created_at
                     gender = d.userdata.gender
-                    haunt = d.userdata.haunt
-                    hobby = d.userdata.hobby
-                    hometown = d.userdata.hometown
+                    haunt = d.userdata.haunt ? d.userdata.haunt : ""
+                    hobby = d.userdata.hobby ? d.userdata.hobby : ""
+                    hometown = d.userdata.hometown ? d.userdata.hometown : ""
                     icon = d.userdata.icon
                     iconeday = d.userdata.icon_eday
-                    intro = d.userdata.introduce
-                    job = d.userdata.job
+                    intro = d.userdata.introduce ? d.userdata.introduce : ""
+                    job = d.userdata.job ? d.userdata.job : ""
                     login = d.userdata.login
-                    mobilebrand = d.userdata.mobile_brand
+                    mobilebrand = d.userdata.mobile_brand ? d.userdata.mobile_brand : ""
                     qbage = d.userdata.qb_age //days
                     qscnt = d.userdata.qs_cnt
                     relationship = d.userdata.relationship
-                    signature = d.userdata.signature
+                    signature = d.userdata.signature ? d.userdata.signature : ""
                     smilecount = d.userdata.smile_cnt
                     loaded = true
                 }
@@ -95,9 +100,11 @@ Page {
     }
 
     Container {
+
         layout: DockLayout {
 
         }
+        background: Color.Black
         ImageView {
             verticalAlignment: VerticalAlignment.Center
             horizontalAlignment: HorizontalAlignment.Center
@@ -207,6 +214,7 @@ Page {
                         navroot.push(uav);
                     }
                 }
+                visible: qscnt > 0
                 preferredWidth: 100.0
                 preferredHeight: 100.0
             }
@@ -309,7 +317,11 @@ Page {
                 if (relationship == 'black') {
                     co.unblackuser(function(b, d) {
                             if (! b) {
-                                sst.body = d;
+                                if (d & d.trim().length > 0) {
+                                    sst.body = d;
+                                } else {
+                                    sst.body = qsTr("Login Required.");
+                                }
                                 sst.show();
                             } else {
                                 relationship = d.relationship
@@ -320,7 +332,11 @@ Page {
                 } else {
                     co.blackuser(function(b, d) {
                             if (! b) {
-                                sst.body = d;
+                                if (d & d.trim().length > 0) {
+                                    sst.body = d;
+                                } else {
+                                    sst.body = qsTr("Login Required.");
+                                }
                                 sst.show();
                             } else {
                                 relationship = d.relationship
@@ -341,7 +357,11 @@ Page {
                     //加为好友
                     co.follow(function(b, d) {
                             if (! b) {
-                                sst.body = d;
+                                if (d & d.trim().length > 0) {
+                                    sst.body = d;
+                                } else {
+                                    sst.body = qsTr("Login Required.");
+                                }
                                 sst.show();
                             } else {
                                 relationship = d.relationship
@@ -353,7 +373,11 @@ Page {
                     //移除好友
                     co.unfollow(function(b, d) {
                             if (! b) {
-                                sst.body = d;
+                                if (d & d.trim().length > 0) {
+                                    sst.body = d;
+                                } else {
+                                    sst.body = qsTr("Login Required.");
+                                }
                                 sst.show();
                             } else {
                                 relationship = d.relationship

@@ -379,6 +379,7 @@ TabbedPane {
                                     text: qsTr("My Participates")
                                 }
                             ]
+                            appearance: TitleBarAppearance.Plain
                         }
                         Container {
                             ControlDelegate {
@@ -441,6 +442,19 @@ TabbedPane {
                         page.destroy()
                     }
                     Page {
+                        actions: [
+                            ActionItem {
+                                ActionBar.placement: ActionBarPlacement.OnBar
+                                imageSource: "asset:///icon/ic_search.png"
+                                title: qsTr("Search")
+                                onTriggered: {
+                                    var searchpage = Qt.createComponent("page-SearchUser.qml").createObject(qiuyouroot);
+                                    searchpage.navroot = qiuyouroot;
+                                    qiuyouroot.push(searchpage);
+                                }
+
+                            }
+                        ]
                         titleBar: TitleBar {
                             kind: TitleBarKind.Segmented
                             appearance: TitleBarAppearance.Plain

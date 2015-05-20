@@ -44,6 +44,7 @@ Container {
                 profilePressed(s_userid)
             }
         }
+        verticalAlignment: VerticalAlignment.Center
     }
     Container {
         layoutProperties: StackLayoutProperties {
@@ -51,6 +52,7 @@ Container {
         }
         leftPadding: 20.0
         rightPadding: 20.0
+        verticalAlignment: VerticalAlignment.Center
         Label {
             text: s_username
             textStyle.fontSize: FontSize.Small
@@ -66,6 +68,7 @@ Container {
         layout: DockLayout {
 
         }
+        verticalAlignment: VerticalAlignment.Center
         Label {
             text: s_floor
             verticalAlignment: VerticalAlignment.Top

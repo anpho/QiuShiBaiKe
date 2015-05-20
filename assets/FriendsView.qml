@@ -24,11 +24,16 @@ ListView {
         } else {
             loadingInProgress = true;
         }
-
+        if (userid.length == 0) {
+            sst.body = qsTr("Login Required.");
+            sst.show();
+            return;
+        }
         co.ajax("GET", p(), [], function(r) {
                 if (r['success']) {
                     var d = JSON.parse(r['data'])
                     if (d.err > 0) {
+                        console.log(r['data'])
                         sst = qsTr("Error: ") + d['err_msg']
                         sst.show();
                     } else {

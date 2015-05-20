@@ -36,7 +36,8 @@ Sheet {
                 ImageView {
                     imageSource: "asset:///userguide/user_guide_logo.png"
                     horizontalAlignment: HorizontalAlignment.Center
-                    bottomMargin: 100.0
+                    bottomMargin: 50.0
+                    scalingMethod: ScalingMethod.AspectFit
                 }
                 TextField {
                     hintText: qsTr("Username")
@@ -80,7 +81,7 @@ Sheet {
                                 });
                         }
                     }
-                    topMargin: 100.0
+                    topMargin: 50.0
                 }
             }
         }

@@ -36,12 +36,17 @@
 <context>
     <name>FriendsView</name>
     <message>
-        <location filename="../assets/FriendsView.qml" line="32"/>
+        <location filename="../assets/FriendsView.qml" line="28"/>
+        <source>Login Required.</source>
+        <translation>未登录。</translation>
+    </message>
+    <message>
+        <location filename="../assets/FriendsView.qml" line="37"/>
         <source>Error: </source>
         <translation>错误 ： </translation>
     </message>
     <message>
-        <location filename="../assets/FriendsView.qml" line="40"/>
+        <location filename="../assets/FriendsView.qml" line="45"/>
         <source>Server unavailable.</source>
         <translation>服务器去月球了。</translation>
     </message>
@@ -112,17 +117,17 @@
         <translation>关闭</translation>
     </message>
     <message>
-        <location filename="../assets/LoginSheet.qml" line="42"/>
+        <location filename="../assets/LoginSheet.qml" line="43"/>
         <source>Username</source>
         <translation>用户名</translation>
     </message>
     <message>
-        <location filename="../assets/LoginSheet.qml" line="48"/>
+        <location filename="../assets/LoginSheet.qml" line="49"/>
         <source>Password</source>
         <translation>密码</translation>
     </message>
     <message>
-        <location filename="../assets/LoginSheet.qml" line="61"/>
+        <location filename="../assets/LoginSheet.qml" line="62"/>
         <source>Login</source>
         <translation>登录</translation>
     </message>
@@ -135,16 +140,21 @@
         <translation>没有收到数据。</translation>
     </message>
     <message>
-        <location filename="../assets/PageView.qml" line="135"/>
+        <location filename="../assets/PageView.qml" line="119"/>
+        <source>Login Required.</source>
+        <translation>未登录。</translation>
+    </message>
+    <message>
+        <location filename="../assets/PageView.qml" line="139"/>
         <source>successfully deleted.</source>
-        <translation>已成功删除</translation>
+        <translation>已成功删除。</translation>
     </message>
     <message>
         <source>AD PLACEHOLD</source>
         <translation type="obsolete">预留广告位</translation>
     </message>
     <message>
-        <location filename="../assets/PageView.qml" line="175"/>
+        <location filename="../assets/PageView.qml" line="179"/>
         <source>Anonymous</source>
         <translation>匿名</translation>
     </message>
@@ -244,7 +254,7 @@
     <message>
         <location filename="../assets/card.qml" line="115"/>
         <source>At least 5 charactors required.</source>
-        <translation>天上飘来五个字儿：“最少五个字儿”！</translation>
+        <translation>天空飘来五个字儿：“最少五个字儿”.</translation>
     </message>
     <message>
         <source>Successfully posted, please wait for approval.</source>
@@ -346,22 +356,27 @@
         <translation>今日</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="451"/>
+        <location filename="../assets/main.qml" line="449"/>
+        <source>Search</source>
+        <translation>搜索</translation>
+    </message>
+    <message>
+        <location filename="../assets/main.qml" line="465"/>
         <source>Friends</source>
         <translation>互粉</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="455"/>
+        <location filename="../assets/main.qml" line="469"/>
         <source>Following</source>
         <translation>关注</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="459"/>
+        <location filename="../assets/main.qml" line="473"/>
         <source>Followers</source>
         <translation>粉丝</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="502"/>
+        <location filename="../assets/main.qml" line="516"/>
         <source>My Friends</source>
         <translation>我的糗友</translation>
     </message>
@@ -418,6 +433,58 @@
     <message>
         <source>My Profile</source>
         <translation type="obsolete">个人中心</translation>
+    </message>
+</context>
+<context>
+    <name>page-SearchUser</name>
+    <message>
+        <location filename="../assets/page-SearchUser.qml" line="97"/>
+        <source>Search</source>
+        <translation>搜索</translation>
+    </message>
+    <message>
+        <location filename="../assets/page-SearchUser.qml" line="17"/>
+        <source>By UserID</source>
+        <translation>按ID查找</translation>
+    </message>
+    <message>
+        <location filename="../assets/page-SearchUser.qml" line="7"/>
+        <source>Search User</source>
+        <translation>搜索糗友</translation>
+    </message>
+    <message>
+        <location filename="../assets/page-SearchUser.qml" line="21"/>
+        <source>By Nickname</source>
+        <translation>按昵称（需登录）</translation>
+    </message>
+    <message>
+        <location filename="../assets/page-SearchUser.qml" line="51"/>
+        <source>Only Numeric Allowed.</source>
+        <translation>只能输入数字ID，且不能以0开头。</translation>
+    </message>
+    <message>
+        <location filename="../assets/page-SearchUser.qml" line="67"/>
+        <source>Type her/his nickname below.</source>
+        <translation>输入TA的昵称。</translation>
+    </message>
+    <message>
+        <location filename="../assets/page-SearchUser.qml" line="70"/>
+        <source>Her/His Nickname.</source>
+        <translation>TA的昵称</translation>
+    </message>
+    <message>
+        <source>By Username</source>
+        <translation type="obsolete">按昵称查找</translation>
+    </message>
+    <message>
+        <location filename="../assets/page-SearchUser.qml" line="34"/>
+        <source>Type her/his user ID below.</source>
+        <translation>在此输入TA的用户ID。</translation>
+    </message>
+    <message>
+        <location filename="../assets/page-SearchUser.qml" line="37"/>
+        <source>Her/His UserID.</source>
+        <translation>TA的数字用户ID</translation>
     </message>
 </context>
 <context>

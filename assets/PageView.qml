@@ -113,7 +113,11 @@ ListView {
                         console.log("[DataModel]Last Article Id is: " + lastArticleID);
                     } else {
                         if (qiulistdata['err'] > 0) {
-                            toast_custom.body = qiulistdata['err_msg']
+                            if (qiulistdata['err_msg'] && qiulistdata['err_msg'].length > 0) {
+                                toast_custom.body = qiulistdata['err_msg']
+                            } else {
+                                toast_custom.body = qsTr("Login Required.")
+                            }
                             toast_custom.show()
                         } else {
                             toast_no_data_recv.show();

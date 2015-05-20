@@ -267,6 +267,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/icon/wrong.png) \
         $$quote($$BASEDIR/assets/icon/yes.png) \
         $$quote($$BASEDIR/assets/main.qml) \
+        $$quote($$BASEDIR/assets/page-SearchUser.qml) \
         $$quote($$BASEDIR/assets/res/bg_tile.png) \
         $$quote($$BASEDIR/assets/res/bottombar_cleanlocal.png) \
         $$quote($$BASEDIR/assets/res/bottombar_shaixuan.png) \
