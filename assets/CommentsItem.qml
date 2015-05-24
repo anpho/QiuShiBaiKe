@@ -6,6 +6,7 @@ Container {
     property string s_username: ""
     property string s_comment: ""
     property string s_useravator: ""
+    property bool showAvatar
     property string s_userid: ""
     property string s_commentid: ""
 
@@ -16,7 +17,7 @@ Container {
 
     function getUserIcon() {
         //http://pic.qiushibaike.com/system/avtnew/553/5532615/medium/20150210165740.jpg
-        if (s_useravator == "" || s_userid == "") return ""
+        if (s_useravator == "" || s_userid == "") return "asset:///res/default_user_avatar.png"
 
         var base = "http://pic.qiushibaike.com/system/avtnew/"
         base += s_userid.substring(0, s_userid.length - 4);
@@ -31,20 +32,21 @@ Container {
     WebImageView {
         preferredHeight: 100
         preferredWidth: 100
-        onCreationCompleted: {
-            var uicon = getUserIcon();
-            if (uicon.length > 0) {
-                url = uicon
-            } else {
-                imageSource = "asset:///res/default_user_avatar.png"
-            }
-        }
+        //        onCreationCompleted: {
+        //            var uicon = getUserIcon();
+        //            if (uicon.length > 0) {
+        //                url = uicon
+        //            } else {
+        //                imageSource = "asset:///res/default_user_avatar.png"
+        //            }
+        //        }
+        url: showAvatar ? getUserIcon() : "asset:///res/default_user_avatar.png"
         gestureHandlers: TapHandler {
             onTapped: {
                 profilePressed(s_userid)
             }
         }
-        verticalAlignment: VerticalAlignment.Center
+        verticalAlignment: VerticalAlignment.Top
     }
     Container {
         layoutProperties: StackLayoutProperties {

@@ -1,5 +1,5 @@
 1
-285
+286
 card.qml
 CommentsItem.qml
 Common.qml
@@ -8,12 +8,13 @@ FriendsView.qml
 ItemView.qml
 LoginSheet.qml
 main.qml
+page-SearchUser.qml
 PageView.qml
 PostItem.qml
+PTR.qml
 settings.qml
 UserArticlesView.qml
 UserProfileView.qml
-VideoViewer.qml
 emoji\qb_00.png
 emoji\qb_01.png
 emoji\qb_02.png

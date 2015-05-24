@@ -58,11 +58,11 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/FriendsView.qml) \
         $$quote($$BASEDIR/assets/ItemView.qml) \
         $$quote($$BASEDIR/assets/LoginSheet.qml) \
+        $$quote($$BASEDIR/assets/PTR.qml) \
         $$quote($$BASEDIR/assets/PageView.qml) \
         $$quote($$BASEDIR/assets/PostItem.qml) \
         $$quote($$BASEDIR/assets/UserArticlesView.qml) \
         $$quote($$BASEDIR/assets/UserProfileView.qml) \
-        $$quote($$BASEDIR/assets/VideoViewer.qml) \
         $$quote($$BASEDIR/assets/card.qml) \
         $$quote($$BASEDIR/assets/emoji/qb_00.png) \
         $$quote($$BASEDIR/assets/emoji/qb_01.png) \
@@ -350,6 +350,7 @@ config_pri_source_group1 {
 
     HEADERS += \
         $$quote($$BASEDIR/src/WebImageView.h) \
+        $$quote($$BASEDIR/src/WebPage.hpp) \
         $$quote($$BASEDIR/src/applicationui.hpp) \
         $$quote($$BASEDIR/src/applicationuibase.hpp) \
         $$quote($$BASEDIR/src/cardui.hpp) \

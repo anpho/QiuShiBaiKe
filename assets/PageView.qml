@@ -1,7 +1,10 @@
 import bb.cascades 1.2
 import bb.system 1.2
+
 ListView {
     id: listviewroot
+    property bool showAvatar: _app.getv('avatar', 'true') == 'true'
+
     property bool loadingInProgress
     property variant navroot
     property int basefontsize
@@ -14,9 +17,11 @@ ListView {
     property string lastArticleID: ""
     function p() {
         //生成当前请求的URL
-        var result = baseurl + "page=" + page
-        if (lastArticleID && lastArticleID.length > 0) {
-            result = result + "&readarticles=[" + lastArticleID + "]"
+        var result = baseurl + "page=" + page;
+        if (! type == co.pageview_myfavs) {
+            if (lastArticleID && lastArticleID.length > 0) {
+                result = result + "&readarticles=[" + lastArticleID + "]"
+            }
         }
         console.log("[AJAX]Contacting: " + result)
         return result;
@@ -29,6 +34,8 @@ ListView {
         //恢复成初始状态
         page = 1;
         lastArticleID = "";
+        adm.clear();
+        loaddata();
     }
     attachedObjects: [
         Common {
@@ -51,6 +58,12 @@ ListView {
         ComponentDefinition {
             source: "ItemView.qml"
             id: itemview
+        },
+        LayoutUpdateHandler {
+            //设置PTR的宽度
+            onLayoutFrameChanged: {
+                ptr.preferredWidth = layoutFrame.width
+            }
         }
     ]
     function viewPost(meta) {
@@ -79,16 +92,24 @@ ListView {
         navroot.push(iv);
     }
     onCreationCompleted: {
-        //        loaddata()
     }
     dataModel: ArrayDataModel {
         id: adm
-        onItemAdded: {
-            loadingInProgress = false
+    }
+    leadingVisual: PTR {
+        // 下拉刷新的主体
+        id: ptr
+        loading: loadingInProgress
+        onTriggerRefresh: {
+            refresh();
         }
+        horizontalAlignment: HorizontalAlignment.Fill
     }
-    leadingVisual: Container {
+    onTouch: {
+        ptr.onlistviewTouch(event)
+        //  下拉刷新
     }
+    leadingVisualSnapThreshold: 1.0
     scrollIndicatorMode: ScrollIndicatorMode.ProportionalBar
     snapMode: SnapMode.Default
     horizontalAlignment: HorizontalAlignment.Fill
@@ -101,16 +122,11 @@ ListView {
         co.ajax("GET", p(), [], function(r) {
                 if (r['success']) {
                     var qiulistdata = JSON.parse(r['data']);
-                    if (qiulistdata.count > 0) {
+                    if (qiulistdata.items.length > 0) {
                         adm.append(qiulistdata.items)
-                        lastArticleID = qiulistdata.items[qiulistdata.count - 1].id;
+                        lastArticleID = qiulistdata.items[qiulistdata.items.length - 1].id;
+                        console.log("[DataModel]Last Article Id is: " + lastArticleID);
                         page ++;
-                        console.log("[DataModel]Last Article Id is: " + lastArticleID);
-                    } else if (! qiulistdata.count && qiulistdata.total > 0) {
-                        //我的收藏 和 我的参与 返回数据里没有count，但有total。
-                        adm.append(qiulistdata.items)
-                        lastArticleID = qiulistdata.items[qiulistdata.count - 1].id;
-                        console.log("[DataModel]Last Article Id is: " + lastArticleID);
                     } else {
                         if (qiulistdata['err'] > 0) {
                             if (qiulistdata['err_msg'] && qiulistdata['err_msg'].length > 0) {
@@ -124,6 +140,7 @@ ListView {
                         }
                     }
                 } else {
+                    console.log(r['data']);
                     toast_no_data_recv.show();
                 }
                 loadingInProgress = false;
@@ -161,11 +178,47 @@ ListView {
                 console.log(b + d)
             }, pid, false);
     }
+    function getShowAvatar() {
+        return showAvatar;
+    }
+    function requestShareTEXT(text) {
+        _app.sharetext(text)
+    }
+    function requestSetClipboard(text) {
+        _app.setClipboard(text);
+    }
+    function requestFav(postid) {
+        co.addFav(function(b, d) {
+                console.log(b + d);
+                if (b) {
+                    toast_custom.body = qsTr("Post added to your favourite list.")
+                } else {
+                    toast_custom.body = d;
+                }
+                toast_custom.show()
+            }, postid)
+    }
+    function requestUNFav(postid, indexpath) {
+        co.delFav(function(b, d) {
+                console.log(b + d);
+                if (b) {
+                    toast_custom.body = qsTr("Post removed from your favourite list.")
+                    if (indexpath) {
+                        console.log('about to remove' + indexpath + JSON.stringify(adm.data(indexpath)));
+                        adm.removeAt(adm.indexOf(adm.data(indexpath)))
+                    }
+                } else {
+                    toast_custom.body = d;
+                }
+                toast_custom.show()
+            }, postid)
+    }
     property alias ptype: listviewroot.type
     listItemComponents: ListItemComponent {
         type: ''
         PostItem {
             id: itemroot
+            showAvatar: itemroot.ListItem.view.getShowAvatar()
             iam: itemroot.ListItem.view.userid
             type: itemroot.ListItem.view.ptype
             fontsize: itemroot.ListItem.view.basefontsize
@@ -229,8 +282,70 @@ ListView {
             onUnsupportTriggered: {
                 itemroot.ListItem.view.requestVoteDown(postid);
             }
+            contextActions: [
+                ActionSet {
+                    id: actionset
+                    title: qsTr("Post ID")
+                    subtitle: ListItemData.id
+                    actions: [
+                        ActionItem {
+                            id: addFav
+                            title: qsTr("Add to Fav.")
+                            imageSource: "asset:///icon/ic_add_bookmarks.png"
+                            onTriggered: {
+                                itemroot.ListItem.view.requestFav(ListItemData.id)
+                            }
+                        },
+                        ActionItem {
+                            title: qsTr("Copy")
+                            imageSource: "asset:///icon/ic_copy.png"
+                            onTriggered: {
+                                itemroot.ListItem.view.requestSetClipboard(ListItemData.content)
+                            }
+                        },
+                        ActionItem {
+                            title: qsTr("Share")
+                            imageSource: "asset:///icon/ic_share.png"
+                            onTriggered: {
+                                itemroot.ListItem.view.requestShareTEXT(ListItemData.content)
+                            }
+                        }
+                    ]
+                }
+            ]
+            contextMenuHandler: ContextMenuHandler {
+                onPopulating: {
+                    if (itemroot.ListItem.view.ptype == 3) {
+                        console.log("[context] in My-Fav context");
+                        if (actionset.indexOf(rmFav) > -1) {
+                            //bypass
+                        } else {
+                            actionset.add(rmFav)
+                            actionset.remove(addFav);
+                        }
+                    } else {
+                        var index = actionset.indexOf(rmFav)
+                        if (index > -1) {
+                            actionset.remove(rmFav);
+                            actionset.insert(0, addFav);
+                        }
+                    }
+
+                }
+                attachedObjects: [
+                    DeleteActionItem {
+                        imageSource: "asset:///icon/ic_delete.png"
+                        id: rmFav
+                        title: qsTr("Remove from Fav.")
+                        onTriggered: {
+                            itemroot.ListItem.view.requestUNFav(ListItemData.id, itemroot.ListItem.indexPath);
+                        }
+                    }
+                ]
+            }
         }
 
     }
+    bufferedScrollingEnabled: true
 
 }

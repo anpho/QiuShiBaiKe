@@ -21,6 +21,9 @@
 #include <QNetworkReply>
 #include <QString>
 #include <QSettings>
+#include <bb/cascades/InvokeQuery>
+#include <bb/cascades/Invocation>
+#include "clipboard/clipboard.h"
 namespace bb {
     namespace system {
       class InvokeManager;
@@ -42,11 +45,19 @@ public:
     Q_INVOKABLE static QString getv(const QString &objectName, const QString &defaultValue);
     Q_SIGNAL void posted(bool success,QString resp);
     Q_INVOKABLE void post(const QString endpoint, const QString content);
+    Q_INVOKABLE void postImage(const QString endpoint, const QString content, const QString picpath);
     Q_INVOKABLE QString genCodeByKey(const QString key);
+    Q_INVOKABLE void viewimage(QString path);
+    Q_INVOKABLE void sharetext(QString text);
+    Q_INVOKABLE void setClipboard(QString text);
 private slots:
     void onSystemLanguageChanged();
     void onArticleCreated();
     void onErrorOcurred(QNetworkReply::NetworkError error);
+    Q_INVOKABLE void onFinished();
+    Q_INVOKABLE void onTEXTArmed();
+    Q_INVOKABLE void onViewArmed();
+
 protected:
     bb::system::InvokeManager* m_pInvokeManager;
 private:

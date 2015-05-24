@@ -19,7 +19,9 @@
 #include <bb/cascades/LocaleHandler>
 #include <bb/system/InvokeManager>
 #include <bb/PpsObject>
+#include <bb/system/SystemToast>
 #include <QCryptographicHash>
+#include "qnamespace.h"
 using namespace bb::cascades;
 using namespace bb::system;
 using namespace bb;
@@ -118,7 +120,54 @@ void ApplicationUIBase::post(const QString endpoint, const QString content)
     connect(reply, SIGNAL(error(QNetworkReply::NetworkError)), this,
             SLOT(onErrorOcurred(QNetworkReply::NetworkError)));
 }
+void ApplicationUIBase::postImage(const QString endpoint, const QString content,
+        const QString picpath)
+{
+    qDebug() << "C++ part post with image: " << endpoint << "\n" << content << "\n" << picpath;
+    QUrl edp(endpoint);
+    QNetworkRequest req(edp);
+    req.setRawHeader(QString("Qbtoken").toLatin1(), QString(getv("token", "")).toLatin1());
+    req.setRawHeader(QString("Model").toLatin1(), QString("BLACKBERRY 10 DEVICES").toLatin1());
+    req.setRawHeader(QString("User-Agent").toLatin1(),QString("qiushibalke_6.7.1_WIFI_auto_21").toLatin1());
+    req.setRawHeader(QString("Source").toLatin1(), QString("android_6.7.1").toLatin1());
+    req.setRawHeader(QString("Uuid").toLatin1(),QString("IMEI_825573f985212e0a7944ed61d07644e1").toLatin1());
+//    req.setRawHeader(QString("Source").toLatin1(), QString("blackberry_2.0.15").toLatin1());
 
+    QHttpMultiPart *multipart = new QHttpMultiPart(QHttpMultiPart::FormDataType);
+
+    QHttpPart contentPart;
+    contentPart.setHeader(QNetworkRequest::ContentDispositionHeader,
+            QVariant("form-data; name=json"));
+    contentPart.setHeader(QNetworkRequest::ContentTypeHeader,
+            QVariant("text/plain; charset=unicode"));
+    contentPart.setBody(content.toUtf8());
+    multipart->append(contentPart);
+
+    //image part
+
+    QHttpPart imagePart;
+    imagePart.setHeader(QNetworkRequest::ContentDispositionHeader,
+            QVariant("form-data; name=\"image\";filename=\"sendpic.jpg\""));
+//    imagePart.setHeader(QNetworkRequest::ContentTypeHeader, QVariant("image/jpeg"));
+    imagePart.setHeader(QNetworkRequest::ContentTypeHeader,
+            QVariant("text/plain; charset=unicode"));
+    // pack the new file
+    QFile *file = new QFile(picpath);
+    qDebug() << file->fileName();
+    file->open(QIODevice::ReadOnly);
+    imagePart.setBodyDevice(file);
+    file->setParent(multipart); // we cannot delete the file now, so delete it with the multiPart
+    multipart->append(imagePart);
+
+    //image part end
+
+    reply = networkmgr->post(req, multipart);
+    multipart->setParent(reply);
+
+    connect(reply, SIGNAL(finished()), this, SLOT(onArticleCreated()));
+    connect(reply, SIGNAL(error(QNetworkReply::NetworkError)), this,
+            SLOT(onErrorOcurred(QNetworkReply::NetworkError)));
+}
 void ApplicationUIBase::onArticleCreated()
 {
     QString data = (QString) reply->readAll();
@@ -155,4 +204,65 @@ QString ApplicationUIBase::md5(const QString key)
     bb = md.result();
     md5.append(bb.toHex());
     return md5;
+}
+
+void ApplicationUIBase::sharetext(QString text)
+{
+    InvokeQuery *query = InvokeQuery::create().mimeType("text/plain").data(text.toUtf8());
+    Invocation *invocation = Invocation::create(query);
+    query->setParent(invocation); // destroy query with invocation
+    invocation->setParent(this); // app can be destroyed before onFinished() is called
+
+    connect(invocation, SIGNAL(armed()), this, SLOT(onTEXTArmed()));
+    connect(invocation, SIGNAL(finished()), this, SLOT(onFinished()));
+}
+
+void ApplicationUIBase::onTEXTArmed()
+{
+    Invocation *invocation = qobject_cast<Invocation *>(sender());
+    invocation->trigger("bb.action.SHARE");
+}
+
+void ApplicationUIBase::viewimage(QString path)
+{
+    InvokeManager invokeManageronImage;
+    InvokeRequest request;
+
+    // Set the URI
+    request.setUri(path);
+    request.setTarget("sys.pictures.card.previewer");
+    request.setAction("bb.action.VIEW");
+    // Send the invocation request
+    InvokeTargetReply *cardreply = invokeManageronImage.invoke(request);
+    Q_UNUSED(cardreply);
+}
+
+void ApplicationUIBase::onViewArmed()
+{
+    Invocation *invocation = qobject_cast<Invocation *>(sender());
+    invocation->trigger("bb.action.VIEW");
+}
+
+void ApplicationUIBase::onFinished()
+{
+    Invocation *invocation = qobject_cast<Invocation *>(sender());
+    invocation->deleteLater();
+}
+
+void ApplicationUIBase::setClipboard(QString text)
+{
+    QByteArray ba = text.toLocal8Bit();
+
+    if (get_clipboard_can_write() == 0) {
+        empty_clipboard();
+        int ret = set_clipboard_data("text/plain", ba.length(), ba.data());
+        if (ret > 0) {
+            SystemToast *toast = new SystemToast(this);
+            QString message = trUtf8("Copied to clipboard.");
+            toast->setBody(message);
+            toast->setIcon(QUrl("asset:///icon/ic_done.png"));
+            toast->setPosition(SystemUiPosition::MiddleCenter);
+            toast->show();
+        }
+    }
 }

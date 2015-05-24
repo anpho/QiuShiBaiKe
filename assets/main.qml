@@ -299,7 +299,6 @@ TabbedPane {
             delegateActivationPolicy: TabDelegateActivationPolicy.ActivatedWhileSelected
             title: qsTr("Messages")
             ActionBar.placement: ActionBarPlacement.InOverflow
-
         },
         //        Tab {
         //            imageSource: "asset:///res/evaluate_face_l0.png"
@@ -403,6 +402,7 @@ TabbedPane {
                                         basefontsize: baseFontsize
                                         baseurl: co.u_my_fav
                                         navroot: nav5
+                                        type: co.pageview_myfavs
                                     }
                                 }
                                 sourceComponent: myfavview

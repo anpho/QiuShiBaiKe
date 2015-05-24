@@ -10,6 +10,8 @@ Container {
     signal postTouched(string postid)
     signal requestDelete(string postid)
 
+    property bool showAvatar: true
+
     property string iam: "" // my user id
     property int type: 0
     property string s_postid: "" //糗事ID
@@ -51,8 +53,8 @@ Container {
 
     property bool isvideopost: ! ! s_picurl
 
-    property int fontsize : 8
-    
+    property int fontsize: 8
+
     leftPadding: 20.0
     rightPadding: 20.0
     topPadding: 20.0
@@ -97,7 +99,7 @@ Container {
             verticalAlignment: VerticalAlignment.Center
             horizontalAlignment: HorizontalAlignment.Left
             loadEffect: ImageViewLoadEffect.Subtle
-            url: getUserIcon()
+            url: showAvatar ? getUserIcon() : "asset:///res/default_user_avatar.png"
         }
         Label {
             text: s_username

@@ -9,12 +9,12 @@
 <file>assets/PageView.qml</file>
 <file>assets/PostItem.qml</file>
 <file>assets/LoginSheet.qml</file>
-<file>assets/VideoViewer.qml</file>
 <file>assets/UserArticlesView.qml</file>
 <file>assets/settings.qml</file>
 <file>assets/UserProfileView.qml</file>
 <file>assets/FriendItem.qml</file>
 <file>assets/FriendsView.qml</file>
 <file>assets/page-SearchUser.qml</file>
+<file>assets/PTR.qml</file>
 </qresource>
 </RCC>

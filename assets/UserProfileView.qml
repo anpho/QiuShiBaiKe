@@ -16,7 +16,6 @@ Page {
         appearance: TitleBarAppearance.Plain
         visibility: ChromeVisibility.Hidden
     }
-    // 用户信息查看页
     attachedObjects: [
         Common {
             id: co
@@ -106,6 +105,7 @@ Page {
         }
         background: Color.Black
         ImageView {
+            // shit on the background
             verticalAlignment: VerticalAlignment.Center
             horizontalAlignment: HorizontalAlignment.Center
             imageSource: "asset:///res/default_no_content_grey.png"
@@ -115,6 +115,7 @@ Page {
             preferredHeight: 150.0
         }
         WebImageView {
+            // user cover image
             scalingMethod: infovisible ? ScalingMethod.AspectFill : ScalingMethod.AspectFit
             verticalAlignment: VerticalAlignment.Fill
             horizontalAlignment: HorizontalAlignment.Fill
@@ -132,163 +133,196 @@ Page {
             }
         }
         Container {
+            //user info panel
             visible: infovisible
             background: Color.create("#88808080")
             verticalAlignment: VerticalAlignment.Top
             horizontalAlignment: HorizontalAlignment.Fill
-            layout: StackLayout {
-                orientation: LayoutOrientation.LeftToRight
-            }
-            leftPadding: 50.0
+            leftPadding: 20.0
             rightPadding: 20.0
             topPadding: 20.0
             bottomPadding: 20.0
-            WebImageView {
-                id: userprofile_icon
-                preferredWidth: 120.0
-                preferredHeight: 120.0
-                rightMargin: 20.0
-                verticalAlignment: VerticalAlignment.Center
-            }
-
             Container {
-                verticalAlignment: VerticalAlignment.Center
 
-                layoutProperties: StackLayoutProperties {
-                    spaceQuota: 11.0
-
+                layout: StackLayout {
+                    orientation: LayoutOrientation.LeftToRight
                 }
-                Label {
-                    textStyle.fontSize: FontSize.Large
-                    textStyle.fontWeight: FontWeight.W100
-                    text: login
-                    textStyle.color: Color.White
-                    visible: login.length > 0
+                //header
+                WebImageView {
+                    //user icon
+                    id: userprofile_icon
+                    preferredWidth: 100.0
+                    preferredHeight: 100.0
+                    rightMargin: 20.0
+                    verticalAlignment: VerticalAlignment.Center
                 }
                 Container {
-                    layout: StackLayout {
-                        orientation: LayoutOrientation.LeftToRight
-
-                    }
-
-                    verticalAlignment: VerticalAlignment.Top
-                    horizontalAlignment: HorizontalAlignment.Left
-                    Label {
-                        text: co.emoji["girl"]
-                        textStyle.fontSize: FontSize.Small
-                        visible: gender == 'F'
-                        textStyle.color: Color.White
+                    verticalAlignment: VerticalAlignment.Center
+                    layoutProperties: StackLayoutProperties {
+                        spaceQuota: 11.0
                     }
                     Label {
-                        text: co.emoji["boy"]
-                        textStyle.fontSize: FontSize.Small
-                        visible: gender == 'M'
-                        textStyle.color: Color.White
-                    }
-                    Label {
-                        text: age
-                        textStyle.fontSize: FontSize.Small
-                        textStyle.color: Color.White
-                        visible: age.length > 0
-                    }
-                    Label {
-                        text: astrology
+                        //username
+                        textStyle.fontSize: FontSize.Large
                         textStyle.fontWeight: FontWeight.W100
-                        textStyle.fontSize: FontSize.Small
+                        text: login
                         textStyle.color: Color.White
-                        visible: astrology.length > 0
+                        visible: login.length > 0
                     }
-                }
+                    Container {
+                        layout: StackLayout {
+                            orientation: LayoutOrientation.LeftToRight
 
-            }
-            ImageView {
-                imageSource: "asset:///icon/tagged.png"
-                verticalAlignment: VerticalAlignment.Center
-                gestureHandlers: TapHandler {
-                    onTapped: {
-                        var uav = Qt.createComponent("UserArticlesView.qml").createObject(navroot);
-                        uav.userid = uid;
-                        uav.username = login;
-                        uav.navigationPaneId = navroot;
-                        uav.load();
-                        navroot.push(uav);
+                        }
+
+                        verticalAlignment: VerticalAlignment.Top
+                        horizontalAlignment: HorizontalAlignment.Fill
+                        Label {
+                            text: co.emoji["girl"]
+                            textStyle.fontSize: FontSize.Small
+                            visible: gender == 'F'
+                            textStyle.color: Color.White
+                        }
+                        Label {
+                            text: co.emoji["boy"]
+                            textStyle.fontSize: FontSize.Small
+                            visible: gender == 'M'
+                            textStyle.color: Color.White
+                        }
+                        Label {
+                            text: age
+                            textStyle.fontSize: FontSize.Small
+                            textStyle.color: Color.White
+                            visible: age.length > 0
+                        }
+                        Label {
+                            text: astrology
+                            textStyle.fontWeight: FontWeight.W100
+                            textStyle.fontSize: FontSize.Small
+                            textStyle.color: Color.White
+                            visible: astrology.length > 0
+                        }
                     }
+
                 }
-                visible: qscnt > 0
-                preferredWidth: 100.0
-                preferredHeight: 100.0
+                ImageView {
+                    // user posts
+                    imageSource: "asset:///icon/tagged.png"
+                    verticalAlignment: VerticalAlignment.Center
+                    gestureHandlers: TapHandler {
+                        onTapped: {
+                            var uav = Qt.createComponent("UserArticlesView.qml").createObject(navroot);
+                            uav.userid = uid;
+                            uav.username = login;
+                            uav.navigationPaneId = navroot;
+                            uav.load();
+                            navroot.push(uav);
+                        }
+                    }
+                    visible: qscnt > 0
+                    preferredWidth: 80.0
+                    preferredHeight: 80.0
+                }
             }
-        }
-        Container {
-            visible: infovisible
-            verticalAlignment: VerticalAlignment.Bottom
-            horizontalAlignment: HorizontalAlignment.Fill
-            bottomPadding: 10.0
-            background: Color.create("#88808080")
-            topPadding: 10.0
             Container {
-                horizontalAlignment: HorizontalAlignment.Center
+                //user's introduce
+                visible: intro.length > 0
+                topMargin: 20.0
                 Label {
                     text: intro
-                    visible: intro.length > 0
                     textStyle.color: Color.White
-                    horizontalAlignment: HorizontalAlignment.Center
+                    horizontalAlignment: HorizontalAlignment.Left
+                    multiline: true
                 }
+            }
+            Divider {
+
             }
             Container {
                 layout: StackLayout {
                     orientation: LayoutOrientation.LeftToRight
 
                 }
-                horizontalAlignment: HorizontalAlignment.Center
-                Label {
-                    text: co.emoji['home'] + haunt
-                    visible: haunt.length > 0
-                    textStyle.color: Color.White
-                    textStyle.fontSize: FontSize.Small
-                }
-                Label {
-                    text: co.emoji['clock'] + qbage + qsTr(" days")
-                    textStyle.fontSize: FontSize.Small
-                    textStyle.color: Color.White
-                    visible: qbage > 0
-                }
-                Label {
-                    text: co.emoji['phone'] + mobilebrand
-                    textStyle.fontSize: FontSize.Small
-                    textStyle.color: Color.White
-                    visible: mobilebrand.length > 0
-                }
-            }
-            Container {
-                layout: StackLayout {
-                    orientation: LayoutOrientation.LeftToRight
 
+                topMargin: 20.0
+                Container {
+                    rightMargin: 20.0
+                    Label {
+                        textStyle.color: Color.White
+                        text: qscnt
+                        textStyle.fontSize: FontSize.Small
+                    }
+                    Label {
+                        text: qsTr("Posts")
+                        textStyle.color: Color.White
+                        textStyle.fontSize: FontSize.XSmall
+                        textStyle.fontWeight: FontWeight.W100
+                    }
                 }
-                horizontalAlignment: HorizontalAlignment.Center
-                Label {
-                    text: co.emoji["occ"] + job
-                    textStyle.fontSize: FontSize.Small
-                    textStyle.color: Color.White
-                    visible: job.length > 0
+                Container {
+                    rightMargin: 20.0
+                    Label {
+                        text: smilecount
+                        textStyle.color: Color.White
+                        textStyle.fontSize: FontSize.Small
+                    }
+                    Label {
+                        text: qsTr("Likes")
+                        textStyle.color: Color.White
+                        textStyle.fontSize: FontSize.XSmall
+                        textStyle.fontWeight: FontWeight.W100
+                    }
                 }
-                Label {
-                    textStyle.fontSize: FontSize.Small
-                    text: co.emoji["earth"] + hometown
-                    textStyle.color: Color.White
-                    visible: hometown.length > 0
+                Container {
+                    rightMargin: 20.0
+                    Label {
+                        text: qbage
+                        textStyle.color: Color.White
+                        textStyle.fontSize: FontSize.Small
+                    }
+                    Label {
+                        text: qsTr("Days")
+                        textStyle.color: Color.White
+                        textStyle.fontSize: FontSize.XSmall
+                        textStyle.fontWeight: FontWeight.W100
+                    }
                 }
-                Label {
-                    textStyle.fontSize: FontSize.Small
-                    text: co.emoji["happy"] + smilecount
-                    textStyle.color: Color.White
-                    visible: smilecount > 0
+                Container {
+                    layoutProperties: StackLayoutProperties {
+                        spaceQuota: 1.0
+
+                    }
+                    // blank
                 }
-                Label {
-                    textStyle.fontSize: FontSize.Small
-                    text: co.emoji["num"] + qscnt
-                    textStyle.color: Color.White
-                    visible: qscnt > 0
+                Container {
+                    rightMargin: 20.0
+                    Label {
+                        text: co.emoji['occ'] + (job.length > 0 ? job : qsTr("Unknown"))
+                        textStyle.color: Color.White
+                        textStyle.fontSize: FontSize.Small
+                        textStyle.fontWeight: FontWeight.W100
+                    }
+                    Label {
+                        text: co.emoji['phone'] + (mobilebrand.length > 0 ? mobilebrand : qsTr("Unknown"))
+                        textStyle.color: Color.White
+                        textStyle.fontSize: FontSize.XSmall
+                        textStyle.fontWeight: FontWeight.W100
+                    }
+                }
+                Container {
+                    rightMargin: 20.0
+                    Label {
+                        text: co.emoji["earth"] + (haunt.length > 0 ? haunt : qsTr("Unknown"))
+                        textStyle.color: Color.White
+                        textStyle.fontSize: FontSize.Small
+                        textStyle.fontWeight: FontWeight.W100
+                    }
+                    Label {
+                        textStyle.color: Color.White
+                        text: co.emoji['home'] + (hometown.length > 0 ? hometown : qsTr("Unknown"))
+                        textStyle.fontSize: FontSize.XSmall
+                        textStyle.fontWeight: FontWeight.W100
+                    }
                 }
             }
             Label {
@@ -298,7 +332,6 @@ Page {
                 horizontalAlignment: HorizontalAlignment.Center
                 visible: relationship == 'follow_unreplied'
             }
-
         }
         ActivityIndicator {
             verticalAlignment: VerticalAlignment.Fill

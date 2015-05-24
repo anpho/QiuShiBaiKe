@@ -24,6 +24,7 @@ public:
 	double loading() const;
 
     Q_INVOKABLE void clearCache();
+    Q_INVOKABLE QString getCachedPath(QString path);
 
 public Q_SLOTS:
 	void setUrl(QUrl url);

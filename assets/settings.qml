@@ -77,6 +77,35 @@ Sheet {
                     visible: pi.osVersion < "10.3.0"
                 }
                 Header {
+                    title: qsTr("UI Settings")
+                }
+                Container {
+                    layout: StackLayout {
+                        orientation: LayoutOrientation.LeftToRight
+                    }
+
+                    topPadding: 10.0
+                    bottomPadding: 10.0
+                    Label {
+                        text: qsTr("Show Avatar")
+                        verticalAlignment: VerticalAlignment.Center
+                        layoutProperties: StackLayoutProperties {
+                            spaceQuota: 1.0
+                        }
+                    }
+                    ToggleButton {
+                        checked: _app.getv('avatar', 'true') == 'true'
+                        verticalAlignment: VerticalAlignment.Center
+                        onCheckedChanged: {
+                            _app.setv('avatar', checked)
+                        }
+                    }
+                }
+                Label {
+                    text: qsTr("Turn this off could improve app's performance and reduce network usage.")
+                    multiline: true
+                }
+                Header {
                     title: qsTr("Text Size")
                 }
                 Label {

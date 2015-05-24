@@ -1,6 +1,9 @@
 import bb.cascades 1.2
 import org.labsquare 1.0
 import bb.system 1.2
+import anpho.bb 1.0
+import WebPageComponent 1.0
+import bb.cascades.pickers 1.0
 Page {
     property variant navroot
     property int type: co.pageview_mainlist
@@ -19,9 +22,11 @@ Page {
                 //关闭时刷新用户登录状态。
                 tabroot.refreshUserLoginState();
             }
+        },
+        DisplayInfo {
+            id: di
         }
     ]
-    actionBarAutoHideBehavior: ActionBarAutoHideBehavior.Default
     property int page: 1
     function genAjaxURL() {
         var base = co.u_comments.replace("%aid%", s_postid);
@@ -76,7 +81,7 @@ Page {
                 } ], false)
     }
     titleBar: TitleBar {
-        title: qsTr("Post #") +s_postid
+        title: qsTr("Post #") + s_postid
         appearance: TitleBarAppearance.Plain
         visibility: ChromeVisibility.Hidden
     }
@@ -118,16 +123,17 @@ Page {
     property variant s_picurl: null
 
     property bool isvideopost: ! ! s_picurl
+    property bool showAvatar: _app.getv('avatar', 'true') == 'true'
     Container {
         layout: DockLayout {
 
         }
         verticalAlignment: VerticalAlignment.Fill
         horizontalAlignment: HorizontalAlignment.Fill
-        topPadding: 20.0
-        leftPadding: 20.0
-        rightPadding: 20.0
-        bottomPadding: 20.0
+        topPadding: 10.0
+        bottomPadding: 10.0
+        leftPadding: 10.0
+        rightPadding: 10.0
         Container {
             layout: StackLayout {
 
@@ -152,6 +158,9 @@ Page {
                 function getBaseFontSize() {
                     return basefont;
                 }
+                function getShowAvatar() {
+                    return showAvatar;
+                }
                 dataModel: ArrayDataModel {
                     id: addm
                 }
@@ -166,6 +175,13 @@ Page {
                     upv.navroot = navroot;
                     navroot.push(upv);
                 }
+                function getWidth() {
+                    return di.pixelSize.width
+                }
+                function viewCache(url) {
+                    console.log("image path is: " + url)
+                    _app.viewimage(url);
+                }
                 listItemComponents: [
                     ListItemComponent {
                         type: "item"
@@ -177,6 +193,7 @@ Page {
                             s_useravator: ListItemData.user && ListItemData.user.icon ? ListItemData.user.icon : ""
                             s_userid: ListItemData.user && ListItemData.user.id ? ListItemData.user.id : ""
                             s_username: ListItemData.user && ListItemData.user.login ? ListItemData.user.login : ""
+                            showAvatar: itemroot.ListItem.view.getShowAvatar()
                             onProfilePressed: {
                                 itemroot.ListItem.view.requestUserProfileView(userid)
                             }
@@ -216,7 +233,6 @@ Page {
                                 }
                             }
                             Container {
-                                visible: 0 == hhh.ListItem.view.getType()
                                 layout: StackLayout {
                                     orientation: LayoutOrientation.LeftToRight
                                 }
@@ -263,7 +279,13 @@ Page {
                                         loadEffect: ImageViewLoadEffect.FadeZoom
                                         visible: ListItemData.s_imageurl && ! ListItemData.isvideopost
                                         url: hhh.getImageURL(ListItemData.s_imageurl)
-                                        verticalAlignment: VerticalAlignment.Fill
+                                        preferredWidth: hhh.ListItem.view.getWidth()
+                                        id: webimage
+                                        gestureHandlers: TapHandler {
+                                            onTapped: {
+                                                hhh.ListItem.view.viewCache(webimage.getCachedPath(hhh.getImageURL(ListItemData.s_imageurl)))
+                                            }
+                                        }
                                     }
 
                                     WebImageView {
@@ -311,16 +333,14 @@ Page {
                     }
                 ]
                 scrollRole: ScrollRole.Main
+                bufferedScrollingEnabled: true
             }
             Container {
                 layout: StackLayout {
                     orientation: LayoutOrientation.LeftToRight
 
                 }
-                leftPadding: 10.0
-                rightPadding: 10.0
-                bottomPadding: 10.0
-                topPadding: 10.0
+
                 TextArea {
                     horizontalAlignment: HorizontalAlignment.Left
                     verticalAlignment: VerticalAlignment.Center
@@ -328,7 +348,17 @@ Page {
                     onTextChanging: {
                         if (text.length > 0) {
                             button_send.visible = true;
+                            pageroot.actionBarVisibility = ChromeVisibility.Hidden
+                        } else {
+                            button_send.visible = false;
+                            pageroot.actionBarVisibility = ChromeVisibility.Default
                         }
+                    }
+                    hintText: qsTr("Wanna say something?")
+                    input.submitKeyFocusBehavior: SubmitKeyFocusBehavior.Lose
+                    input.submitKey: SubmitKey.Submit
+                    input.onSubmitted: {
+                        button_send.clicked()
                     }
                 }
                 Button {
@@ -346,6 +376,7 @@ Page {
                                 //不能发空评论
                                 return;
                             }
+                            comment_textarea.enabled = false;
                             button_send.visible = false;
                             co.comment(s_postid, comment_textarea.text, false, function(b, r) {
                                     if (b) {
@@ -355,6 +386,7 @@ Page {
                                         toast_other.body = r
                                         toast_other.show();
                                     }
+                                    comment_textarea = true;
                                 })
                         }
                     }
@@ -367,6 +399,7 @@ Page {
                                     //不能发空评论
                                     return;
                                 }
+                                comment_textarea.enabled = false
                                 button_send.visible = false
                                 co.comment(s_postid, comment_textarea.text, true, function(b, r) {
                                         if (b) {
@@ -376,6 +409,7 @@ Page {
                                             toast_other.body = r
                                             toast_other.show();
                                         }
+                                        comment_textarea.enabled = true
                                     })
                             }
                         }
@@ -399,8 +433,39 @@ Page {
         ActivityIndicator {
             running: true
             visible: loading
-            verticalAlignment: VerticalAlignment.Fill
-            horizontalAlignment: HorizontalAlignment.Fill
+            verticalAlignment: VerticalAlignment.Center
+            horizontalAlignment: HorizontalAlignment.Center
+            preferredWidth: 100.0
+            preferredHeight: 100.0
         }
     }
+    id: pageroot
+    actions: [
+        ActionItem {
+            imageSource: "asset:///icon/ic_copy.png"
+            title: qsTr("Copy")
+            ActionBar.placement: ActionBarPlacement.OnBar
+            onTriggered: {
+                _app.setClipboard(s_content)
+            }
+        },
+        ActionItem {
+            imageSource: "asset:///icon/ic_share.png"
+            title: qsTr("Share")
+            ActionBar.placement: co.signature
+            onTriggered: {
+                var url = "http://www.qiushibaike.com/article/" + s_postid
+                var content = qsTr("From Qiushibaike :") + s_content;
+                _app.sharetext(content + " " + url);
+            }
+        },
+        ActionItem {
+            imageSource: "asset:///icon/ic_view_post.png"
+            ActionBar.placement: ActionBarPlacement.OnBar
+            title: qsTr("Share Text")
+            onTriggered: {
+                _app.sharetext(s_content)
+            }
+        }
+    ]
 }

@@ -16,9 +16,11 @@
 
 import bb.cascades 1.2
 import bb.system 1.2
+import bb.cascades.pickers 1.0
 NavigationPane {
     peekEnabled: true
     property string userlogin: _app.getv('login', '')
+    property string imageurl: ""
     id: cardnav
     Page {
         attachedObjects: [
@@ -55,6 +57,23 @@ NavigationPane {
                     } else {
                         terms.visible = true;
                         postbutton.enabled = false;
+                    }
+                }
+            }
+            ImageView {
+                id: localimageviewer
+                scalingMethod: ScalingMethod.AspectFit
+                preferredWidth: 120.0
+                preferredHeight: 120.0
+                visible: imageurl.length > 0
+                imageSource: imageurl
+                attachedObjects: ImageTracker {
+                    imageSource: imageurl
+                    id: localimagetracker
+                }
+                gestureHandlers: TapHandler {
+                    onTapped: {
+                        imageurl = "";
                     }
                 }
             }
@@ -105,9 +124,18 @@ NavigationPane {
                         return;
                     }
                     var anonymous = anonymousToggle.checked
-                    co.genCreateArticleParams(function(edp, p) {
-                            _app.post(edp, p);
-                        }, content, anonymous, 0, 0, 0, 0, 0, null, 0, 0, 0, null);
+                    if (imageurl.length > 0) {
+                        console.log("image upload");
+                        var ext = imageurl.split(".");
+                        ext = ext[ext.length - 1];
+                        co.genCreateArticleParams(function(edp, p) {
+                                _app.postImage(edp, p, imageurl.replace("file://", ""));
+                            }, content, anonymous, 0, 0, 0, 0, 0, 0, ext, localimagetracker.width, localimagetracker.height, null)
+                    } else {
+                        co.genCreateArticleParams(function(edp, p) {
+                                _app.post(edp, p);
+                            }, content, anonymous, 0, 0, 0, 0, 0, -1, 0, 0, 0, null);
+                    }
                 }
                 attachedObjects: [
                     SystemToast {
@@ -116,6 +144,33 @@ NavigationPane {
                     }
                 ]
 
+            },
+            ActionItem {
+                title: qsTr("Image")
+                imageSource: "asset:///icon/ic_view_image.png"
+                ActionBar.placement: ActionBarPlacement.OnBar
+                onTriggered: {
+                    imagepicker.open();
+                }
+                attachedObjects: [
+                    FilePicker {
+                        mode: FilePickerMode.Picker
+                        type: FileType.Picture
+                        defaultType: FileType.Picture
+                        title: qsTr("Select an image to upload")
+                        viewMode: FilePickerViewMode.GridView
+                        imageCropEnabled: false
+                        id: imagepicker
+                        onFileSelected: {
+                            if (selectedFiles.length > 0) {
+                                imageurl = "file://" + selectedFiles[0];
+                                console.log(imageurl)
+                            } else {
+                                imageurl = "";
+                            }
+                        }
+                    }
+                ]
             }
         ]
     }
@@ -137,6 +192,7 @@ NavigationPane {
             loginsheet.closed.connect(loginsheetclosed)
             loginsheet.open();
         }
+        imageurl = "";
     }
     function posted(success, data) {
         console.log(success);

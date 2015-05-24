@@ -2,6 +2,7 @@ import bb.cascades 1.2
 
 QtObject {
     function ajax(method, endpoint, paramsArray, callback, customheader, form) {
+        console.log(method + "//" + endpoint + JSON.stringify(paramsArray))
         var request = new XMLHttpRequest();
         request.onreadystatechange = function() {
             if (request.readyState === XMLHttpRequest.DONE) {
@@ -140,18 +141,15 @@ QtObject {
             p.latitude = lat;
             p.longitude = lon;
         }
-        if (imgsrc) {
-            p.image_type = imagetype;
-            p.image_width = imagewidth;
-            p.image_height = imageheight;
-        }
+        p.image_type = imagetype.toLowerCase();
+        p.image_width = imagewidth;
+        p.image_height = imageheight;
+
         p = JSON.stringify(p);
+
         console.debug(p);
         //生成URL
-        var endpoint = u_createArticle;
-        if (imgsrc) {
-            endpoint.replace("-1", imgsrc);
-        }
+        var endpoint = u_createArticle.replace("-1", imgsrc);
         if (fromtopic) {
             endpoint.replace("topic=0", "topic=" + fromtopic)
         }
@@ -181,7 +179,38 @@ QtObject {
                 }
             }, [], true);
     }
-
+    property string u_fav: "http://m2.qiushibaike.com/collect/"
+    function addFav(callback, postid) {
+        var endpoint = u_fav + postid;
+        ajax("POST", endpoint, [ postid ], function(r) {
+                if (r['success']) {
+                    var result = JSON.parse(r['data']);
+                    if (result.err != 0) {
+                        callback(false, result.err_msg)
+                    } else {
+                        callback(true, result)
+                    }
+                } else {
+                    callback(false, qsTr("Network Error."))
+                }
+            }, [], true)
+    }
+    property string u_delfav: "http://m2.qiushibaike.com/collect/%pid%/del"
+    function delFav(callback, postid) {
+        var endpoint = u_delfav.replace("%pid%", postid);
+        ajax("POST", endpoint, [ postid ], function(r) {
+                if (r['success']) {
+                    var result = JSON.parse(r['data']);
+                    if (result.err != 0) {
+                        callback(false, result.err_msg)
+                    } else {
+                        callback(true, result)
+                    }
+                } else {
+                    callback(false, qsTr("Network Error."))
+                }
+            }, [], true)
+    }
     //vote up
     property string u_vote: "http://vote.qiushibaike.com/vote_queue"
     function vote(callback, postid, up) {
@@ -215,6 +244,7 @@ QtObject {
     property int pageview_mainlist: 0
     property int pageview_userarticles: 1
     property int pageview_myarticles: 2
+    property int pageview_myfavs: 3
 
     // Action bar signature button OR normal button
     property variant signature: ActionBarPlacement.Signature || ActionBarPlacement.OnBar
@@ -253,16 +283,16 @@ QtObject {
             }, [], false)
     }
     property variant emoji: {
-        "girl": "♀",
-        "boy": "♂",
+        "girl": "F",
+        "boy": "M",
         "home": "🏠",
         "phone": "📱",
         "flag": "🚩",
         "r": "®",
         "c": "©",
-        "tm": "™",
-        "sad": "☹",
-        "happy": "☺",
+        "tm": "TM",
+        "sad": ":(",
+        "happy": ":)",
         "clock": "🕒",
         "earth": "🌏",
         "occ": "🎓",
