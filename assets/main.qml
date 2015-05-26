@@ -200,7 +200,7 @@ TabbedPane {
                     }
                 }
             }
-            delegateActivationPolicy: TabDelegateActivationPolicy.ActivateImmediately
+            delegateActivationPolicy: TabDelegateActivationPolicy.Default
             title: qsTr("Browse")
         },
         Tab {

@@ -18,6 +18,7 @@ Container {
     property int d_date: 0 //发布时间
     property string s_tag: "" //标签
     property string s_state: "" //状态
+    // pending , public , private
 
     property string s_username: "" //用户名
     property string s_userid: "" //用户ID
@@ -88,7 +89,7 @@ Container {
         }
     }
     Container {
-        visible: type == 0
+        visible: type != 2
         layout: StackLayout {
             orientation: LayoutOrientation.LeftToRight
         }
@@ -113,13 +114,13 @@ Container {
                 }
             }
         }
+        horizontalAlignment: HorizontalAlignment.Fill
     }
     Container {
         visible: type != 0
         Label {
-            text: new Date(d_date * 1000)
+            text: Qt.formatDateTime(new Date(d_date * 1000), "yyyy.MM.dd ddd h:mm")
             textStyle.fontSize: FontSize.XSmall
-
         }
     }
     Divider {
@@ -132,9 +133,29 @@ Container {
         background: Color.create("#ffff4200")
         leftPadding: 20.0
         rightPadding: 20.0
-        visible: type == 2
+        visible: type == 2 && s_state == "private"
         Label {
             text: qsTr("Rejected")
+        }
+    }
+    Container {
+        //Pending for approval
+        background: Color.create("#77ffff00")
+        leftPadding: 20.0
+        rightPadding: 20.0
+        visible: type == 2 && s_state == "pending"
+        Label {
+            text: qsTr("Pending")
+        }
+    }
+    Container {
+        //审核通过
+        background: Color.create("#6d00ff00")
+        leftPadding: 20.0
+        rightPadding: 20.0
+        visible: type == 2 && s_state == "publish"
+        Label {
+            text: qsTr("Published")
         }
     }
     Container {
@@ -248,7 +269,7 @@ Container {
         }
     }
     Container {
-        visible: s_state != 'private'
+        visible: s_state == 'public'
         layout: StackLayout {
             orientation: LayoutOrientation.LeftToRight
 

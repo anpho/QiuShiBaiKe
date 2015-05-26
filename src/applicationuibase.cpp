@@ -130,7 +130,8 @@ void ApplicationUIBase::postImage(const QString endpoint, const QString content,
     req.setRawHeader(QString("Model").toLatin1(), QString("BLACKBERRY 10 DEVICES").toLatin1());
     req.setRawHeader(QString("User-Agent").toLatin1(),QString("qiushibalke_6.7.1_WIFI_auto_21").toLatin1());
     req.setRawHeader(QString("Source").toLatin1(), QString("android_6.7.1").toLatin1());
-    req.setRawHeader(QString("Uuid").toLatin1(),QString("IMEI_825573f985212e0a7944ed61d07644e1").toLatin1());
+    req.setRawHeader(QString("Uuid").toLatin1(),
+            getv("uuid", "IMEI_825573f985212e0a7944ed61d07644e1").toLatin1());
 //    req.setRawHeader(QString("Source").toLatin1(), QString("blackberry_2.0.15").toLatin1());
 
     QHttpMultiPart *multipart = new QHttpMultiPart(QHttpMultiPart::FormDataType);

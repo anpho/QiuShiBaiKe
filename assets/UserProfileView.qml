@@ -343,7 +343,7 @@ Page {
     actions: [
         ActionItem {
             imageSource: "asset:///icon/ic_cancel.png"
-            ActionBar.placement: ActionBarPlacement.OnBar
+            ActionBar.placement: ActionBarPlacement.Default
             enabled: loaded
             title: qsTr("Block")
             onTriggered: {
@@ -421,21 +421,14 @@ Page {
                 }
             }
             imageSource: (relationship == "no_rel") ? "asset:///icon/add.png" : "asset:///icon/stop.png"
-        },
-        ActionItem {
-            ActionBar.placement: ActionBarPlacement.OnBar
-            imageSource: "asset:///icon/ic_textmessage_dk.png"
-            enabled: false
-            title: qsTr("Message")
-        },
-        ActionItem {
-            title: qsTr("Block & Report")
-            imageSource: "asset:///icon/alert.png"
-            onTriggered: {
-
-            }
-            enabled: loaded
         }
+//        ,
+//        ActionItem {
+//            ActionBar.placement: ActionBarPlacement.OnBar
+//            imageSource: "asset:///icon/ic_textmessage_dk.png"
+//            enabled: false
+//            title: qsTr("Message")
+//        }
     ]
     actionBarVisibility: ChromeVisibility.Visible
     actionBarAutoHideBehavior: ActionBarAutoHideBehavior.Disabled

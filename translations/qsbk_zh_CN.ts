@@ -9,7 +9,7 @@
         <translation>找不到语言文件 %1</translation>
     </message>
     <message>
-        <location filename="../src/applicationuibase.cpp" line="261"/>
+        <location filename="../src/applicationuibase.cpp" line="262"/>
         <source>Copied to clipboard.</source>
         <translation>已复制到剪贴板。</translation>
     </message>
@@ -268,7 +268,7 @@
         <translation type="obsolete">流畅</translation>
     </message>
     <message>
-        <location filename="../assets/PostItem.qml" line="137"/>
+        <location filename="../assets/PostItem.qml" line="138"/>
         <source>Rejected</source>
         <translation>未通过</translation>
     </message>
@@ -277,27 +277,41 @@
         <translation type="obsolete">纯图</translation>
     </message>
     <message>
-        <location filename="../assets/PostItem.qml" line="192"/>
+        <source>Public</source>
+        <translation type="obsolete">公开</translation>
+    </message>
+    <message>
+        <location filename="../assets/PostItem.qml" line="148"/>
+        <source>Pending</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/PostItem.qml" line="158"/>
+        <source>Published</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/PostItem.qml" line="213"/>
         <source>HQ</source>
         <translation>高清</translation>
     </message>
     <message>
-        <location filename="../assets/PostItem.qml" line="200"/>
+        <location filename="../assets/PostItem.qml" line="221"/>
         <source>LQ</source>
         <translation>流畅</translation>
     </message>
     <message>
-        <location filename="../assets/PostItem.qml" line="212"/>
+        <location filename="../assets/PostItem.qml" line="233"/>
         <source>Funny</source>
         <translation>好笑</translation>
     </message>
     <message>
-        <location filename="../assets/PostItem.qml" line="226"/>
+        <location filename="../assets/PostItem.qml" line="247"/>
         <source>Replies</source>
         <translation>评论</translation>
     </message>
     <message>
-        <location filename="../assets/PostItem.qml" line="238"/>
+        <location filename="../assets/PostItem.qml" line="259"/>
         <source>Replays</source>
         <translation>观看</translation>
     </message>

@@ -50,6 +50,7 @@ public:
     Q_INVOKABLE void viewimage(QString path);
     Q_INVOKABLE void sharetext(QString text);
     Q_INVOKABLE void setClipboard(QString text);
+    static QString md5(const QString key);
 private slots:
     void onSystemLanguageChanged();
     void onArticleCreated();
@@ -65,7 +66,6 @@ private:
     bb::cascades::LocaleHandler* m_pLocaleHandler;
     QNetworkReply *reply;
     QNetworkAccessManager *networkmgr;
-    QString md5(const QString key);
 };
 
 #endif /* APPLICATIONUIBASE_H_ */

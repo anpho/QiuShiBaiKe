@@ -9,7 +9,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/applicationuibase.cpp" line="261"/>
+        <location filename="../src/applicationuibase.cpp" line="262"/>
         <source>Copied to clipboard.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -236,32 +236,42 @@
 <context>
     <name>PostItem</name>
     <message>
-        <location filename="../assets/PostItem.qml" line="137"/>
+        <location filename="../assets/PostItem.qml" line="138"/>
         <source>Rejected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/PostItem.qml" line="192"/>
+        <location filename="../assets/PostItem.qml" line="148"/>
+        <source>Pending</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/PostItem.qml" line="158"/>
+        <source>Published</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/PostItem.qml" line="213"/>
         <source>HQ</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/PostItem.qml" line="200"/>
+        <location filename="../assets/PostItem.qml" line="221"/>
         <source>LQ</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/PostItem.qml" line="212"/>
+        <location filename="../assets/PostItem.qml" line="233"/>
         <source>Funny</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/PostItem.qml" line="226"/>
+        <location filename="../assets/PostItem.qml" line="247"/>
         <source>Replies</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/PostItem.qml" line="238"/>
+        <location filename="../assets/PostItem.qml" line="259"/>
         <source>Replays</source>
         <translation type="unfinished"></translation>
     </message>

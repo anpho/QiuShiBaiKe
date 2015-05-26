@@ -23,6 +23,7 @@
 #include <bb/cascades/web/webdownloadrequest.h>
 #include <Qt/qdeclarativedebug.h>
 #include "WebImageView.h"
+#include <bb/PackageInfo>
 #include "WebPage.hpp"
 #include <bb/device/DisplayInfo.hpp>
 using namespace bb::cascades;
@@ -30,11 +31,26 @@ using namespace bb::system;
 
 Q_DECL_EXPORT int main(int argc, char **argv)
 {
+    sleep(1);
+
     QString theme = ApplicationUIBase::getv("use_dark_theme", "");
     if (theme.length() > 0) {
         qputenv("CASCADES_THEME", theme.toUtf8());
     }
-    sleep(1.3);
+
+    // init setup
+    QString uuid = ApplicationUIBase::getv("uuid","");
+    if (uuid.length()==0){
+        // generate uuid.
+        bb::PackageInfo pi;
+        qDebug()<<"Generating UUID ....";
+        QString iid = pi.installId();
+        qDebug()<< "Installid is :" << iid;
+        iid = ApplicationUIBase::md5(iid);
+        iid = "IMEI_"+iid;
+        qDebug()<< "UUID is : " << iid;
+        ApplicationUIBase::setv("uuid",iid);
+    }
 
     Application app(argc, argv);
 
