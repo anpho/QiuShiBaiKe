@@ -283,7 +283,7 @@ Page {
                                         id: webimage
                                         gestureHandlers: TapHandler {
                                             onTapped: {
-                                                hhh.ListItem.view.viewCache(webimage.getCachedPath(hhh.getImageURL(ListItemData.s_imageurl)))
+                                                hhh.ListItem.view.viewCache(webimage.getCachedPath())
                                             }
                                         }
                                     }

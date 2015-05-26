@@ -24,7 +24,7 @@ public:
 	double loading() const;
 
     Q_INVOKABLE void clearCache();
-    Q_INVOKABLE QString getCachedPath(QString path);
+    Q_INVOKABLE QString getCachedPath();
 
 public Q_SLOTS:
 	void setUrl(QUrl url);
@@ -32,6 +32,7 @@ public Q_SLOTS:
 private Q_SLOTS:
 	void imageLoaded();
 	void dowloadProgressed(qint64,qint64);
+	void resetControl();
 
 private:
 	static QNetworkAccessManager * mNetManager;
@@ -39,7 +40,7 @@ private:
 	QString md5(const QString key);
     QUrl mUrl;
 	float mLoading;
-
+	QByteArray imageData ;
 	bool isARedirectedUrl(QNetworkReply *reply);
 	void setURLToRedirectedUrl(QNetworkReply *reply);
 	void loadFromFile(QString filePath);

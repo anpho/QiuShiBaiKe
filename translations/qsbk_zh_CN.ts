@@ -268,7 +268,7 @@
         <translation type="obsolete">流畅</translation>
     </message>
     <message>
-        <location filename="../assets/PostItem.qml" line="138"/>
+        <location filename="../assets/PostItem.qml" line="139"/>
         <source>Rejected</source>
         <translation>未通过</translation>
     </message>
@@ -281,37 +281,37 @@
         <translation type="obsolete">公开</translation>
     </message>
     <message>
-        <location filename="../assets/PostItem.qml" line="148"/>
+        <location filename="../assets/PostItem.qml" line="149"/>
         <source>Pending</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/PostItem.qml" line="158"/>
+        <location filename="../assets/PostItem.qml" line="159"/>
         <source>Published</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/PostItem.qml" line="213"/>
+        <location filename="../assets/PostItem.qml" line="214"/>
         <source>HQ</source>
         <translation>高清</translation>
     </message>
     <message>
-        <location filename="../assets/PostItem.qml" line="221"/>
+        <location filename="../assets/PostItem.qml" line="222"/>
         <source>LQ</source>
         <translation>流畅</translation>
     </message>
     <message>
-        <location filename="../assets/PostItem.qml" line="233"/>
+        <location filename="../assets/PostItem.qml" line="234"/>
         <source>Funny</source>
         <translation>好笑</translation>
     </message>
     <message>
-        <location filename="../assets/PostItem.qml" line="247"/>
+        <location filename="../assets/PostItem.qml" line="248"/>
         <source>Replies</source>
         <translation>评论</translation>
     </message>
     <message>
-        <location filename="../assets/PostItem.qml" line="259"/>
+        <location filename="../assets/PostItem.qml" line="260"/>
         <source>Replays</source>
         <translation>观看</translation>
     </message>
@@ -407,14 +407,12 @@
         <translation>已解除好友关系。</translation>
     </message>
     <message>
-        <location filename="../assets/UserProfileView.qml" line="426"/>
         <source>Message</source>
-        <translation>小纸条</translation>
+        <translation type="obsolete">小纸条</translation>
     </message>
     <message>
-        <location filename="../assets/UserProfileView.qml" line="429"/>
         <source>Block &amp; Report</source>
-        <translation>拉黑并举报</translation>
+        <translation type="obsolete">拉黑并举报</translation>
     </message>
 </context>
 <context>

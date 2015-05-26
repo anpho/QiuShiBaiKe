@@ -101,6 +101,7 @@ Container {
             horizontalAlignment: HorizontalAlignment.Left
             loadEffect: ImageViewLoadEffect.Subtle
             url: showAvatar ? getUserIcon() : "asset:///res/default_user_avatar.png"
+
         }
         Label {
             text: s_username

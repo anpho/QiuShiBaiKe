@@ -20,14 +20,12 @@ WebImageView::WebImageView()
     if (!imageDir.exists()) {
         QDir().mkdir(imageDir.path());
     }
-
+    connect(this,SIGNAL(creationCompleted()),this,SLOT(resetControl()));
     // Initialize network cache
-    mNetworkDiskCache->setCacheDirectory(
-            QDesktopServices::storageLocation(QDesktopServices::CacheLocation));
-
+    mNetworkDiskCache->setCacheDirectory(QDir::homePath() + "/cache/");
+    mNetworkDiskCache->setMaximumCacheSize(100 * 1024 * 1024);
     // Set cache in manager
     mNetManager->setCache(mNetworkDiskCache);
-
     // Set defaults
     mLoading = 0;
 }
@@ -54,25 +52,24 @@ void WebImageView::setUrl(QUrl url)
     // Reset the image
     resetImage();
 
-    QString fileName = md5(url.toString());
-    QFileInfo imageFile(QDir::homePath() + "/images/" + fileName + ".jpg");
+//    QString fileName = md5(url.toString());
+//    QFileInfo imageFile(QDir::homePath() + "/images/" + fileName + ".jpg");
     // If image doesn' exists, download it, otherwise reuse the image saved
-    if (!imageFile.exists()) {
-        // Create request
-        QNetworkRequest request;
-        request.setAttribute(QNetworkRequest::CacheLoadControlAttribute,
-                QNetworkRequest::PreferCache);
-        request.setUrl(url);
-        // Create reply
-        QNetworkReply * reply = mNetManager->get(request);
+//    if (!imageFile.exists()) {
+    // Create request
+    QNetworkRequest request;
+    request.setAttribute(QNetworkRequest::CacheLoadControlAttribute, QNetworkRequest::PreferCache);
+    request.setUrl(url);
+    // Create reply
+    QNetworkReply * reply = mNetManager->get(request);
 
-        // Connect to signals
-        QObject::connect(reply, SIGNAL(finished()), this, SLOT(imageLoaded()));
-        QObject::connect(reply, SIGNAL(downloadProgress(qint64, qint64)), this,
-                SLOT(dowloadProgressed(qint64,qint64)));
-    } else {
-        loadFromFile(imageFile.filePath());
-    }
+    // Connect to signals
+    QObject::connect(reply, SIGNAL(finished()), this, SLOT(imageLoaded()));
+    QObject::connect(reply, SIGNAL(downloadProgress(qint64, qint64)), this,
+            SLOT(dowloadProgressed(qint64,qint64)));
+//    } else {
+//        loadFromFile(imageFile.filePath());
+//    }
 
     emit urlChanged();
 }
@@ -109,22 +106,24 @@ void WebImageView::imageLoaded()
     emit loadComplete();
     // Get reply
     QNetworkReply * reply = qobject_cast<QNetworkReply*>(sender());
-
+    QVariant fromCache = reply->attribute(QNetworkRequest::SourceIsFromCacheAttribute);
+    qDebug() << "page from cache?" << fromCache.toBool();
     if (reply->error() == QNetworkReply::NoError) {
         if (isARedirectedUrl(reply)) {
             setURLToRedirectedUrl(reply);
             return;
         } else {
-            QString fileName = md5(reply->url().toString());
-            QByteArray imageData = reply->readAll();
-            QFile imageFile(QDir::homePath() + "/images/" + fileName + ".jpg");
-            if (imageFile.open(QIODevice::WriteOnly)) {
-                imageFile.write(imageData);
-                imageFile.close();
-                setImage(Image(imageData));
-
-                releaseSomeCache(MAX_NUMBER_OF_IMAGES_SAVED);
-            }
+//            QString fileName = md5(reply->url().toString());
+            imageData = reply->readAll();
+            setImage(Image(imageData));
+//            QFile imageFile(QDir::homePath() + "/images/" + fileName + ".jpg");
+//            if (imageFile.open(QIODevice::WriteOnly)) {
+//                imageFile.write(imageData);
+//                imageFile.close();
+//                setImage(Image(imageData));
+//
+//                releaseSomeCache(MAX_NUMBER_OF_IMAGES_SAVED);
+//            }
         }
     }
 
@@ -172,15 +171,23 @@ void WebImageView::releaseSomeCache(const int& maxNumberOfImagesSaved)
         imageDir.remove(entryList[i]);
     }
 }
-QString WebImageView::getCachedPath(QString path)
+QString WebImageView::getCachedPath()
 {
-
-    if (path == "") {
+    if (imageData.isEmpty()) {
+        qDebug()<<"imageData is empty.";
         return "";
     } else {
-        QString fileName = md5(path);
-        QFileInfo imageFile(QDir::homePath() + "/images/" + fileName + ".jpg");
-        return "file://" + imageFile.absoluteFilePath();
+        QString fileName = md5(mUrl.toString());
+        QString filepath = QDir::homePath() + "/images/" + fileName + ".jpg";
+        QFile imageFile(filepath);
+        if (imageFile.open(QIODevice::WriteOnly)) {
+            imageFile.write(imageData);
+            imageFile.close();
+            return "file://" + filepath;
+        } else {
+            qDebug()<<"Can't open file to write.";
+            return "";
+        }
     }
 }
 void WebImageView::dowloadProgressed(qint64 bytes, qint64 total)
@@ -188,4 +195,14 @@ void WebImageView::dowloadProgressed(qint64 bytes, qint64 total)
     mLoading = double(bytes) / double(total);
 
     emit loadingChanged();
+}
+
+void WebImageView::resetControl()
+{
+    resetImage();
+    resetImageSource();
+    mUrl=NULL;
+    mLoading =0;
+    imageData.clear();
+
 }
