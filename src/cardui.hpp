@@ -33,7 +33,7 @@ class CardUI: public ApplicationUIBase
     Q_OBJECT
 public:
     CardUI(bb::system::InvokeManager* invokeManager);
-    Q_INVOKABLE void requestQuit();
+    Q_INVOKABLE void requestQuit(QBool succ);
     virtual ~CardUI() {}
 signals:
     void memoChanged(const QString &memo);

@@ -74,7 +74,7 @@
     </splashScreens>
     <authorId>gYAAgMy-I-SFJtVvioZxVXYQjhA</authorId>
     <author>anpho</author>
-    <buildId>526</buildId>
+    <buildId>529</buildId>
     <configuration name="Device-Debug">
         <platformArchitecture>armle-v7</platformArchitecture>
         <asset entryPointId="qsbk" path="arm/o.le-v7-g/qsbk"
@@ -150,6 +150,6 @@
     <permission>access_shared</permission>
 
     <env var="LD_LIBRARY_PATH" value="app/native/lib:/usr/lib/qt4/lib" />
-    <env var="CASCADES_THEME" value="default?primaryColor=0xFFA015"/>
+    <env var="CASCADES_THEME" value="default?primaryColor=0xFFA015&amp;primaryBase=0xFFFFFF"/>
 
 </qnx>

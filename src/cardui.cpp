@@ -80,12 +80,12 @@ void CardUI::onInvoked(const bb::system::InvokeRequest& request)
     emit memoChanged(memo);
 }
 
-void CardUI::requestQuit()
+void CardUI::requestQuit(QBool succ)
 {
     CardDoneMessage message;
-    message.setData(tr("Card: I am done. Yay!"));
+    message.setData("card");
     message.setDataType("text/plain");
-    message.setReason(tr("Success"));
+    succ ? message.setReason(tr("Success")) : message.setReason(tr("Failed"));
 
     // Send the message
     invokemgr->sendCardDone(message);

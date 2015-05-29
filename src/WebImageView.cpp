@@ -1,6 +1,11 @@
+/*
+ * This file is forked from https://github.com/RodgerLeblanc/WebImageView , the original repo is too big so I created
+ * this tiny repo to save mine.
+ * Please keep this comment paragraph.
+ *
+ * Merrick Zhang ( anphorea@gmail.com ) 2015.5.27
+ */
 #include "WebImageView.h"
-
-#include <QtGui/QDesktopServices>
 #include <QNetworkReply>
 #include <bb/cascades/Image>
 #include <QCryptographicHash>
@@ -15,13 +20,25 @@ QNetworkDiskCache * WebImageView::mNetworkDiskCache = new QNetworkDiskCache();
 
 WebImageView::WebImageView()
 {
-    // Creates the folder if it doesn't exist
+    /*
+     * Creates a folder, could be used when you want to get an absolute path of the image.
+     * @author Merrick Zhang
+    */
     QFileInfo imageDir(QDir::homePath() + "/images/");
     if (!imageDir.exists()) {
         QDir().mkdir(imageDir.path());
     }
-    connect(this,SIGNAL(creationCompleted()),this,SLOT(resetControl()));
-    // Initialize network cache
+
+    /*
+     * This is used to fix the ListView Control ReUse problem, sometimes if you flip fingers fast,
+     * this control will show mistaken images.
+     */
+    //connect(this,SIGNAL(creationCompleted()),this,SLOT(resetControl()));
+
+    /*
+     * Initialize network cache
+     * use QNetworksDiskCache to automatically cache images.
+     */
     mNetworkDiskCache->setCacheDirectory(QDir::homePath() + "/cache/");
     mNetworkDiskCache->setMaximumCacheSize(100 * 1024 * 1024);
     // Set cache in manager
@@ -37,42 +54,47 @@ const QUrl& WebImageView::url() const
 
 void WebImageView::setUrl(QUrl url)
 {
+	/*
+	 * bypass null url values.
+	 */
     if (url.scheme() == "") {
         return;
     }
+
+    /*
+     * deal with "asset://" and relative image path
+     */
     if (url.scheme() != "http") {
         resetImage();
         setImageSource(url);
         return;
     }
-    // Variables
+
     mUrl = url;
     mLoading = 0;
 
     // Reset the image
     resetImage();
 
-//    QString fileName = md5(url.toString());
-//    QFileInfo imageFile(QDir::homePath() + "/images/" + fileName + ".jpg");
-    // If image doesn' exists, download it, otherwise reuse the image saved
-//    if (!imageFile.exists()) {
     // Create request
     QNetworkRequest request;
     request.setAttribute(QNetworkRequest::CacheLoadControlAttribute, QNetworkRequest::PreferCache);
     request.setUrl(url);
+
     // Create reply
     QNetworkReply * reply = mNetManager->get(request);
+
 
     // Connect to signals
     QObject::connect(reply, SIGNAL(finished()), this, SLOT(imageLoaded()));
     QObject::connect(reply, SIGNAL(downloadProgress(qint64, qint64)), this,
             SLOT(dowloadProgressed(qint64,qint64)));
-//    } else {
-//        loadFromFile(imageFile.filePath());
-//    }
 
     emit urlChanged();
 }
+/*
+ * I'm using md5(url) to generate a unique filename.
+ */
 QString WebImageView::md5(const QString key)
 {
     QString md5;
@@ -84,17 +106,7 @@ QString WebImageView::md5(const QString key)
     md5.append(bb.toHex());
     return md5;
 }
-void WebImageView::loadFromFile(QString filePath)
-{
-    qDebug() << "[CACHE]" << filePath;
-    QFile imageFile(filePath);
-    if (imageFile.open(QIODevice::ReadOnly)) {
-        QByteArray imageData = imageFile.readAll();
-        setImage(Image(imageData));
-        mLoading = 1;
-        emit loadingChanged();
-    }
-}
+
 
 double WebImageView::loading() const
 {
@@ -103,7 +115,7 @@ double WebImageView::loading() const
 
 void WebImageView::imageLoaded()
 {
-    emit loadComplete();
+
     // Get reply
     QNetworkReply * reply = qobject_cast<QNetworkReply*>(sender());
     QVariant fromCache = reply->attribute(QNetworkRequest::SourceIsFromCacheAttribute);
@@ -113,20 +125,16 @@ void WebImageView::imageLoaded()
             setURLToRedirectedUrl(reply);
             return;
         } else {
-//            QString fileName = md5(reply->url().toString());
             imageData = reply->readAll();
+            /*
+             * since blackberry cascades's Image class doesn't provide any abilities to
+             * extract data from it, I'd like to keep imageData in Memory for future use.
+             * this is why I use global variant instead of local one.
+             */
             setImage(Image(imageData));
-//            QFile imageFile(QDir::homePath() + "/images/" + fileName + ".jpg");
-//            if (imageFile.open(QIODevice::WriteOnly)) {
-//                imageFile.write(imageData);
-//                imageFile.close();
-//                setImage(Image(imageData));
-//
-//                releaseSomeCache(MAX_NUMBER_OF_IMAGES_SAVED);
-//            }
         }
     }
-
+	emit loadComplete();
     // Memory management
     reply->deleteLater();
 }
@@ -148,6 +156,9 @@ void WebImageView::setURLToRedirectedUrl(QNetworkReply *reply)
 
 void WebImageView::clearCache()
 {
+	/*
+	 * This is a INVOCABLE function so you can call it from QML.
+	 */
     mNetworkDiskCache->clear();
 
     QDir imageDir(QDir::homePath() + "/images");
@@ -157,28 +168,18 @@ void WebImageView::clearCache()
 }
 }
 
-void WebImageView::releaseSomeCache(const int& maxNumberOfImagesSaved)
-{
-    if (maxNumberOfImagesSaved < 0)
-        return;
-
-    QDir imageDir(QDir::homePath() + "/images");
-    imageDir.setFilter(QDir::NoDotAndDotDot | QDir::Files);
-    imageDir.setSorting(QDir::Time); // | QDir::Reversed
-
-    QStringList entryList = imageDir.entryList();
-    for (int i = maxNumberOfImagesSaved; i < entryList.size(); i++) {
-        imageDir.remove(entryList[i]);
-    }
-}
 QString WebImageView::getCachedPath()
 {
+	/*
+	 * This function will save the image to /images/ folder and return its path.
+	 * very useful for invoking system picture viewer.
+	 */
     if (imageData.isEmpty()) {
         qDebug()<<"imageData is empty.";
         return "";
     } else {
         QString fileName = md5(mUrl.toString());
-        QString filepath = QDir::homePath() + "/images/" + fileName + ".jpg";
+        QString filepath = QDir::homePath() + "/images/" + fileName + ".jpg"; //in my app this can only be jpg. you'd change it from mUrl.
         QFile imageFile(filepath);
         if (imageFile.open(QIODevice::WriteOnly)) {
             imageFile.write(imageData);
@@ -199,6 +200,7 @@ void WebImageView::dowloadProgressed(qint64 bytes, qint64 total)
 
 void WebImageView::resetControl()
 {
+	// reset everything to default.
     resetImage();
     resetImageSource();
     mUrl=NULL;

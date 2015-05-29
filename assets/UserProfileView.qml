@@ -59,6 +59,7 @@ Page {
                 }
             }, uid);
     }
+    property string myuseid: _app.getv('userid', '')
     property string age //年龄
     property string astrology //星座
     property string bigcover //背景大图
@@ -384,7 +385,7 @@ Page {
         ActionItem {
             ActionBar.placement: co.signature
             title: (relationship == "no_rel") ? qsTr("Follow") : qsTr("Unfollow")
-            enabled: loaded && relationship != "black"
+            enabled: loaded && relationship != "black" && (myuseid != uid)
             onTriggered: {
                 if (relationship == "no_rel") {
                     //加为好友
@@ -422,13 +423,13 @@ Page {
             }
             imageSource: (relationship == "no_rel") ? "asset:///icon/add.png" : "asset:///icon/stop.png"
         }
-//        ,
-//        ActionItem {
-//            ActionBar.placement: ActionBarPlacement.OnBar
-//            imageSource: "asset:///icon/ic_textmessage_dk.png"
-//            enabled: false
-//            title: qsTr("Message")
-//        }
+        //        ,
+        //        ActionItem {
+        //            ActionBar.placement: ActionBarPlacement.OnBar
+        //            imageSource: "asset:///icon/ic_textmessage_dk.png"
+        //            enabled: false
+        //            title: qsTr("Message")
+        //        }
     ]
     actionBarVisibility: ChromeVisibility.Visible
     actionBarAutoHideBehavior: ActionBarAutoHideBehavior.Disabled

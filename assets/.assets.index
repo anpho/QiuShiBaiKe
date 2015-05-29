@@ -1,10 +1,13 @@
 1
-286
+292
+about.qml
 card.qml
 CommentsItem.qml
 Common.qml
+ForgotPassSheet.qml
 FriendItem.qml
 FriendsView.qml
+Issues.qml
 ItemView.qml
 LoginSheet.qml
 main.qml
@@ -217,6 +220,7 @@ icon\untagged.png
 icon\up.png
 icon\wrong.png
 icon\yes.png
+res\avatar.png
 res\bg_tile.png
 res\bottombar_cleanlocal.png
 res\bottombar_shaixuan.png
@@ -224,6 +228,7 @@ res\default_no_content_grey.png
 res\default_user_avatar.png
 res\delete.png
 res\delete2.png
+res\empty_list_icon.amd
 res\empty_list_icon.png
 res\evaluate_bg.9.png
 res\evaluate_face_done.png
@@ -286,3 +291,4 @@ userguide\user_guide_stool.png
 userguide\user_guide_totoro.png
 userguide\user_guide_towel.png
 userguide\user_guide_window.png
+VisualStyle.Dark\res\default_user_avatar.png

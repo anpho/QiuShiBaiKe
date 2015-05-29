@@ -15,6 +15,9 @@
 <file>assets/FriendItem.qml</file>
 <file>assets/FriendsView.qml</file>
 <file>assets/page-SearchUser.qml</file>
+<file>assets/about.qml</file>
 <file>assets/PTR.qml</file>
+<file>assets/ForgotPassSheet.qml</file>
+<file>assets/Issues.qml</file>
 </qresource>
 </RCC>

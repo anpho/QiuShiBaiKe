@@ -10,7 +10,7 @@ Container {
     signal postTouched(string postid)
     signal requestDelete(string postid)
 
-    property bool showAvatar: true
+    property bool showAvatar
 
     property string iam: "" // my user id
     property int type: 0
@@ -270,10 +270,9 @@ Container {
         }
     }
     Container {
-        visible: s_state == 'public'
+        visible: s_state.toLowerCase() == "publish"
         layout: StackLayout {
             orientation: LayoutOrientation.LeftToRight
-
         }
         ImageToggleButton {
             id: voteupbutton
@@ -282,7 +281,6 @@ Container {
             verticalAlignment: VerticalAlignment.Center
             horizontalAlignment: HorizontalAlignment.Left
             onCheckedChanged: {
-
                 if (checked) {
                     if (votedownbutton.checked) {
                         votedownbutton.checked = false;
@@ -326,22 +324,7 @@ Container {
             preferredHeight: 120.0
             pressedImageSource: "asset:///res/operation_comments.png"
             onClicked: {
-                //                commentsTriggered(s_postid);
                 postTouched(s_postid);
-            }
-        }
-        ImageButton {
-            defaultImageSource: "asset:///res/delete.png"
-            preferredWidth: 120.0
-            preferredHeight: 120.0
-            verticalAlignment: VerticalAlignment.Center
-            horizontalAlignment: HorizontalAlignment.Center
-            pressedImageSource: "asset:///res/delete2.png"
-            visible: (iam == s_userid) && (iam != "")
-            onClicked: {
-                requestDelete(s_postid);
-            }
-            onCreationCompleted: {
             }
         }
     }

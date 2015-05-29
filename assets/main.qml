@@ -29,7 +29,10 @@ TabbedPane {
             }
         }
         helpAction: HelpActionItem {
-
+            onTriggered: {
+                var aboutsheet = Qt.createComponent("about.qml").createObject(tabroot);
+                aboutsheet.open();
+            }
         }
         actions: [
             ActionItem {
@@ -41,6 +44,7 @@ TabbedPane {
                         _app.setv('token', "");
                         _app.setv('login', "");
                         _app.setv("userinfo", "");
+                        _app.setv("userid", "");
                         _app.setv("userarticles", "");
                         tabroot.refreshUserLoginState();
                         toast_menu_custom.body = qsTr("Logged out successfully.")
@@ -79,6 +83,9 @@ TabbedPane {
         SystemToast {
             id: toast_post_success
             body: qsTr("Successfully posted, please wait for approval.")
+        },
+        SystemToast {
+            id: toast_custom
         }
     ]
     onCreationCompleted: {
@@ -98,6 +105,12 @@ TabbedPane {
     function refreshUserLoginState() {
         console.debug("refreshUserLoginState");
         token = _app.getv('token', '');
+        if (token.length == 0) {
+            // still not logged in.
+            tabroot.activeTab = browsetab;
+            toast_custom.body = qsTr("Not logged in, now back to Browse")
+            toast_custom.show();
+        }
     }
     tabs: [
         Tab {
@@ -202,10 +215,11 @@ TabbedPane {
             }
             delegateActivationPolicy: TabDelegateActivationPolicy.Default
             title: qsTr("Browse")
+            id: browsetab
         },
         Tab {
             imageSource: "asset:///res/ic_qiushi_normal.png"
-            title: qsTr("Sticky Posts")
+            title: qsTr("Ranks")
             delegateActivationPolicy: TabDelegateActivationPolicy.ActivatedWhileSelected
             delegate: Delegate {
                 NavigationPane {
@@ -228,6 +242,10 @@ TabbedPane {
                                 Option {
                                     id: s_day
                                     text: qsTr("Day")
+                                },
+                                Option {
+                                    id: s_new
+                                    text: qsTr("Newest")
                                 }
                             ]
                             appearance: TitleBarAppearance.Plain
@@ -270,6 +288,18 @@ TabbedPane {
                                     }
                                 }
                                 sourceComponent: dayview
+                            }
+                            ControlDelegate {
+                                delegateActive: s_new.selected
+                                attachedObjects: ComponentDefinition {
+                                    id: newview
+                                    content: PageView {
+                                        basefontsize: baseFontsize
+                                        baseurl: co.u_latest
+                                        navroot: nav2
+                                    }
+                                }
+                                sourceComponent: newview
                             }
                         }
                     }

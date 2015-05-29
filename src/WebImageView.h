@@ -1,8 +1,6 @@
 #ifndef WEBIMAGEVIEW_H_
 #define WEBIMAGEVIEW_H_
 
-// Sets to -1 to disabled deleting cached images
-#define MAX_NUMBER_OF_IMAGES_SAVED 500
 
 #include <bb/cascades/ImageView>
 #include <QNetworkAccessManager>
@@ -43,8 +41,6 @@ private:
 	QByteArray imageData ;
 	bool isARedirectedUrl(QNetworkReply *reply);
 	void setURLToRedirectedUrl(QNetworkReply *reply);
-	void loadFromFile(QString filePath);
-	void releaseSomeCache(const int& maxNumberOfImagesSaved);
 
 signals:
     void urlChanged();

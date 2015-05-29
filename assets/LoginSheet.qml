@@ -17,7 +17,6 @@ Sheet {
                 }
             }
             appearance: TitleBarAppearance.Plain
-
         }
         Container {
             verticalAlignment: VerticalAlignment.Fill
@@ -32,11 +31,11 @@ Sheet {
                 leftPadding: 20.0
                 rightPadding: 20.0
                 topPadding: 20.0
-                bottomPadding: 20.0
+                bottomPadding: 10.0
                 ImageView {
                     imageSource: "asset:///userguide/user_guide_logo.png"
                     horizontalAlignment: HorizontalAlignment.Center
-                    bottomMargin: 50.0
+                    bottomMargin: 20.0
                     scalingMethod: ScalingMethod.AspectFit
                 }
                 TextField {
@@ -81,9 +80,29 @@ Sheet {
                                 });
                         }
                     }
-                    topMargin: 50.0
+                    topMargin: 20.0
                 }
             }
+            Container {
+                Label {
+                    text: qsTr("Forgot Password?")
+                    textStyle.fontWeight: FontWeight.W100
+                    textStyle.fontSize: FontSize.XSmall
+                }
+                verticalAlignment: VerticalAlignment.Top
+                horizontalAlignment: HorizontalAlignment.Right
+                bottomPadding: 10.0
+                rightPadding: 10.0
+                topPadding: 10.0
+                leftPadding: 10.0
+                gestureHandlers: TapHandler {
+                    onTapped: {
+                        var fs = Qt.createComponent("ForgotPassSheet.qml").createObject(sheetroot);
+                        fs.open();
+                    }
+                }
+            }
+
         }
     }
 }

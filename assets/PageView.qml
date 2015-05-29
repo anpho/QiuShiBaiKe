@@ -136,7 +136,7 @@ ListView {
                             }
                             toast_custom.show()
                         } else {
-                            toast_no_data_recv.show();
+                            //toast_no_data_recv.show();
                         }
                     }
                 } else {
@@ -150,9 +150,14 @@ ListView {
                 } ], false)
     }
     property string userid: _app.getv('userid', '')
-    function requestDelete(postid) {
+    function requestDelete(postid, indexpath) {
         co.requestDelete(function(b, r) {
                 if (b) {
+                    if (indexpath) {
+                        console.log('about to remove' + indexpath + JSON.stringify(adm.data(indexpath)));
+                        adm.removeAt(adm.indexOf(adm.data(indexpath)))
+                    }
+
                     toast_custom.body = postid + "  " + qsTr("successfully deleted.")
                 } else {
                     toast_custom.body = r;
@@ -317,18 +322,34 @@ ListView {
                 onPopulating: {
                     if (itemroot.ListItem.view.ptype == 3) {
                         console.log("[context] in My-Fav context");
+                        // show rm fav and hide add fav.
                         if (actionset.indexOf(rmFav) > -1) {
                             //bypass
                         } else {
                             actionset.add(rmFav)
                             actionset.remove(addFav);
                         }
-                    } else {
-                        var index = actionset.indexOf(rmFav)
-                        if (index > -1) {
-                            actionset.remove(rmFav);
-                            actionset.insert(0, addFav);
+                        // hide delMyPost
+                        if (actionset.indexOf(delMyPost) > -1) {
+                            actionset.remove(delMyPost);
                         }
+                    } else if (itemroot.ListItem.view.ptype == 2) {
+                        console.log("my posts")
+                        // hide rm fav & add fav.
+                        // show delMyPost
+
+                        if (actionset.indexOf(rmFav) > -1) {
+                            actionset.remove(rmFav)
+                        }
+
+                        if (actionset.indexOf(addFav) > -1) {
+                            actionset.remove(addFav)
+                        }
+
+                        if (actionset.indexOf(delMyPost) < 0) {
+                            actionset.add(delMyPost);
+                        }
+
                     }
 
                 }
@@ -339,6 +360,14 @@ ListView {
                         title: qsTr("Remove from Fav.")
                         onTriggered: {
                             itemroot.ListItem.view.requestUNFav(ListItemData.id, itemroot.ListItem.indexPath);
+                        }
+                    },
+                    DeleteActionItem {
+                        imageSource: "asset:///icon/ic_delete.png"
+                        id: delMyPost
+                        title: qsTr("Delete")
+                        onTriggered: {
+                            itemroot.ListItem.view.requestDelete(ListItemData.id, itemroot.ListItem.indexPath);
                         }
                     }
                 ]

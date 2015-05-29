@@ -21,6 +21,9 @@ NavigationPane {
     peekEnabled: true
     property string userlogin: _app.getv('login', '')
     property string imageurl: ""
+    onUserloginChanged: {
+        console.log('[CARD] userlogin is :' + userlogin);
+    }
     id: cardnav
     Page {
         attachedObjects: [
@@ -31,7 +34,7 @@ NavigationPane {
         Container {
             Header {
                 title: qsTr("New Post")
-                subtitle: userlogin
+                subtitle: userlogin.length > 0 ? userlogin : qsTr("Not logged in")
             }
             leftPadding: 20.0
             topPadding: 20.0
@@ -77,6 +80,16 @@ NavigationPane {
                     }
                 }
             }
+            Button {
+                text: qsTr("Login")
+                horizontalAlignment: HorizontalAlignment.Center
+                onClicked: {
+                    var loginsheet = Qt.createComponent("LoginSheet.qml").createObject(cardnav)
+                    loginsheet.closed.connect(loginsheetclosed)
+                    loginsheet.open();
+                }
+                visible: userlogin.length == 0
+            }
             Label {
                 text: qsTr("Share your real life story here, your post will be reviewed by several users under the pricinple of REAL & FUNNY. Pornographic, political, terrorist, or disclosure of privacy posts will be deleted after verification, users who submited these materials will be banned. All rights reserved by www.qiushibaike.com including your posts.")
                 multiline: true
@@ -84,6 +97,7 @@ NavigationPane {
                 opacity: 0.6
                 id: terms
             }
+
             Divider {
                 horizontalAlignment: HorizontalAlignment.Center
             }
@@ -146,7 +160,7 @@ NavigationPane {
 
             },
             ActionItem {
-                title: qsTr("Image")
+                title: qsTr("+Image")
                 imageSource: "asset:///icon/ic_view_image.png"
                 ActionBar.placement: ActionBarPlacement.OnBar
                 onTriggered: {
@@ -181,6 +195,9 @@ NavigationPane {
     function loginsheetclosed() {
         //登录页面关闭，重新读取登录数据
         userlogin = _app.getv('login', '')
+        if (userlogin.length == 0) {
+            _app.requestQuit(false);
+        }
     }
     onCreationCompleted: {
         //如果有分享过来的文本，把它显示到文本框里
@@ -198,7 +215,7 @@ NavigationPane {
         console.log(success);
         console.log(data)
         if (success) {
-            _app.requestQuit();
+            _app.requestQuit(true);
         } else {
             toast_custom.body = JSON.parse(data).err_msg;
             toast_custom.show();

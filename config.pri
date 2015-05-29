@@ -54,8 +54,10 @@ config_pri_assets {
     OTHER_FILES += \
         $$quote($$BASEDIR/assets/CommentsItem.qml) \
         $$quote($$BASEDIR/assets/Common.qml) \
+        $$quote($$BASEDIR/assets/ForgotPassSheet.qml) \
         $$quote($$BASEDIR/assets/FriendItem.qml) \
         $$quote($$BASEDIR/assets/FriendsView.qml) \
+        $$quote($$BASEDIR/assets/Issues.qml) \
         $$quote($$BASEDIR/assets/ItemView.qml) \
         $$quote($$BASEDIR/assets/LoginSheet.qml) \
         $$quote($$BASEDIR/assets/PTR.qml) \
@@ -63,6 +65,8 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/PostItem.qml) \
         $$quote($$BASEDIR/assets/UserArticlesView.qml) \
         $$quote($$BASEDIR/assets/UserProfileView.qml) \
+        $$quote($$BASEDIR/assets/VisualStyle.Dark/res/default_user_avatar.png) \
+        $$quote($$BASEDIR/assets/about.qml) \
         $$quote($$BASEDIR/assets/card.qml) \
         $$quote($$BASEDIR/assets/emoji/qb_00.png) \
         $$quote($$BASEDIR/assets/emoji/qb_01.png) \
@@ -268,6 +272,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/icon/yes.png) \
         $$quote($$BASEDIR/assets/main.qml) \
         $$quote($$BASEDIR/assets/page-SearchUser.qml) \
+        $$quote($$BASEDIR/assets/res/avatar.png) \
         $$quote($$BASEDIR/assets/res/bg_tile.png) \
         $$quote($$BASEDIR/assets/res/bottombar_cleanlocal.png) \
         $$quote($$BASEDIR/assets/res/bottombar_shaixuan.png) \
@@ -275,6 +280,7 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/res/default_user_avatar.png) \
         $$quote($$BASEDIR/assets/res/delete.png) \
         $$quote($$BASEDIR/assets/res/delete2.png) \
+        $$quote($$BASEDIR/assets/res/empty_list_icon.amd) \
         $$quote($$BASEDIR/assets/res/empty_list_icon.png) \
         $$quote($$BASEDIR/assets/res/evaluate_bg.9.png) \
         $$quote($$BASEDIR/assets/res/evaluate_face_done.png) \
@@ -311,6 +317,8 @@ config_pri_assets {
         $$quote($$BASEDIR/assets/res/review_pass.png) \
         $$quote($$BASEDIR/assets/res/session_profile.png) \
         $$quote($$BASEDIR/assets/res/submit.png) \
+        $$quote($$BASEDIR/assets/res/twitter.png) \
+        $$quote($$BASEDIR/assets/res/weibo.png) \
         $$quote($$BASEDIR/assets/settings.qml) \
         $$quote($$BASEDIR/assets/userguide/user_guide_ad_board.png) \
         $$quote($$BASEDIR/assets/userguide/user_guide_bed.png) \
@@ -381,6 +389,12 @@ lupdate_inclusion {
         $$quote($$BASEDIR/../assets/*.qml) \
         $$quote($$BASEDIR/../assets/*.js) \
         $$quote($$BASEDIR/../assets/*.qs) \
+        $$quote($$BASEDIR/../assets/VisualStyle.Dark/*.qml) \
+        $$quote($$BASEDIR/../assets/VisualStyle.Dark/*.js) \
+        $$quote($$BASEDIR/../assets/VisualStyle.Dark/*.qs) \
+        $$quote($$BASEDIR/../assets/VisualStyle.Dark/res/*.qml) \
+        $$quote($$BASEDIR/../assets/VisualStyle.Dark/res/*.js) \
+        $$quote($$BASEDIR/../assets/VisualStyle.Dark/res/*.qs) \
         $$quote($$BASEDIR/../assets/emoji/*.qml) \
         $$quote($$BASEDIR/../assets/emoji/*.js) \
         $$quote($$BASEDIR/../assets/emoji/*.qs) \

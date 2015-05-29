@@ -58,6 +58,8 @@ void ApplicationUI::invokeCard(const QString &memo)
 void ApplicationUI::cardDone(const bb::system::CardDoneMessage &doneMessage)
 {
     qDebug() << "cardDone: " << doneMessage.reason();
-    emit cardDone(doneMessage.reason());
+    if (doneMessage.data() == "card"){
+        emit cardDone(doneMessage.reason());
+    }
 }
 

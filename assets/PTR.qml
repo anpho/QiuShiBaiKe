@@ -21,6 +21,8 @@ Container {
         if (watchLoading) {
             watchLoading = false;
             reflabel = pull_to_refresh;
+        }
+        if (! loading) {
             refHeader.visible = false;
             refHeader.preferredHeight = 0;
             refHeader.visible = true;
@@ -61,7 +63,7 @@ Container {
             if (event.touchType == TouchType.Up && refreshcooked) {
                 refimage.rotationZ = 0;
                 refreshcooked = false;
-//                reflabel.text = refreshing
+                //                reflabel.text = refreshing
                 triggerRefresh()
                 watchLoading = true;
             }

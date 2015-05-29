@@ -17,13 +17,13 @@
 <context>
     <name>CardUI</name>
     <message>
-        <location filename="../src/cardui.cpp" line="86"/>
-        <source>Card: I am done. Yay!</source>
+        <location filename="../src/cardui.cpp" line="88"/>
+        <source>Success</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/cardui.cpp" line="88"/>
-        <source>Success</source>
+        <source>Failed</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -54,6 +54,24 @@
     </message>
 </context>
 <context>
+    <name>ForgotPassSheet</name>
+    <message>
+        <location filename="../assets/ForgotPassSheet.qml" line="7"/>
+        <source>Password Recovery</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/ForgotPassSheet.qml" line="10"/>
+        <source>Close</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/ForgotPassSheet.qml" line="38"/>
+        <source>Connecting to Server...</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>FriendsView</name>
     <message>
         <location filename="../assets/FriendsView.qml" line="28"/>
@@ -68,6 +86,24 @@
     <message>
         <location filename="../assets/FriendsView.qml" line="45"/>
         <source>Server unavailable.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>Issues</name>
+    <message>
+        <location filename="../assets/Issues.qml" line="8"/>
+        <source>Issues</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/Issues.qml" line="11"/>
+        <source>Close</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/Issues.qml" line="18"/>
+        <source>Reload</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -142,18 +178,23 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/LoginSheet.qml" line="43"/>
+        <location filename="../assets/LoginSheet.qml" line="42"/>
         <source>Username</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/LoginSheet.qml" line="49"/>
+        <location filename="../assets/LoginSheet.qml" line="48"/>
         <source>Password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/LoginSheet.qml" line="62"/>
+        <location filename="../assets/LoginSheet.qml" line="61"/>
         <source>Login</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/LoginSheet.qml" line="88"/>
+        <source>Forgot Password?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -188,48 +229,53 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/PageView.qml" line="156"/>
+        <location filename="../assets/PageView.qml" line="161"/>
         <source>successfully deleted.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/PageView.qml" line="194"/>
+        <location filename="../assets/PageView.qml" line="199"/>
         <source>Post added to your favourite list.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/PageView.qml" line="205"/>
+        <location filename="../assets/PageView.qml" line="210"/>
         <source>Post removed from your favourite list.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/PageView.qml" line="232"/>
+        <location filename="../assets/PageView.qml" line="237"/>
         <source>Anonymous</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/PageView.qml" line="288"/>
+        <location filename="../assets/PageView.qml" line="293"/>
         <source>Post ID</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/PageView.qml" line="293"/>
+        <location filename="../assets/PageView.qml" line="298"/>
         <source>Add to Fav.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/PageView.qml" line="300"/>
+        <location filename="../assets/PageView.qml" line="305"/>
         <source>Copy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/PageView.qml" line="307"/>
+        <location filename="../assets/PageView.qml" line="312"/>
         <source>Share</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/PageView.qml" line="339"/>
+        <location filename="../assets/PageView.qml" line="360"/>
         <source>Remove from Fav.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/PageView.qml" line="368"/>
+        <source>Delete</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -288,116 +334,199 @@
     <name>UserProfileView</name>
     <message>
         <location filename="../assets/UserProfileView.qml" line="33"/>
-        <location filename="../assets/UserProfileView.qml" line="353"/>
-        <location filename="../assets/UserProfileView.qml" line="368"/>
-        <location filename="../assets/UserProfileView.qml" line="393"/>
-        <location filename="../assets/UserProfileView.qml" line="409"/>
+        <location filename="../assets/UserProfileView.qml" line="354"/>
+        <location filename="../assets/UserProfileView.qml" line="369"/>
+        <location filename="../assets/UserProfileView.qml" line="394"/>
+        <location filename="../assets/UserProfileView.qml" line="410"/>
         <source>Login Required.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/UserProfileView.qml" line="253"/>
+        <location filename="../assets/UserProfileView.qml" line="254"/>
         <source>Posts</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/UserProfileView.qml" line="267"/>
+        <location filename="../assets/UserProfileView.qml" line="268"/>
         <source>Likes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/UserProfileView.qml" line="281"/>
+        <location filename="../assets/UserProfileView.qml" line="282"/>
         <source>Days</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/UserProfileView.qml" line="297"/>
-        <location filename="../assets/UserProfileView.qml" line="303"/>
-        <location filename="../assets/UserProfileView.qml" line="312"/>
-        <location filename="../assets/UserProfileView.qml" line="319"/>
+        <location filename="../assets/UserProfileView.qml" line="298"/>
+        <location filename="../assets/UserProfileView.qml" line="304"/>
+        <location filename="../assets/UserProfileView.qml" line="313"/>
+        <location filename="../assets/UserProfileView.qml" line="320"/>
         <source>Unknown</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/UserProfileView.qml" line="326"/>
+        <location filename="../assets/UserProfileView.qml" line="327"/>
         <source>Waiting for approval.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/UserProfileView.qml" line="345"/>
+        <location filename="../assets/UserProfileView.qml" line="346"/>
         <source>Block</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/UserProfileView.qml" line="358"/>
+        <location filename="../assets/UserProfileView.qml" line="359"/>
         <source>This user is successfully removed from your blacklist.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/UserProfileView.qml" line="373"/>
+        <location filename="../assets/UserProfileView.qml" line="374"/>
         <source>This user won&apos;t be able to send message to you.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/UserProfileView.qml" line="383"/>
+        <location filename="../assets/UserProfileView.qml" line="384"/>
         <source>Follow</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/UserProfileView.qml" line="383"/>
+        <location filename="../assets/UserProfileView.qml" line="384"/>
         <source>Unfollow</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/UserProfileView.qml" line="398"/>
+        <location filename="../assets/UserProfileView.qml" line="399"/>
         <source>Request sent.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/UserProfileView.qml" line="414"/>
+        <location filename="../assets/UserProfileView.qml" line="415"/>
         <source>Request complete.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>about</name>
+    <message>
+        <location filename="../assets/about.qml" line="8"/>
+        <source>About</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/about.qml" line="11"/>
+        <source>Close</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/about.qml" line="40"/>
+        <source>about www.qiushibaike.com</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/about.qml" line="48"/>
+        <source>www.qiushibaike.com ( qsbk ) is a FML copycat which is very popular in China mainland. Users post their emberessed moments via text, image, and video, which could make people laugh.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/about.qml" line="54"/>
+        <source>Website: &lt;a href=&apos;http://www.qiushibaike.com&apos;&gt;www.qiushibaike.com&lt;/a&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/about.qml" line="59"/>
+        <source>about this app</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/about.qml" line="67"/>
+        <source>This app is built on BlackBerry Cascades native framework, focusing on bring best user experience to you. You can submit feedbacks via the &lt;Feedback*&gt; button at the bottom.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/about.qml" line="73"/>
+        <source>*Feedback requires &lt;a href=&apos;http://github.com&apos;&gt;Github&lt;/a&gt; account.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/about.qml" line="79"/>
+        <source>about me</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/about.qml" line="99"/>
+        <source>Merrick Zhang</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/about.qml" line="102"/>
+        <source>Independent BlackBerry Developer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/about.qml" line="108"/>
+        <source>You can find all my apps &lt;a href=&apos;appworld://vendor/26755&apos;&gt;Here&lt;/a&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/about.qml" line="115"/>
+        <source>&lt;a href=&apos;mailto:anphorea@gmail.com&apos;&gt;Email Me&lt;/a&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/about.qml" line="128"/>
+        <source>Feedback</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>card</name>
     <message>
-        <location filename="../assets/card.qml" line="33"/>
+        <location filename="../assets/card.qml" line="36"/>
         <source>New Post</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/card.qml" line="52"/>
+        <location filename="../assets/card.qml" line="37"/>
+        <source>Not logged in</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/card.qml" line="55"/>
         <source>Write your story here.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/card.qml" line="81"/>
+        <location filename="../assets/card.qml" line="84"/>
+        <source>Login</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/card.qml" line="94"/>
         <source>Share your real life story here, your post will be reviewed by several users under the pricinple of REAL &amp; FUNNY. Pornographic, political, terrorist, or disclosure of privacy posts will be deleted after verification, users who submited these materials will be banned. All rights reserved by www.qiushibaike.com including your posts.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/card.qml" line="106"/>
+        <location filename="../assets/card.qml" line="120"/>
         <source>Anonymous</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/card.qml" line="143"/>
+        <location filename="../assets/card.qml" line="157"/>
         <source>At least 5 charactors required.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/card.qml" line="149"/>
-        <source>Image</source>
+        <location filename="../assets/card.qml" line="163"/>
+        <source>+Image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/card.qml" line="160"/>
+        <location filename="../assets/card.qml" line="174"/>
         <source>Select an image to upload</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/card.qml" line="118"/>
+        <location filename="../assets/card.qml" line="132"/>
         <source>Submit</source>
         <translation type="unfinished"></translation>
     </message>
@@ -405,128 +534,138 @@
 <context>
     <name>main</name>
     <message>
-        <location filename="../assets/main.qml" line="120"/>
+        <location filename="../assets/main.qml" line="133"/>
         <source>Submit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="81"/>
+        <location filename="../assets/main.qml" line="85"/>
         <source>Successfully posted, please wait for approval.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="36"/>
+        <location filename="../assets/main.qml" line="39"/>
         <source>Login</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="46"/>
+        <location filename="../assets/main.qml" line="50"/>
         <source>Logged out successfully.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="131"/>
+        <location filename="../assets/main.qml" line="111"/>
+        <source>Not logged in, now back to Browse</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/main.qml" line="144"/>
         <source>Hot</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="135"/>
+        <location filename="../assets/main.qml" line="148"/>
         <source>Video</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="139"/>
+        <location filename="../assets/main.qml" line="152"/>
         <source>Image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="143"/>
+        <location filename="../assets/main.qml" line="156"/>
         <source>Text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="204"/>
+        <location filename="../assets/main.qml" line="217"/>
         <source>Browse</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="300"/>
+        <location filename="../assets/main.qml" line="222"/>
+        <source>Ranks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/main.qml" line="248"/>
+        <source>Newest</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../assets/main.qml" line="330"/>
         <source>Messages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="449"/>
+        <location filename="../assets/main.qml" line="479"/>
         <source>Search</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="465"/>
+        <location filename="../assets/main.qml" line="495"/>
         <source>Friends</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="469"/>
+        <location filename="../assets/main.qml" line="499"/>
         <source>Following</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="473"/>
+        <location filename="../assets/main.qml" line="503"/>
         <source>Followers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="516"/>
+        <location filename="../assets/main.qml" line="546"/>
         <source>My Friends</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="291"/>
+        <location filename="../assets/main.qml" line="321"/>
         <source>Not implemented yet.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="36"/>
+        <location filename="../assets/main.qml" line="39"/>
         <source>Logout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="57"/>
+        <location filename="../assets/main.qml" line="61"/>
         <source>Review App</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="208"/>
-        <source>Sticky Posts</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../assets/main.qml" line="222"/>
+        <location filename="../assets/main.qml" line="236"/>
         <source>Month</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="226"/>
+        <location filename="../assets/main.qml" line="240"/>
         <source>Week</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="230"/>
+        <location filename="../assets/main.qml" line="244"/>
         <source>Day</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="350"/>
-        <location filename="../assets/main.qml" line="370"/>
+        <location filename="../assets/main.qml" line="380"/>
+        <location filename="../assets/main.qml" line="400"/>
         <source>My Posts</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="374"/>
+        <location filename="../assets/main.qml" line="404"/>
         <source>My Favourites</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="378"/>
+        <location filename="../assets/main.qml" line="408"/>
         <source>My Participates</source>
         <translation type="unfinished"></translation>
     </message>
@@ -534,7 +673,7 @@
 <context>
     <name>page-SearchUser</name>
     <message>
-        <location filename="../assets/page-SearchUser.qml" line="97"/>
+        <location filename="../assets/page-SearchUser.qml" line="109"/>
         <source>Search</source>
         <translation type="unfinished"></translation>
     </message>
@@ -559,12 +698,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/page-SearchUser.qml" line="67"/>
+        <location filename="../assets/page-SearchUser.qml" line="72"/>
         <source>Type her/his nickname below.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/page-SearchUser.qml" line="70"/>
+        <location filename="../assets/page-SearchUser.qml" line="75"/>
         <source>Her/His Nickname.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -628,82 +767,82 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/settings.qml" line="105"/>
+        <location filename="../assets/settings.qml" line="98"/>
         <source>Turn this off could improve app&apos;s performance and reduce network usage.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/settings.qml" line="109"/>
+        <location filename="../assets/settings.qml" line="102"/>
         <source>Text Size</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/settings.qml" line="112"/>
+        <location filename="../assets/settings.qml" line="105"/>
         <source>Move this slider to adjust text size.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/settings.qml" line="137"/>
+        <location filename="../assets/settings.qml" line="130"/>
         <source>sample text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/settings.qml" line="145"/>
+        <location filename="../assets/settings.qml" line="138"/>
         <source>Unlock Features</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/settings.qml" line="150"/>
+        <location filename="../assets/settings.qml" line="144"/>
         <source>Unlock full features including: Picture uploading / Messages / Nearby and other upcoming advanced features, thanks for your support.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/settings.qml" line="156"/>
+        <location filename="../assets/settings.qml" line="150"/>
         <source>Unlock for $0.99</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/settings.qml" line="160"/>
+        <location filename="../assets/settings.qml" line="154"/>
         <source>If you&apos;ve purchased this app before with the same BlackBerry ID, you can press the button below to sync the status.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/settings.qml" line="166"/>
+        <location filename="../assets/settings.qml" line="160"/>
         <source>Sync Purchase</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/settings.qml" line="169"/>
+        <location filename="../assets/settings.qml" line="163"/>
         <source>In case of purchasing issues with PayPal or Credit card, you can use the unlock code to unlock full features too.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/settings.qml" line="177"/>
+        <location filename="../assets/settings.qml" line="171"/>
         <source>APP-PIN : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/settings.qml" line="193"/>
+        <location filename="../assets/settings.qml" line="187"/>
         <source>Unlock Code:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/settings.qml" line="196"/>
+        <location filename="../assets/settings.qml" line="190"/>
         <source>Enter the 4-digit Unlock-Code</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/settings.qml" line="204"/>
+        <location filename="../assets/settings.qml" line="198"/>
         <source>Unlock</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/settings.qml" line="211"/>
+        <location filename="../assets/settings.qml" line="205"/>
         <source>Application Unlocked</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/settings.qml" line="215"/>
+        <location filename="../assets/settings.qml" line="209"/>
         <source>Invalid Code</source>
         <translation type="unfinished"></translation>
     </message>

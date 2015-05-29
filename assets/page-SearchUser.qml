@@ -55,6 +55,11 @@ Page {
                 onTextChanging: {
                     errormessage.text = "";
                 }
+                input.onSubmitted: {
+                    if (validator.valid) {
+                        triggerSearch.triggered();
+                    }
+                }
             }
         }
         Container {
@@ -74,7 +79,13 @@ Page {
                 onTextChanging: {
                     errormessage.text = "";
                 }
+                input.onSubmitted: {
+                    if (validator.valid) {
+                        triggerSearch.triggered();
+                    }
+                }
             }
+
         }
         Label {
             id: errormessage
@@ -93,6 +104,7 @@ Page {
     }
     actions: [
         ActionItem {
+            id: triggerSearch
             imageSource: "asset:///icon/ic_search.png"
             title: qsTr("Search")
             ActionBar.placement: co.signature

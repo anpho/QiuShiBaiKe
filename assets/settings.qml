@@ -86,16 +86,9 @@ Sheet {
 
                     topPadding: 10.0
                     bottomPadding: 10.0
-                    Label {
+                    CheckBox {
                         text: qsTr("Show Avatar")
-                        verticalAlignment: VerticalAlignment.Center
-                        layoutProperties: StackLayoutProperties {
-                            spaceQuota: 1.0
-                        }
-                    }
-                    ToggleButton {
                         checked: _app.getv('avatar', 'true') == 'true'
-                        verticalAlignment: VerticalAlignment.Center
                         onCheckedChanged: {
                             _app.setv('avatar', checked)
                         }
@@ -143,9 +136,10 @@ Sheet {
                 }
                 Header {
                     title: qsTr("Unlock Features")
+                    visible: false
                 }
                 Container {
-                    visible: ! unlocked
+                    visible: false // ! unlocked
                     Label {
                         text: qsTr("Unlock full features including: Picture uploading / Messages / Nearby and other upcoming advanced features, thanks for your support.")
                         multiline: true
