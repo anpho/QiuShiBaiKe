@@ -1,6 +1,15 @@
 import bb.cascades 1.2
 
 QtObject {
+    function gender(mfu) {
+        if (mfu.toUpperCase() == "M") {
+            return String.fromCharCode(0x2642)
+        } else if (mfu.toUpperCase() == "F") {
+            return String.fromCharCode(0x2640)
+        } else {
+            return String.fromCharCode(0x26aa)
+        }
+    }
     function ajax(method, endpoint, paramsArray, callback, customheader, form) {
         console.log(method + "//" + endpoint + JSON.stringify(paramsArray))
         var request = new XMLHttpRequest();
@@ -288,8 +297,8 @@ QtObject {
         "home": "🏠",
         "phone": "📱",
         "flag": "🚩",
-        "r": "®",
-        "c": "©",
+        "r": String.fromCharCode(174),
+        "c": String.fromCharCode(169),
         "tm": "TM",
         "sad": ":(",
         "happy": ":)",

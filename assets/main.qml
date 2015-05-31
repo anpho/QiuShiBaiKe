@@ -61,7 +61,7 @@ TabbedPane {
                 title: qsTr("Review App")
                 imageSource: "asset:///icon/ic_edit_bookmarks.png"
                 onTriggered: {
-                    Qt.openUrlExternally("appworld://content/46269897")
+                    Qt.openUrlExternally("appworld://content/59962387")
                 }
             }
         ]
@@ -76,6 +76,7 @@ TabbedPane {
     property int baseFontsize: parseInt(_app.getv('size', '8'))
     property string lock: _app.getv('lock', '')
     property bool unlocked: lock == "unlocked"
+    property bool displayAltBar: _app.getv('display.altbar', 'false') == "true"
     attachedObjects: [
         Common {
             id: co
@@ -92,8 +93,10 @@ TabbedPane {
         _app.cardDone.connect(cardDoneHandle)
     }
     function reloadsettings() {
+        // be called when user back from settings page.
         baseFontsize = parseInt(_app.getv('size', '8'));
         lock = _app.getv('lock', '')
+        displayAltBar = _app.getv('display.altbar', 'false') == "true"
     }
     function cardDoneHandle(msg) {
         refreshUserLoginState()
@@ -138,6 +141,7 @@ TabbedPane {
                         ]
                         titleBar: TitleBar {
                             kind: TitleBarKind.Segmented
+                            id: titlebar
                             options: [
                                 Option {
                                     id: s_hot
@@ -160,6 +164,9 @@ TabbedPane {
                             scrollBehavior: TitleBarScrollBehavior.Sticky
                         }
                         Container {
+                            layout: StackLayout {
+
+                            }
                             ControlDelegate {
                                 delegateActive: s_hot.selected
                                 attachedObjects: ComponentDefinition {
@@ -209,6 +216,42 @@ TabbedPane {
                                 }
                                 sourceComponent: txtview
                             }
+                            Container {
+                                layoutProperties: StackLayoutProperties {
+                                    spaceQuota: 10.0
+                                }
+                                layout: DockLayout {
+
+                                }
+                                horizontalAlignment: HorizontalAlignment.Fill
+                                ImageView {
+                                    imageSource: "asset:///res/default_no_content_grey.png"
+                                    scalingMethod: ScalingMethod.AspectFit
+                                    horizontalAlignment: HorizontalAlignment.Center
+                                    verticalAlignment: VerticalAlignment.Center
+                                }
+                            }
+                            SegmentedControl {
+                                selectedIndex: titlebar.selectedIndex
+                                onSelectedIndexChanged: {
+                                    titlebar.selectedIndex = selectedIndex
+                                }
+                                visible: displayAltBar
+                                options: [
+                                    Option {
+                                        text: qsTr("Hot")
+                                    },
+                                    Option {
+                                        text: qsTr("Video")
+                                    },
+                                    Option {
+                                        text: qsTr("Image")
+                                    },
+                                    Option {
+                                        text: qsTr("Text")
+                                    }
+                                ]
+                            }
                         }
                     }
                 }
@@ -229,6 +272,7 @@ TabbedPane {
                     }
                     Page {
                         titleBar: TitleBar {
+                            id: titlebar_rank
                             kind: TitleBarKind.Segmented
                             options: [
                                 Option {
@@ -300,6 +344,32 @@ TabbedPane {
                                     }
                                 }
                                 sourceComponent: newview
+                            }
+                            Container {
+                                layoutProperties: StackLayoutProperties {
+                                    spaceQuota: 10
+                                }
+                            }
+                            SegmentedControl {
+                                visible: displayAltBar
+                                options: [
+                                    Option {
+                                        text: qsTr("Month")
+                                    },
+                                    Option {
+                                        text: qsTr("Week")
+                                    },
+                                    Option {
+                                        text: qsTr("Day")
+                                    },
+                                    Option {
+                                        text: qsTr("Newest")
+                                    }
+                                ]
+                                selectedIndex: titlebar_rank.selectedIndex
+                                onSelectedIndexChanged: {
+                                    titlebar_rank.selectedIndex = selectedIndex
+                                }
                             }
                         }
                     }
@@ -393,6 +463,7 @@ TabbedPane {
                     }
                     Page {
                         titleBar: TitleBar {
+                            id: titlebar_my
                             kind: TitleBarKind.Segmented
                             options: [
                                 Option {
@@ -449,6 +520,29 @@ TabbedPane {
                                 }
                                 sourceComponent: myattview
                             }
+                            Container {
+                                layoutProperties: StackLayoutProperties {
+                                    spaceQuota: 10
+                                }
+                            }
+                            SegmentedControl {
+                                visible: displayAltBar
+                                options: [
+                                    Option {
+                                        text: qsTr("My Posts")
+                                    },
+                                    Option {
+                                        text: qsTr("My Favourites")
+                                    },
+                                    Option {
+                                        text: qsTr("My Participates")
+                                    }
+                                ]
+                                onSelectedIndexChanged: {
+                                    titlebar_my.selectedIndex = selectedIndex
+                                }
+                                selectedIndex: titlebar_my.selectedIndex
+                            }
                         }
                     }
                 }
@@ -489,6 +583,7 @@ TabbedPane {
                             kind: TitleBarKind.Segmented
                             appearance: TitleBarAppearance.Plain
                             scrollBehavior: TitleBarScrollBehavior.Sticky
+                            id: titlebar_friends
                             options: [
                                 Option {
                                     id: op_myFriends
@@ -537,6 +632,29 @@ TabbedPane {
                                     }
                                 }
                                 sourceComponent: fanview
+                            }
+                            Container {
+                                layoutProperties: StackLayoutProperties {
+                                    spaceQuota: 10
+                                }
+                            }
+                            SegmentedControl {
+                                visible: displayAltBar
+                                options: [
+                                    Option {
+                                        text: qsTr("Friends")
+                                    },
+                                    Option {
+                                        text: qsTr("Following")
+                                    },
+                                    Option {
+                                        text: qsTr("Followers")
+                                    }
+                                ]
+                                selectedIndex: titlebar_friends.selectedIndex
+                                onSelectedIndexChanged: {
+                                    titlebar_friends.selectedIndex = selectedIndex
+                                }
                             }
                         }
                     }

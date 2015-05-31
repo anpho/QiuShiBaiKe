@@ -179,15 +179,8 @@ Page {
                         verticalAlignment: VerticalAlignment.Top
                         horizontalAlignment: HorizontalAlignment.Fill
                         Label {
-                            text: co.emoji["girl"]
+                            text: co.gender(gender)
                             textStyle.fontSize: FontSize.Small
-                            visible: gender == 'F'
-                            textStyle.color: Color.White
-                        }
-                        Label {
-                            text: co.emoji["boy"]
-                            textStyle.fontSize: FontSize.Small
-                            visible: gender == 'M'
                             textStyle.color: Color.White
                         }
                         Label {

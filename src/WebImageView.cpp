@@ -119,7 +119,7 @@ void WebImageView::imageLoaded()
     // Get reply
     QNetworkReply * reply = qobject_cast<QNetworkReply*>(sender());
     QVariant fromCache = reply->attribute(QNetworkRequest::SourceIsFromCacheAttribute);
-    qDebug() << "page from cache?" << fromCache.toBool();
+//    qDebug() << "page from cache?" << fromCache.toBool();
     if (reply->error() == QNetworkReply::NoError) {
         if (isARedirectedUrl(reply)) {
             setURLToRedirectedUrl(reply);

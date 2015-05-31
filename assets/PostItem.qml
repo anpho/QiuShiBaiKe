@@ -119,9 +119,11 @@ Container {
     }
     Container {
         visible: type != 0
+        horizontalAlignment: HorizontalAlignment.Fill
         Label {
             text: Qt.formatDateTime(new Date(d_date * 1000), "yyyy.MM.dd ddd h:mm")
             textStyle.fontSize: FontSize.XSmall
+            horizontalAlignment: HorizontalAlignment.Right
         }
     }
     Divider {

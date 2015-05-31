@@ -25,7 +25,7 @@
     <!-- A universally unique application identifier. Must be unique across
         all BlackBerry 10 applications. Using a reverse DNS-style name as the id
         is recommended. (Eg. com.example.ExampleApplication.) Required. -->
-    <id>anpho.qsbk</id>
+    <id>anpho.gaffes</id>
 
     <!-- The name that is displayed in the BlackBerry 10 application installer.
         May have multiple values for each language. See samples or xsd schema file.
@@ -56,7 +56,7 @@
     <!-- Name of author which is used for signing. Must match the developer
         name of your development certificate. -->
     <name>
-       QiuShiBaiKe
+       Gaffes
        <text xml:lang="zh-CN">&#x7cd7;&#x4e8b;&#x767e;&#x79d1;</text>
     </name>
     <description>
@@ -74,7 +74,7 @@
     </splashScreens>
     <authorId>gYAAgMy-I-SFJtVvioZxVXYQjhA</authorId>
     <author>anpho</author>
-    <buildId>529</buildId>
+    <buildId>531</buildId>
     <configuration name="Device-Debug">
         <platformArchitecture>armle-v7</platformArchitecture>
         <asset entryPointId="qsbk" path="arm/o.le-v7-g/qsbk"
@@ -104,12 +104,12 @@
     </configuration>
 
     <entryPoint id="qsbk">
-        <name>qsbk</name>
+        <name>Gaffes</name>
     </entryPoint>
 
-    <invoke-target id="anpho.qiushibaike">
+    <invoke-target id="anpho.gaffes">
         <invoke-target-type>card.previewer</invoke-target-type>
-        <invoke-target-name>QiuShiBaiKe<text xml:lang="zh-CN">&#x7cd7;&#x4e8b;&#x767e;&#x79d1;</text></invoke-target-name>
+        <invoke-target-name>Gaffes<text xml:lang="zh-CN">&#x7cd7;&#x4e8b;&#x767e;&#x79d1;</text></invoke-target-name>
         <entry-point-id>qsbk</entry-point-id>
         <filter>
             <action>bb.action.SHARE</action>
@@ -150,6 +150,6 @@
     <permission>access_shared</permission>
 
     <env var="LD_LIBRARY_PATH" value="app/native/lib:/usr/lib/qt4/lib" />
-    <env var="CASCADES_THEME" value="default?primaryColor=0xFFA015&amp;primaryBase=0xFFFFFF"/>
+    <env var="CASCADES_THEME" value="default"/>
 
 </qnx>

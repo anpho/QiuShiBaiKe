@@ -79,23 +79,26 @@ Sheet {
                 Header {
                     title: qsTr("UI Settings")
                 }
-                Container {
-                    layout: StackLayout {
-                        orientation: LayoutOrientation.LeftToRight
-                    }
-
-                    topPadding: 10.0
-                    bottomPadding: 10.0
-                    CheckBox {
-                        text: qsTr("Show Avatar")
-                        checked: _app.getv('avatar', 'true') == 'true'
-                        onCheckedChanged: {
-                            _app.setv('avatar', checked)
-                        }
+                CheckBox {
+                    text: qsTr("Show Avatar")
+                    checked: _app.getv('avatar', 'true') == 'true'
+                    onCheckedChanged: {
+                        _app.setv('avatar', checked)
                     }
                 }
                 Label {
                     text: qsTr("Turn this off could improve app's performance and reduce network usage.")
+                    multiline: true
+                }
+                CheckBox {
+                    text: qsTr("Show Alternate Nav. Bar")
+                    checked:  _app.getv('display.altbar', 'false') == 'true'
+                    onCheckedChanged: {
+                        _app.setv('display.altbar', checked)
+                    }
+                }
+                Label {
+                    text: qsTr("Enable this will display a duplicated section bar at the bottom of screen, very helpful for BlackBerry Passport and other devices with larger screen sizes.")
                     multiline: true
                 }
                 Header {

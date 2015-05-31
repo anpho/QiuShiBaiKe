@@ -73,14 +73,16 @@ ListView {
     snapMode: SnapMode.Default
     horizontalAlignment: HorizontalAlignment.Fill
     scrollRole: ScrollRole.Main
-
+    function g(gg) {
+        return co.gender(gg)
+    }
     listItemComponents: ListItemComponent {
         type: ""
         FriendItem {
             id: itemroot
             age: ListItemData.age
             astrology: ListItemData.astrology
-            gender: ListItemData.gender
+            gender: itemroot.ListItem.view.g(ListItemData.gender)
             icon: ListItemData.icon
             login: ListItemData.login
             relationship: ListItemData.relationship
