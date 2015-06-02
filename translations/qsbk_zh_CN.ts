@@ -9,7 +9,7 @@
         <translation>找不到语言文件 %1</translation>
     </message>
     <message>
-        <location filename="../src/applicationuibase.cpp" line="259"/>
+        <location filename="../src/applicationuibase.cpp" line="261"/>
         <source>Copied to clipboard.</source>
         <translation>已复制到剪贴板。</translation>
     </message>
@@ -643,13 +643,13 @@
 <context>
     <name>main</name>
     <message>
-        <location filename="../assets/main.qml" line="135"/>
-        <location filename="../assets/main.qml" line="470"/>
+        <location filename="../assets/main.qml" line="138"/>
+        <location filename="../assets/main.qml" line="474"/>
         <source>Submit</source>
         <translation>发帖</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="86"/>
+        <location filename="../assets/main.qml" line="89"/>
         <source>Successfully posted, please wait for approval.</source>
         <translation>糗事已经提交，请耐心等待审核。</translation>
     </message>
@@ -674,41 +674,37 @@
         <translation>评论</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="114"/>
+        <location filename="../assets/main.qml" line="117"/>
         <source>Not logged in, now back to Browse</source>
         <translation>未登录，返回到浏览模式</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="147"/>
-        <location filename="../assets/main.qml" line="241"/>
+        <location filename="../assets/main.qml" line="150"/>
         <source>Hot</source>
         <translation>专享</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="151"/>
-        <location filename="../assets/main.qml" line="244"/>
+        <location filename="../assets/main.qml" line="154"/>
         <source>Video</source>
         <translation>视频</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="155"/>
-        <location filename="../assets/main.qml" line="247"/>
+        <location filename="../assets/main.qml" line="158"/>
         <source>Image</source>
         <translation>纯图</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="159"/>
-        <location filename="../assets/main.qml" line="250"/>
+        <location filename="../assets/main.qml" line="162"/>
         <source>Text</source>
         <translation>纯文</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="259"/>
+        <location filename="../assets/main.qml" line="262"/>
         <source>Browse</source>
         <translation>浏览</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="264"/>
+        <location filename="../assets/main.qml" line="267"/>
         <source>Ranks</source>
         <translation>排行</translation>
     </message>
@@ -717,54 +713,47 @@
         <translation type="obsolete">精华帖</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="279"/>
-        <location filename="../assets/main.qml" line="357"/>
+        <location filename="../assets/main.qml" line="282"/>
         <source>Month</source>
         <translation>本月</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="283"/>
-        <location filename="../assets/main.qml" line="360"/>
+        <location filename="../assets/main.qml" line="286"/>
         <source>Week</source>
         <translation>本周</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="287"/>
-        <location filename="../assets/main.qml" line="363"/>
+        <location filename="../assets/main.qml" line="290"/>
         <source>Day</source>
         <translation>今日</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="291"/>
-        <location filename="../assets/main.qml" line="366"/>
+        <location filename="../assets/main.qml" line="294"/>
         <source>Newest</source>
         <translation>最新</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="584"/>
+        <location filename="../assets/main.qml" line="588"/>
         <source>Search</source>
         <translation>搜索</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="601"/>
-        <location filename="../assets/main.qml" line="656"/>
+        <location filename="../assets/main.qml" line="605"/>
         <source>Friends</source>
         <translation>互粉</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="605"/>
-        <location filename="../assets/main.qml" line="659"/>
+        <location filename="../assets/main.qml" line="609"/>
         <source>Following</source>
         <translation>关注</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="609"/>
-        <location filename="../assets/main.qml" line="662"/>
+        <location filename="../assets/main.qml" line="613"/>
         <source>Followers</source>
         <translation>粉丝</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="675"/>
+        <location filename="../assets/main.qml" line="681"/>
         <source>My Friends</source>
         <translation>我的糗友</translation>
     </message>
@@ -801,21 +790,18 @@
         <translation type="obsolete">跳过</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="449"/>
-        <location filename="../assets/main.qml" line="482"/>
-        <location filename="../assets/main.qml" line="543"/>
+        <location filename="../assets/main.qml" line="453"/>
+        <location filename="../assets/main.qml" line="486"/>
         <source>My Posts</source>
         <translation>我的糗事</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="486"/>
-        <location filename="../assets/main.qml" line="546"/>
+        <location filename="../assets/main.qml" line="490"/>
         <source>My Favourites</source>
         <translation>我的收藏</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="490"/>
-        <location filename="../assets/main.qml" line="549"/>
+        <location filename="../assets/main.qml" line="494"/>
         <source>My Participates</source>
         <translation>我的参与</translation>
     </message>
@@ -904,117 +890,115 @@
     </message>
     <message>
         <location filename="../assets/settings.qml" line="52"/>
-        <location filename="../assets/settings.qml" line="62"/>
+        <location filename="../assets/settings.qml" line="66"/>
         <source>Use Dark Theme</source>
         <translation>使用暗调主题</translation>
     </message>
     <message>
-        <location filename="../assets/settings.qml" line="70"/>
+        <location filename="../assets/settings.qml" line="74"/>
         <source>This will apply immediately on BlackBerry OS 10.3 and above.</source>
         <translation>此选项在10.3以上系统内立即生效。</translation>
     </message>
     <message>
-        <location filename="../assets/settings.qml" line="75"/>
+        <location filename="../assets/settings.qml" line="79"/>
         <source>This will apply when app restarts.</source>
         <translation>您使用的是10.3之前的版本，此选项将在下次应用启动时生效。</translation>
     </message>
     <message>
-        <location filename="../assets/settings.qml" line="80"/>
+        <location filename="../assets/settings.qml" line="84"/>
         <source>UI Settings</source>
         <translation>界面设置</translation>
     </message>
     <message>
-        <location filename="../assets/settings.qml" line="83"/>
+        <location filename="../assets/settings.qml" line="87"/>
         <source>Show Avatar</source>
         <translation>显示用户头像</translation>
     </message>
     <message>
-        <location filename="../assets/settings.qml" line="90"/>
+        <location filename="../assets/settings.qml" line="94"/>
         <source>Turn this off could improve app&apos;s performance and reduce network usage.</source>
         <translation>关闭此功能可提升app性能并减少网络流量。</translation>
     </message>
     <message>
-        <location filename="../assets/settings.qml" line="94"/>
         <source>Show Alternate Nav. Bar</source>
-        <translation>显示辅助导航底栏</translation>
+        <translation type="obsolete">显示辅助导航底栏</translation>
     </message>
     <message>
-        <location filename="../assets/settings.qml" line="101"/>
         <source>Enable this will display a duplicated section bar at the bottom of screen, very helpful for BlackBerry Passport and other devices with larger screen sizes.</source>
-        <translation>在屏幕最下方显示一个与顶栏内容相同的切换栏，以方便使用像BlackBerry Passport这样的大屏幕设备的用户使用。</translation>
+        <translation type="obsolete">在屏幕最下方显示一个与顶栏内容相同的切换栏，以方便使用像BlackBerry Passport这样的大屏幕设备的用户使用。</translation>
     </message>
     <message>
-        <location filename="../assets/settings.qml" line="105"/>
+        <location filename="../assets/settings.qml" line="109"/>
         <source>Text Size</source>
         <translation>文本大小</translation>
     </message>
     <message>
-        <location filename="../assets/settings.qml" line="108"/>
+        <location filename="../assets/settings.qml" line="112"/>
         <source>Move this slider to adjust text size.</source>
         <translation>移动滑块选择合适的文本大小。</translation>
     </message>
     <message>
-        <location filename="../assets/settings.qml" line="133"/>
+        <location filename="../assets/settings.qml" line="137"/>
         <source>sample text</source>
         <translation>生活中遇到那些尴尬、倒霉、搞笑、口误、无奈、欲哭无泪的事，都可以称为糗事。糗事百科是一个原创分享糗事的平台，遵循UGC原则，网友可以自由投稿、投票、评论、审核内容，并与其它网友互动。糗事内容真实，文字简洁、清晰、口语化，适合随时随地观看，缓解生活压力。</translation>
     </message>
     <message>
-        <location filename="../assets/settings.qml" line="141"/>
+        <location filename="../assets/settings.qml" line="145"/>
         <source>Unlock Features</source>
         <translation>解锁功能</translation>
     </message>
     <message>
-        <location filename="../assets/settings.qml" line="147"/>
+        <location filename="../assets/settings.qml" line="151"/>
         <source>Unlock full features including: Picture uploading / Messages / Nearby and other upcoming advanced features, thanks for your support.</source>
         <translation>解锁以下功能：图片上传、小纸条、附近的糗友以及其他即将上线的新功能，感谢您的支持。</translation>
     </message>
     <message>
-        <location filename="../assets/settings.qml" line="153"/>
+        <location filename="../assets/settings.qml" line="157"/>
         <source>Unlock for $0.99</source>
         <translation>$0.99 解锁</translation>
     </message>
     <message>
-        <location filename="../assets/settings.qml" line="157"/>
+        <location filename="../assets/settings.qml" line="161"/>
         <source>If you&apos;ve purchased this app before with the same BlackBerry ID, you can press the button below to sync the status.</source>
         <translation>如果你之前已经通过BlackBerry World解锁过此应用，可以通过下面的按钮来同步购买状态。注：须为同一BlackBerry ID。</translation>
     </message>
     <message>
-        <location filename="../assets/settings.qml" line="163"/>
+        <location filename="../assets/settings.qml" line="167"/>
         <source>Sync Purchase</source>
         <translation>同步购买记录</translation>
     </message>
     <message>
-        <location filename="../assets/settings.qml" line="166"/>
+        <location filename="../assets/settings.qml" line="170"/>
         <source>In case of purchasing issues with PayPal or Credit card, you can use the unlock code to unlock full features too.</source>
         <translation>如果你使用PayPal 或 信用卡支付有困难，您可以使用解锁码进行解锁。</translation>
     </message>
     <message>
-        <location filename="../assets/settings.qml" line="174"/>
+        <location filename="../assets/settings.qml" line="178"/>
         <source>APP-PIN : </source>
         <translation>应用PIN ： </translation>
     </message>
     <message>
-        <location filename="../assets/settings.qml" line="190"/>
+        <location filename="../assets/settings.qml" line="194"/>
         <source>Unlock Code:</source>
         <translation>解锁码：</translation>
     </message>
     <message>
-        <location filename="../assets/settings.qml" line="193"/>
+        <location filename="../assets/settings.qml" line="197"/>
         <source>Enter the 4-digit Unlock-Code</source>
         <translation>输入4位解锁码</translation>
     </message>
     <message>
-        <location filename="../assets/settings.qml" line="201"/>
+        <location filename="../assets/settings.qml" line="205"/>
         <source>Unlock</source>
         <translation>解锁</translation>
     </message>
     <message>
-        <location filename="../assets/settings.qml" line="208"/>
+        <location filename="../assets/settings.qml" line="212"/>
         <source>Application Unlocked</source>
         <translation>解锁成功</translation>
     </message>
     <message>
-        <location filename="../assets/settings.qml" line="212"/>
+        <location filename="../assets/settings.qml" line="216"/>
         <source>Invalid Code</source>
         <translation>解锁码无效</translation>
     </message>

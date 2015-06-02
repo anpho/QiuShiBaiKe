@@ -76,7 +76,10 @@ TabbedPane {
     property int baseFontsize: parseInt(_app.getv('size', '8'))
     property string lock: _app.getv('lock', '')
     property bool unlocked: lock == "unlocked"
-    property bool displayAltBar: _app.getv('displayaltbar', 'false') == "true"
+    property bool displayAltBar: (_app.getv('displayaltbar', '') == 'true')
+    onDisplayAltBarChanged: {
+        console.log("DISPLAY ALT. BAR IS NOW: "+displayAltBar)
+    }
     attachedObjects: [
         Common {
             id: co
@@ -96,7 +99,7 @@ TabbedPane {
         // be called when user back from settings page.
         baseFontsize = parseInt(_app.getv('size', '8'));
         lock = _app.getv('lock', '')
-        displayAltBar = _app.getv('displayaltbar', 'false') == "true"
+        tabroot.displayAltBar = (_app.getv('displayaltbar', '') == 'true')
     }
     function cardDoneHandle(msg) {
         refreshUserLoginState()
@@ -230,27 +233,27 @@ TabbedPane {
                                     verticalAlignment: VerticalAlignment.Center
                                 }
                             }
-                            SegmentedControl {
-                                selectedIndex: titlebar.selectedIndex
-                                onSelectedIndexChanged: {
-                                    titlebar.selectedIndex = selectedIndex
-                                }
-                                visible: displayAltBar
-                                options: [
-                                    Option {
-                                        text: qsTr("Hot")
-                                    },
-                                    Option {
-                                        text: qsTr("Video")
-                                    },
-                                    Option {
-                                        text: qsTr("Image")
-                                    },
-                                    Option {
-                                        text: qsTr("Text")
-                                    }
-                                ]
-                            }
+//                            SegmentedControl {
+//                                selectedIndex: titlebar.selectedIndex
+//                                onSelectedIndexChanged: {
+//                                    titlebar.selectedIndex = selectedIndex
+//                                }
+//                                visible: tabroot.displayAltBar
+//                                options: [
+//                                    Option {
+//                                        text: qsTr("Hot")
+//                                    },
+//                                    Option {
+//                                        text: qsTr("Video")
+//                                    },
+//                                    Option {
+//                                        text: qsTr("Image")
+//                                    },
+//                                    Option {
+//                                        text: qsTr("Text")
+//                                    }
+//                                ]
+//                            }
                         }
                     }
                 }
@@ -295,7 +298,8 @@ TabbedPane {
                             scrollBehavior: TitleBarScrollBehavior.Sticky
                         }
 
-                        actionBarAutoHideBehavior: ActionBarAutoHideBehavior.Default
+                        actionBarAutoHideBehavior: ActionBarAutoHideBehavior.HideOnScroll
+                        actionBarVisibility: ChromeVisibility.Overlay
                         Container {
                             ControlDelegate {
                                 delegateActive: s_month.selected
@@ -350,27 +354,27 @@ TabbedPane {
                                     spaceQuota: 10
                                 }
                             }
-                            SegmentedControl {
-                                visible: displayAltBar
-                                options: [
-                                    Option {
-                                        text: qsTr("Month")
-                                    },
-                                    Option {
-                                        text: qsTr("Week")
-                                    },
-                                    Option {
-                                        text: qsTr("Day")
-                                    },
-                                    Option {
-                                        text: qsTr("Newest")
-                                    }
-                                ]
-                                selectedIndex: titlebar_rank.selectedIndex
-                                onSelectedIndexChanged: {
-                                    titlebar_rank.selectedIndex = selectedIndex
-                                }
-                            }
+//                            SegmentedControl {
+//                                visible: tabroot.displayAltBar
+//                                options: [
+//                                    Option {
+//                                        text: qsTr("Month")
+//                                    },
+//                                    Option {
+//                                        text: qsTr("Week")
+//                                    },
+//                                    Option {
+//                                        text: qsTr("Day")
+//                                    },
+//                                    Option {
+//                                        text: qsTr("Newest")
+//                                    }
+//                                ]
+//                                selectedIndex: titlebar_rank.selectedIndex
+//                                onSelectedIndexChanged: {
+//                                    titlebar_rank.selectedIndex = selectedIndex
+//                                }
+//                            }
                         }
                     }
                 }
@@ -536,24 +540,24 @@ TabbedPane {
                                     spaceQuota: 10
                                 }
                             }
-                            SegmentedControl {
-                                visible: displayAltBar
-                                options: [
-                                    Option {
-                                        text: qsTr("My Posts")
-                                    },
-                                    Option {
-                                        text: qsTr("My Favourites")
-                                    },
-                                    Option {
-                                        text: qsTr("My Participates")
-                                    }
-                                ]
-                                onSelectedIndexChanged: {
-                                    titlebar_my.selectedIndex = selectedIndex
-                                }
-                                selectedIndex: titlebar_my.selectedIndex
-                            }
+//                            SegmentedControl {
+//                                visible: tabroot.displayAltBar
+//                                options: [
+//                                    Option {
+//                                        text: qsTr("My Posts")
+//                                    },
+//                                    Option {
+//                                        text: qsTr("My Favourites")
+//                                    },
+//                                    Option {
+//                                        text: qsTr("My Participates")
+//                                    }
+//                                ]
+//                                onSelectedIndexChanged: {
+//                                    titlebar_my.selectedIndex = selectedIndex
+//                                }
+//                                selectedIndex: titlebar_my.selectedIndex
+//                            }
                         }
                     }
                 }
@@ -610,6 +614,8 @@ TabbedPane {
                                 }
                             ]
                         }
+                        actionBarAutoHideBehavior: ActionBarAutoHideBehavior.HideOnScroll
+                        actionBarVisibility: ChromeVisibility.Overlay
                         Container {
                             ControlDelegate {
                                 delegateActive: op_myFriends.selected
@@ -649,24 +655,24 @@ TabbedPane {
                                     spaceQuota: 10
                                 }
                             }
-                            SegmentedControl {
-                                visible: displayAltBar
-                                options: [
-                                    Option {
-                                        text: qsTr("Friends")
-                                    },
-                                    Option {
-                                        text: qsTr("Following")
-                                    },
-                                    Option {
-                                        text: qsTr("Followers")
-                                    }
-                                ]
-                                selectedIndex: titlebar_friends.selectedIndex
-                                onSelectedIndexChanged: {
-                                    titlebar_friends.selectedIndex = selectedIndex
-                                }
-                            }
+//                            SegmentedControl {
+//                                visible: tabroot.displayAltBar
+//                                options: [
+//                                    Option {
+//                                        text: qsTr("Friends")
+//                                    },
+//                                    Option {
+//                                        text: qsTr("Following")
+//                                    },
+//                                    Option {
+//                                        text: qsTr("Followers")
+//                                    }
+//                                ]
+//                                selectedIndex: titlebar_friends.selectedIndex
+//                                onSelectedIndexChanged: {
+//                                    titlebar_friends.selectedIndex = selectedIndex
+//                                }
+//                            }
                         }
                     }
                 }
@@ -675,5 +681,5 @@ TabbedPane {
             title: qsTr("My Friends")
         }
     ]
-    showTabsOnActionBar: true
+    showTabsOnActionBar: false
 }

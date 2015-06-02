@@ -79,8 +79,10 @@ QString ApplicationUIBase::getv(const QString &objectName, const QString &defaul
 {
     QSettings settings;
     if (settings.value(objectName).isNull()) {
+        qDebug()<<"[SETTINGS]" << objectName << " is "<<defaultValue;
         return defaultValue;
     }
+    qDebug()<<"[SETTINGS]" << objectName << " is "<<settings.value(objectName).toString();
     return settings.value(objectName).toString();
 }
 
@@ -88,7 +90,7 @@ void ApplicationUIBase::setv(const QString &objectName, const QString &inputValu
 {
     QSettings settings;
     settings.setValue(objectName, QVariant(inputValue));
-    qDebug() << "[SETTINGS]" << objectName << "::" << inputValue;
+    qDebug() << "[SETTINGS]" << objectName << " set to " << inputValue;
 }
 
 void ApplicationUIBase::post(const QString endpoint, const QString content)

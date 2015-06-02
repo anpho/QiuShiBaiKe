@@ -54,7 +54,11 @@ Sheet {
                     onCheckedChanged: {
                         checked ? _app.setv("use_dark_theme", "dark") : _app.setv("use_dark_theme", "bright")
                         console.log(pi.osVersion);
-                        Application.themeSupport.setVisualStyle(checked ? VisualStyle.Dark : VisualStyle.Bright);
+                        try {
+                            Application.themeSupport.setVisualStyle(checked ? VisualStyle.Dark : VisualStyle.Bright);
+                        } catch (e) {
+
+                        }
                     }
                 }
                 CheckBox {
@@ -90,17 +94,17 @@ Sheet {
                     text: qsTr("Turn this off could improve app's performance and reduce network usage.")
                     multiline: true
                 }
-                CheckBox {
-                    text: qsTr("Show Alternate Nav. Bar")
-                    checked:  _app.getv('displayaltbar', 'false') == 'true'
-                    onCheckedChanged: {
-                        _app.setv('displayaltbar', checked)
-                    }
-                }
-                Label {
-                    text: qsTr("Enable this will display a duplicated section bar at the bottom of screen, very helpful for BlackBerry Passport and other devices with larger screen sizes.")
-                    multiline: true
-                }
+//                CheckBox {
+//                    text: qsTr("Show Alternate Nav. Bar")
+//                    checked: _app.getv('displayaltbar', '') == 'true'
+//                    onCheckedChanged: {
+//                        _app.setv('displayaltbar', checked)
+//                    }
+//                }
+//                Label {
+//                    text: qsTr("Enable this will display a duplicated section bar at the bottom of screen, very helpful for BlackBerry Passport and other devices with larger screen sizes.")
+//                    multiline: true
+//                }
                 Header {
                     title: qsTr("Text Size")
                 }
