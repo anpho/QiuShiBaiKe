@@ -92,9 +92,9 @@ Sheet {
                 }
                 CheckBox {
                     text: qsTr("Show Alternate Nav. Bar")
-                    checked:  _app.getv('display.altbar', 'false') == 'true'
+                    checked:  _app.getv('displayaltbar', 'false') == 'true'
                     onCheckedChanged: {
-                        _app.setv('display.altbar', checked)
+                        _app.setv('displayaltbar', checked)
                     }
                 }
                 Label {

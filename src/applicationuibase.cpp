@@ -88,7 +88,7 @@ void ApplicationUIBase::setv(const QString &objectName, const QString &inputValu
 {
     QSettings settings;
     settings.setValue(objectName, QVariant(inputValue));
-    qDebug()<<"[SETTINGS]"<<objectName<<"::"<<inputValue;
+    qDebug() << "[SETTINGS]" << objectName << "::" << inputValue;
 }
 
 void ApplicationUIBase::post(const QString endpoint, const QString content)
@@ -124,7 +124,8 @@ void ApplicationUIBase::postImage(const QString endpoint, const QString content,
     QNetworkRequest req(edp);
     req.setRawHeader(QString("Qbtoken").toLatin1(), QString(getv("token", "")).toLatin1());
     req.setRawHeader(QString("Model").toLatin1(), QString("BLACKBERRY 10 DEVICES").toLatin1());
-    req.setRawHeader(QString("User-Agent").toLatin1(),QString("qiushibalke_6.7.1_WIFI_auto_21").toLatin1());
+    req.setRawHeader(QString("User-Agent").toLatin1(),
+            QString("qiushibalke_6.7.1_WIFI_auto_21").toLatin1());
     req.setRawHeader(QString("Source").toLatin1(), QString("android_6.7.1").toLatin1());
     req.setRawHeader(QString("Uuid").toLatin1(),
             getv("uuid", "IMEI_825573f985212e0a7944ed61d07644e1").toLatin1());
@@ -169,7 +170,7 @@ void ApplicationUIBase::onArticleCreated()
 {
     QString data = (QString) reply->readAll();
     qDebug() << data;
-    if (data.indexOf("article") > 0) {
+    if ((data.indexOf("article") > 0)) {
         emit posted(true, data);
     } else {
         emit posted(false, data);

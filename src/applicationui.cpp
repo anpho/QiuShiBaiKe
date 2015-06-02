@@ -48,7 +48,7 @@ ApplicationUI::ApplicationUI(InvokeManager *invokeManager) :
 void ApplicationUI::invokeCard(const QString &memo)
 {
     InvokeRequest cardRequest;
-    cardRequest.setTarget("anpho.qiushibaike");
+    cardRequest.setTarget("anpho.gaffes");
     cardRequest.setAction("bb.action.SHARE");
     cardRequest.setMimeType("text/plain");
     cardRequest.setData(memo.toUtf8());

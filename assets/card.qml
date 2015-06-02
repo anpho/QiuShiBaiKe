@@ -213,10 +213,16 @@ NavigationPane {
     }
     function posted(success, data) {
         console.log(success);
-        console.log(data)
+        console.log(data);
         if (success) {
             _app.requestQuit(true);
         } else {
+            if (data.length == 0) {
+                _app.requestQuit(true);
+            }
+            if (JSON.parse(data).err_msg.trim().length == 0) {
+                _app.requestQuit(true);
+            }
             toast_custom.body = JSON.parse(data).err_msg;
             toast_custom.show();
         }

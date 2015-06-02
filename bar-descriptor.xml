@@ -74,7 +74,7 @@
     </splashScreens>
     <authorId>gYAAgMy-I-SFJtVvioZxVXYQjhA</authorId>
     <author>anpho</author>
-    <buildId>531</buildId>
+    <buildId>602</buildId>
     <configuration name="Device-Debug">
         <platformArchitecture>armle-v7</platformArchitecture>
         <asset entryPointId="qsbk" path="arm/o.le-v7-g/qsbk"

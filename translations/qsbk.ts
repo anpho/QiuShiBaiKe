@@ -9,7 +9,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/applicationuibase.cpp" line="258"/>
+        <location filename="../src/applicationuibase.cpp" line="259"/>
         <source>Copied to clipboard.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -534,7 +534,8 @@
 <context>
     <name>main</name>
     <message>
-        <location filename="../assets/main.qml" line="136"/>
+        <location filename="../assets/main.qml" line="135"/>
+        <location filename="../assets/main.qml" line="470"/>
         <source>Submit</source>
         <translation type="unfinished"></translation>
     </message>
@@ -559,81 +560,71 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="148"/>
-        <location filename="../assets/main.qml" line="242"/>
+        <location filename="../assets/main.qml" line="147"/>
+        <location filename="../assets/main.qml" line="241"/>
         <source>Hot</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="152"/>
-        <location filename="../assets/main.qml" line="245"/>
+        <location filename="../assets/main.qml" line="151"/>
+        <location filename="../assets/main.qml" line="244"/>
         <source>Video</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="156"/>
-        <location filename="../assets/main.qml" line="248"/>
+        <location filename="../assets/main.qml" line="155"/>
+        <location filename="../assets/main.qml" line="247"/>
         <source>Image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="160"/>
-        <location filename="../assets/main.qml" line="251"/>
+        <location filename="../assets/main.qml" line="159"/>
+        <location filename="../assets/main.qml" line="250"/>
         <source>Text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="260"/>
+        <location filename="../assets/main.qml" line="259"/>
         <source>Browse</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="265"/>
+        <location filename="../assets/main.qml" line="264"/>
         <source>Ranks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="292"/>
+        <location filename="../assets/main.qml" line="291"/>
         <location filename="../assets/main.qml" line="366"/>
         <source>Newest</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="400"/>
-        <source>Messages</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../assets/main.qml" line="573"/>
+        <location filename="../assets/main.qml" line="584"/>
         <source>Search</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="590"/>
-        <location filename="../assets/main.qml" line="645"/>
+        <location filename="../assets/main.qml" line="601"/>
+        <location filename="../assets/main.qml" line="656"/>
         <source>Friends</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="594"/>
-        <location filename="../assets/main.qml" line="648"/>
+        <location filename="../assets/main.qml" line="605"/>
+        <location filename="../assets/main.qml" line="659"/>
         <source>Following</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="598"/>
-        <location filename="../assets/main.qml" line="651"/>
+        <location filename="../assets/main.qml" line="609"/>
+        <location filename="../assets/main.qml" line="662"/>
         <source>Followers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="664"/>
+        <location filename="../assets/main.qml" line="675"/>
         <source>My Friends</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../assets/main.qml" line="391"/>
-        <source>Not implemented yet.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -647,39 +638,39 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="280"/>
+        <location filename="../assets/main.qml" line="279"/>
         <location filename="../assets/main.qml" line="357"/>
         <source>Month</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="284"/>
+        <location filename="../assets/main.qml" line="283"/>
         <location filename="../assets/main.qml" line="360"/>
         <source>Week</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="288"/>
+        <location filename="../assets/main.qml" line="287"/>
         <location filename="../assets/main.qml" line="363"/>
         <source>Day</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="450"/>
-        <location filename="../assets/main.qml" line="471"/>
-        <location filename="../assets/main.qml" line="532"/>
+        <location filename="../assets/main.qml" line="449"/>
+        <location filename="../assets/main.qml" line="482"/>
+        <location filename="../assets/main.qml" line="543"/>
         <source>My Posts</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="475"/>
-        <location filename="../assets/main.qml" line="535"/>
+        <location filename="../assets/main.qml" line="486"/>
+        <location filename="../assets/main.qml" line="546"/>
         <source>My Favourites</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="479"/>
-        <location filename="../assets/main.qml" line="538"/>
+        <location filename="../assets/main.qml" line="490"/>
+        <location filename="../assets/main.qml" line="549"/>
         <source>My Participates</source>
         <translation type="unfinished"></translation>
     </message>

@@ -9,7 +9,7 @@
         <translation>找不到语言文件 %1</translation>
     </message>
     <message>
-        <location filename="../src/applicationuibase.cpp" line="258"/>
+        <location filename="../src/applicationuibase.cpp" line="259"/>
         <source>Copied to clipboard.</source>
         <translation>已复制到剪贴板。</translation>
     </message>
@@ -643,7 +643,8 @@
 <context>
     <name>main</name>
     <message>
-        <location filename="../assets/main.qml" line="136"/>
+        <location filename="../assets/main.qml" line="135"/>
+        <location filename="../assets/main.qml" line="470"/>
         <source>Submit</source>
         <translation>发帖</translation>
     </message>
@@ -678,36 +679,36 @@
         <translation>未登录，返回到浏览模式</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="148"/>
-        <location filename="../assets/main.qml" line="242"/>
+        <location filename="../assets/main.qml" line="147"/>
+        <location filename="../assets/main.qml" line="241"/>
         <source>Hot</source>
         <translation>专享</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="152"/>
-        <location filename="../assets/main.qml" line="245"/>
+        <location filename="../assets/main.qml" line="151"/>
+        <location filename="../assets/main.qml" line="244"/>
         <source>Video</source>
         <translation>视频</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="156"/>
-        <location filename="../assets/main.qml" line="248"/>
+        <location filename="../assets/main.qml" line="155"/>
+        <location filename="../assets/main.qml" line="247"/>
         <source>Image</source>
         <translation>纯图</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="160"/>
-        <location filename="../assets/main.qml" line="251"/>
+        <location filename="../assets/main.qml" line="159"/>
+        <location filename="../assets/main.qml" line="250"/>
         <source>Text</source>
         <translation>纯文</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="260"/>
+        <location filename="../assets/main.qml" line="259"/>
         <source>Browse</source>
         <translation>浏览</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="265"/>
+        <location filename="../assets/main.qml" line="264"/>
         <source>Ranks</source>
         <translation>排行</translation>
     </message>
@@ -716,54 +717,54 @@
         <translation type="obsolete">精华帖</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="280"/>
+        <location filename="../assets/main.qml" line="279"/>
         <location filename="../assets/main.qml" line="357"/>
         <source>Month</source>
         <translation>本月</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="284"/>
+        <location filename="../assets/main.qml" line="283"/>
         <location filename="../assets/main.qml" line="360"/>
         <source>Week</source>
         <translation>本周</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="288"/>
+        <location filename="../assets/main.qml" line="287"/>
         <location filename="../assets/main.qml" line="363"/>
         <source>Day</source>
         <translation>今日</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="292"/>
+        <location filename="../assets/main.qml" line="291"/>
         <location filename="../assets/main.qml" line="366"/>
         <source>Newest</source>
         <translation>最新</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="573"/>
+        <location filename="../assets/main.qml" line="584"/>
         <source>Search</source>
         <translation>搜索</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="590"/>
-        <location filename="../assets/main.qml" line="645"/>
+        <location filename="../assets/main.qml" line="601"/>
+        <location filename="../assets/main.qml" line="656"/>
         <source>Friends</source>
         <translation>互粉</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="594"/>
-        <location filename="../assets/main.qml" line="648"/>
+        <location filename="../assets/main.qml" line="605"/>
+        <location filename="../assets/main.qml" line="659"/>
         <source>Following</source>
         <translation>关注</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="598"/>
-        <location filename="../assets/main.qml" line="651"/>
+        <location filename="../assets/main.qml" line="609"/>
+        <location filename="../assets/main.qml" line="662"/>
         <source>Followers</source>
         <translation>粉丝</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="664"/>
+        <location filename="../assets/main.qml" line="675"/>
         <source>My Friends</source>
         <translation>我的糗友</translation>
     </message>
@@ -772,14 +773,12 @@
         <translation type="obsolete">最新</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="400"/>
         <source>Messages</source>
-        <translation>小纸条</translation>
+        <translation type="obsolete">小纸条</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="391"/>
         <source>Not implemented yet.</source>
-        <translation>还没实现。</translation>
+        <translation type="obsolete">还没实现。</translation>
     </message>
     <message>
         <source>Nearby</source>
@@ -802,21 +801,21 @@
         <translation type="obsolete">跳过</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="450"/>
-        <location filename="../assets/main.qml" line="471"/>
-        <location filename="../assets/main.qml" line="532"/>
+        <location filename="../assets/main.qml" line="449"/>
+        <location filename="../assets/main.qml" line="482"/>
+        <location filename="../assets/main.qml" line="543"/>
         <source>My Posts</source>
         <translation>我的糗事</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="475"/>
-        <location filename="../assets/main.qml" line="535"/>
+        <location filename="../assets/main.qml" line="486"/>
+        <location filename="../assets/main.qml" line="546"/>
         <source>My Favourites</source>
         <translation>我的收藏</translation>
     </message>
     <message>
-        <location filename="../assets/main.qml" line="479"/>
-        <location filename="../assets/main.qml" line="538"/>
+        <location filename="../assets/main.qml" line="490"/>
+        <location filename="../assets/main.qml" line="549"/>
         <source>My Participates</source>
         <translation>我的参与</translation>
     </message>

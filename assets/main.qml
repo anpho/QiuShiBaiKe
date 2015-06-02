@@ -76,7 +76,7 @@ TabbedPane {
     property int baseFontsize: parseInt(_app.getv('size', '8'))
     property string lock: _app.getv('lock', '')
     property bool unlocked: lock == "unlocked"
-    property bool displayAltBar: _app.getv('display.altbar', 'false') == "true"
+    property bool displayAltBar: _app.getv('displayaltbar', 'false') == "true"
     attachedObjects: [
         Common {
             id: co
@@ -96,7 +96,7 @@ TabbedPane {
         // be called when user back from settings page.
         baseFontsize = parseInt(_app.getv('size', '8'));
         lock = _app.getv('lock', '')
-        displayAltBar = _app.getv('display.altbar', 'false') == "true"
+        displayAltBar = _app.getv('displayaltbar', 'false') == "true"
     }
     function cardDoneHandle(msg) {
         refreshUserLoginState()
@@ -117,7 +117,6 @@ TabbedPane {
     }
     tabs: [
         Tab {
-            ActionBar.placement: ActionBarPlacement.InOverflow
             imageSource: "asset:///res/ic_qiushi_select.png"
             delegate: Delegate {
                 active: true
@@ -296,6 +295,7 @@ TabbedPane {
                             scrollBehavior: TitleBarScrollBehavior.Sticky
                         }
 
+                        actionBarAutoHideBehavior: ActionBarAutoHideBehavior.Default
                         Container {
                             ControlDelegate {
                                 delegateActive: s_month.selected
@@ -375,31 +375,31 @@ TabbedPane {
                     }
                 }
             }
+            ActionBar.placement: ActionBarPlacement.Default
 
         },
-        Tab {
-            imageSource: "asset:///res/ic_message_select.png"
-            delegate: Delegate {
-                Page {
-                    Container {
-                        layout: DockLayout {
-
-                        }
-                        verticalAlignment: VerticalAlignment.Fill
-                        horizontalAlignment: HorizontalAlignment.Fill
-                        Label {
-                            text: qsTr("Not implemented yet.")
-                            verticalAlignment: VerticalAlignment.Center
-                            horizontalAlignment: HorizontalAlignment.Center
-
-                        }
-                    }
-                }
-            }
-            delegateActivationPolicy: TabDelegateActivationPolicy.ActivatedWhileSelected
-            title: qsTr("Messages")
-            ActionBar.placement: ActionBarPlacement.InOverflow
-        },
+//        Tab {
+//            imageSource: "asset:///res/ic_message_select.png"
+//            delegate: Delegate {
+//                Page {
+//                    Container {
+//                        layout: DockLayout {
+//
+//                        }
+//                        verticalAlignment: VerticalAlignment.Fill
+//                        horizontalAlignment: HorizontalAlignment.Fill
+//                        Label {
+//                            text: qsTr("Not implemented yet.")
+//                            verticalAlignment: VerticalAlignment.Center
+//                            horizontalAlignment: HorizontalAlignment.Center
+//
+//                        }
+//                    }
+//                }
+//            }
+//            delegateActivationPolicy: TabDelegateActivationPolicy.ActivatedWhileSelected
+//            title: qsTr("Messages")
+//        },
         //        Tab {
         //            imageSource: "asset:///res/evaluate_face_l0.png"
         //            title: qsTr("Review")
@@ -446,7 +446,6 @@ TabbedPane {
         Tab {
             id: tab_myPosts
             imageSource: "asset:///userguide/user_guide_paper.png"
-            ActionBar.placement: ActionBarPlacement.InOverflow
             title: qsTr("My Posts")
             onTriggered: {
                 if (! loggedin) {
@@ -462,6 +461,18 @@ TabbedPane {
                         page.destroy()
                     }
                     Page {
+                        actionBarVisibility: ChromeVisibility.Overlay
+                        actionBarAutoHideBehavior: ActionBarAutoHideBehavior.HideOnScroll
+                        actions: [
+                            ActionItem {
+                                imageSource: "asset:///res/submit.png"
+                                ActionBar.placement: ActionBarPlacement.OnBar
+                                title: qsTr("Submit")
+                                onTriggered: {
+                                    _app.invokeCard("");
+                                }
+                            }
+                        ]
                         titleBar: TitleBar {
                             id: titlebar_my
                             kind: TitleBarKind.Segmented
@@ -662,8 +673,7 @@ TabbedPane {
             }
             delegateActivationPolicy: TabDelegateActivationPolicy.ActivatedWhileSelected
             title: qsTr("My Friends")
-            ActionBar.placement: ActionBarPlacement.InOverflow
-
         }
     ]
+    showTabsOnActionBar: true
 }
