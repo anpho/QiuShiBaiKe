@@ -107,7 +107,7 @@ Page {
             id: triggerSearch
             imageSource: "asset:///icon/ic_search.png"
             title: qsTr("Search")
-            ActionBar.placement: co.signature
+
             onTriggered: {
                 if (op_byid.selected) {
                     if (text_userid.text.trim().length == 0) {
@@ -145,6 +145,7 @@ Page {
                         }, text_username.text)
                 }
             }
+            ActionBar.placement: ActionBarPlacement.Signature
         }
     ]
     attachedObjects: [

@@ -22,6 +22,8 @@ Sheet {
         ]
         ScrollView {
             Container {
+                bottomPadding: 50.0
+                topPadding: 50.0
                 Container {
                     horizontalAlignment: HorizontalAlignment.Center
 
@@ -123,7 +125,7 @@ Sheet {
         }
         actions: [
             ActionItem {
-                ActionBar.placement: ActionBarPlacement.OnBar
+                ActionBar.placement: ActionBarPlacement.Signature
                 imageSource: "asset:///icon/ic_info.png"
                 title: qsTr("Feedback")
                 onTriggered: {

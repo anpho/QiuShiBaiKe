@@ -1,4 +1,4 @@
-import bb.cascades 1.2
+import bb.cascades 1.4
 import bb.platform 1.2
 import bb.system 1.2
 import bb 1.0
@@ -29,8 +29,8 @@ Sheet {
         actionBarAutoHideBehavior: ActionBarAutoHideBehavior.HideOnScroll
         actions: [
             ActionItem {
-                ActionBar.placement: ActionBarPlacement.OnBar
-                imageSource: "asset:///icon/yes.png"
+                ActionBar.placement: ActionBarPlacement.Signature
+                imageSource: "asset:///icon/ic_done.png"
                 title: qsTr("Done")
                 onTriggered: {
                     sheetobj.close()
@@ -94,17 +94,17 @@ Sheet {
                     text: qsTr("Turn this off could improve app's performance and reduce network usage.")
                     multiline: true
                 }
-//                CheckBox {
-//                    text: qsTr("Show Alternate Nav. Bar")
-//                    checked: _app.getv('displayaltbar', '') == 'true'
-//                    onCheckedChanged: {
-//                        _app.setv('displayaltbar', checked)
-//                    }
-//                }
-//                Label {
-//                    text: qsTr("Enable this will display a duplicated section bar at the bottom of screen, very helpful for BlackBerry Passport and other devices with larger screen sizes.")
-//                    multiline: true
-//                }
+                //                CheckBox {
+                //                    text: qsTr("Show Alternate Nav. Bar")
+                //                    checked: _app.getv('displayaltbar', '') == 'true'
+                //                    onCheckedChanged: {
+                //                        _app.setv('displayaltbar', checked)
+                //                    }
+                //                }
+                //                Label {
+                //                    text: qsTr("Enable this will display a duplicated section bar at the bottom of screen, very helpful for BlackBerry Passport and other devices with larger screen sizes.")
+                //                    multiline: true
+                //                }
                 Header {
                     title: qsTr("Text Size")
                 }
@@ -133,7 +133,7 @@ Sheet {
                     bottomPadding: 40.0
                     horizontalAlignment: HorizontalAlignment.Fill
                     Label {
-                        textStyle.fontSizeValue: text_size_slider.value
+                        textStyle.fontSizeValue: Math.floor(text_size_slider.immediateValue)
                         text: qsTr("sample text")
                         horizontalAlignment: HorizontalAlignment.Left
                         verticalAlignment: VerticalAlignment.Center

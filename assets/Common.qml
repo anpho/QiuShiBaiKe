@@ -1,4 +1,4 @@
-import bb.cascades 1.2
+import bb.cascades 1.4
 
 QtObject {
     function gender(mfu) {
@@ -256,7 +256,7 @@ QtObject {
     property int pageview_myfavs: 3
 
     // Action bar signature button OR normal button
-    property variant signature: ActionBarPlacement.Signature || ActionBarPlacement.OnBar
+    property variant signature: ActionBarPlacement.Signature
 
     // 用户详情
     property string u_userdetails: "http://nearby.qiushibaike.com/user/%uid%/detail"

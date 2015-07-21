@@ -377,7 +377,7 @@
 <context>
     <name>UserArticlesView</name>
     <message>
-        <location filename="../assets/UserArticlesView.qml" line="15"/>
+        <location filename="../assets/UserArticlesView.qml" line="16"/>
         <source>&apos;s posts</source>
         <translation>的糗事</translation>
     </message>
@@ -386,10 +386,10 @@
     <name>UserProfileView</name>
     <message>
         <location filename="../assets/UserProfileView.qml" line="33"/>
-        <location filename="../assets/UserProfileView.qml" line="347"/>
-        <location filename="../assets/UserProfileView.qml" line="362"/>
-        <location filename="../assets/UserProfileView.qml" line="387"/>
-        <location filename="../assets/UserProfileView.qml" line="403"/>
+        <location filename="../assets/UserProfileView.qml" line="350"/>
+        <location filename="../assets/UserProfileView.qml" line="365"/>
+        <location filename="../assets/UserProfileView.qml" line="390"/>
+        <location filename="../assets/UserProfileView.qml" line="406"/>
         <source>Login Required.</source>
         <translation>未登录。</translation>
     </message>
@@ -398,65 +398,65 @@
         <translation type="obsolete">天</translation>
     </message>
     <message>
-        <location filename="../assets/UserProfileView.qml" line="247"/>
+        <location filename="../assets/UserProfileView.qml" line="250"/>
         <source>Posts</source>
         <translation>糗事</translation>
     </message>
     <message>
-        <location filename="../assets/UserProfileView.qml" line="261"/>
+        <location filename="../assets/UserProfileView.qml" line="264"/>
         <source>Likes</source>
         <translation>赞</translation>
     </message>
     <message>
-        <location filename="../assets/UserProfileView.qml" line="275"/>
+        <location filename="../assets/UserProfileView.qml" line="278"/>
         <source>Days</source>
         <translation>天</translation>
     </message>
     <message>
-        <location filename="../assets/UserProfileView.qml" line="291"/>
-        <location filename="../assets/UserProfileView.qml" line="297"/>
-        <location filename="../assets/UserProfileView.qml" line="306"/>
-        <location filename="../assets/UserProfileView.qml" line="313"/>
+        <location filename="../assets/UserProfileView.qml" line="294"/>
+        <location filename="../assets/UserProfileView.qml" line="300"/>
+        <location filename="../assets/UserProfileView.qml" line="309"/>
+        <location filename="../assets/UserProfileView.qml" line="316"/>
         <source>Unknown</source>
         <translation>未知</translation>
     </message>
     <message>
-        <location filename="../assets/UserProfileView.qml" line="320"/>
+        <location filename="../assets/UserProfileView.qml" line="323"/>
         <source>Waiting for approval.</source>
         <translation>好友申请已发送，等待确认</translation>
     </message>
     <message>
-        <location filename="../assets/UserProfileView.qml" line="339"/>
+        <location filename="../assets/UserProfileView.qml" line="342"/>
         <source>Block</source>
         <translation>拉黑</translation>
     </message>
     <message>
-        <location filename="../assets/UserProfileView.qml" line="352"/>
+        <location filename="../assets/UserProfileView.qml" line="355"/>
         <source>This user is successfully removed from your blacklist.</source>
         <translation>已解除该用户的拉黑状态。</translation>
     </message>
     <message>
-        <location filename="../assets/UserProfileView.qml" line="367"/>
+        <location filename="../assets/UserProfileView.qml" line="370"/>
         <source>This user won&apos;t be able to send message to you.</source>
         <translation>该用户已拉黑，他不能再发小纸条给你了。</translation>
     </message>
     <message>
-        <location filename="../assets/UserProfileView.qml" line="377"/>
+        <location filename="../assets/UserProfileView.qml" line="380"/>
         <source>Follow</source>
         <translation>关注</translation>
     </message>
     <message>
-        <location filename="../assets/UserProfileView.qml" line="377"/>
+        <location filename="../assets/UserProfileView.qml" line="380"/>
         <source>Unfollow</source>
         <translation>取消关注</translation>
     </message>
     <message>
-        <location filename="../assets/UserProfileView.qml" line="392"/>
+        <location filename="../assets/UserProfileView.qml" line="395"/>
         <source>Request sent.</source>
         <translation>请求已发送。</translation>
     </message>
     <message>
-        <location filename="../assets/UserProfileView.qml" line="408"/>
+        <location filename="../assets/UserProfileView.qml" line="411"/>
         <source>Request complete.</source>
         <translation>已解除好友关系。</translation>
     </message>
@@ -482,52 +482,52 @@
         <translation>关闭</translation>
     </message>
     <message>
-        <location filename="../assets/about.qml" line="40"/>
+        <location filename="../assets/about.qml" line="42"/>
         <source>about www.qiushibaike.com</source>
         <translation>关于 糗事百科</translation>
     </message>
     <message>
-        <location filename="../assets/about.qml" line="48"/>
+        <location filename="../assets/about.qml" line="50"/>
         <source>www.qiushibaike.com ( qsbk ) is a FML copycat which is very popular in China mainland. Users post their emberessed moments via text, image, and video, which could make people laugh.</source>
         <translation>糗事百科 ( www.qiushibaike.com ) 是一个类似于国外FML站的糗事分享社区。用户可以通过文字、照片、视频的形式将好笑的事情上传，经审阅通过后即可发布。</translation>
     </message>
     <message>
-        <location filename="../assets/about.qml" line="54"/>
+        <location filename="../assets/about.qml" line="56"/>
         <source>Website: &lt;a href=&apos;http://www.qiushibaike.com&apos;&gt;www.qiushibaike.com&lt;/a&gt;</source>
         <translation>官网：&lt;a href=&apos;http://www.qiushibaike.com&apos;&gt;www.qiushibaike.com&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="../assets/about.qml" line="59"/>
+        <location filename="../assets/about.qml" line="61"/>
         <source>about this app</source>
         <translation>关于这个应用</translation>
     </message>
     <message>
-        <location filename="../assets/about.qml" line="67"/>
+        <location filename="../assets/about.qml" line="69"/>
         <source>This app is built on BlackBerry Cascades native framework, focusing on bring best user experience to you. You can submit feedbacks via the &lt;Feedback*&gt; button at the bottom.</source>
         <translation>本应用使用BlackBerry Cascades框架编译，致力于给你带来原生、快速的用户体验。可以点击屏幕最下方的&lt;反馈*&gt;按钮提交你的反馈。</translation>
     </message>
     <message>
-        <location filename="../assets/about.qml" line="73"/>
+        <location filename="../assets/about.qml" line="75"/>
         <source>*Feedback requires &lt;a href=&apos;http://github.com&apos;&gt;Github&lt;/a&gt; account.</source>
         <translation>*反馈问题需要有 &lt;a href=&apos;http://github.com&apos;&gt;Github&lt;/a&gt; 账号。</translation>
     </message>
     <message>
-        <location filename="../assets/about.qml" line="79"/>
+        <location filename="../assets/about.qml" line="81"/>
         <source>about me</source>
         <translation>关于我</translation>
     </message>
     <message>
-        <location filename="../assets/about.qml" line="99"/>
+        <location filename="../assets/about.qml" line="101"/>
         <source>Merrick Zhang</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../assets/about.qml" line="102"/>
+        <location filename="../assets/about.qml" line="104"/>
         <source>Independent BlackBerry Developer</source>
         <translation>个人黑莓开发者</translation>
     </message>
     <message>
-        <location filename="../assets/about.qml" line="108"/>
+        <location filename="../assets/about.qml" line="110"/>
         <source>You can find all my apps &lt;a href=&apos;appworld://vendor/26755&apos;&gt;Here&lt;/a&gt;</source>
         <translation>我开发的应用在 &lt;a href=&apos;appworld://vendor/26755&apos;&gt;这里&lt;/a&gt;</translation>
     </message>
@@ -540,12 +540,12 @@
         <translation type="obsolete">我开发的应用在 &lt;a href=&apos;appworld://vendor/24577&apos;&gt;这里&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="../assets/about.qml" line="115"/>
+        <location filename="../assets/about.qml" line="117"/>
         <source>&lt;a href=&apos;mailto:anphorea@gmail.com&apos;&gt;Email Me&lt;/a&gt;</source>
         <translation>&lt;a href=&apos;mailto:anphorea@gmail.com&apos;&gt;给我写Email&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="../assets/about.qml" line="128"/>
+        <location filename="../assets/about.qml" line="130"/>
         <source>Feedback</source>
         <translation>反馈</translation>
     </message>

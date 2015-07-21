@@ -134,7 +134,7 @@ TabbedPane {
                         actions: [
                             ActionItem {
                                 imageSource: "asset:///res/submit.png"
-                                ActionBar.placement: ActionBarPlacement.OnBar
+                                ActionBar.placement: ActionBarPlacement.Signature
                                 title: qsTr("Submit")
                                 onTriggered: {
                                     _app.invokeCard("");
@@ -470,7 +470,7 @@ TabbedPane {
                         actions: [
                             ActionItem {
                                 imageSource: "asset:///res/submit.png"
-                                ActionBar.placement: ActionBarPlacement.OnBar
+                                ActionBar.placement: ActionBarPlacement.Signature
                                 title: qsTr("Submit")
                                 onTriggered: {
                                     _app.invokeCard("");
@@ -583,7 +583,7 @@ TabbedPane {
                     Page {
                         actions: [
                             ActionItem {
-                                ActionBar.placement: ActionBarPlacement.OnBar
+                                ActionBar.placement: ActionBarPlacement.Signature
                                 imageSource: "asset:///icon/ic_search.png"
                                 title: qsTr("Search")
                                 onTriggered: {
